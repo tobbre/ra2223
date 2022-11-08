@@ -31,6 +31,7 @@ class ParameterTuple():
         self.layer3_neurons = 0
         self.max_allowed_triplets_multiplier = 0
         self.min_allowed_triplets_multiplier = 0
+
         self.read_parameter_file(filepath=filepath)
 
     def read_parameter_file(self, filepath):

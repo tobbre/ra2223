@@ -62,10 +62,12 @@ outputfolder = "out"
 filename1 = '%s/goodrun1_best_species_txt.txt' % outputfolder
 # filename1 = '%s/best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/testitest.txt' % outputfolder
-bitstring = inputreader.read_bitstring_from_file(filename1, 2)
+#bitstring = inputreader.read_bitstring_from_file(filename1, 2)
 
-write_size_dist_for_bitstring(bitstring=bitstring)
+#write_size_dist_for_bitstring(bitstring=bitstring)
 
 #write_iLPsol_of_bitstring(bitstring)
 
 #print(find_indices_of_1s_in_bitstring(bitstring=bitstring))
+
+

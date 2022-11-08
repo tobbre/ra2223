@@ -135,3 +135,5 @@ def find_used_patterns_indices_from_solfile(filepath):
             pattern_index = int(line.split("[")[1].split("]")[0])
             used_patterns_indices.append(pattern_index)
     return used_patterns_indices
+
+
