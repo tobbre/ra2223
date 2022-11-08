@@ -1,0 +1,15 @@
+This is a sample input file. It lists values for all parameters that have to be set for a specific instance.
+The order of parameters in this file must not be changed.
+The file begins after the dollar sign character.
+$
+Number of items (num_items) =15;
+Number of generations (num_generations) =10000;
+Learning rate (learning_rate) =0.0001;
+Number of sessions (num_sessions) =300;
+Learning percentile (learning_percentile) =93;
+Super percentile (super_percentile) =94;
+Neurons in Layer 1 (layer1_neurons) =128;
+Neurons in Layer 2 (layer2_neurons) =64;
+Neurons in Layer 3 (layer3_neurons) =4;
+Maximum number of allowed triplets multiplier (max_allowed_triplets_multiplier) =2;
+Maximum number of allowed triplets multiplier (min_allowed_triplets_multiplier) =0.5;
