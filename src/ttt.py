@@ -13,9 +13,9 @@ import inputreader
 import sys
 
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-f = sys.argv[1]
-# f = "sampleinputfile.txt"
-params = inputreader.ParameterTuple("in/" + f)
+inputstring = sys.argv[1]
+# inputstring = "sampleinputfile.txt"
+params = inputreader.ParameterTuple("in/" + inputstring)
 
 num_items = params.num_items
 num_decision_vars = comb(num_items, 3)
