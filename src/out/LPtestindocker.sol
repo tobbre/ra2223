@@ -1,37 +1,37 @@
 # Solution for model Naive BinPacking LP
-# Objective value = 5.9166666666666670e+00
-pattern_used[44] 1.6666666666666663e-01
-pattern_used[57] 6.6666666666666674e-01
-pattern_used[58] 3.3333333333333337e-01
-pattern_used[85] 3.3333333333333326e-01
-pattern_used[107] 0.25
-pattern_used[108] 0.75
-pattern_used[115] 0.25
+# Objective value = 5.8333333333333330e+00
+pattern_used[58] 1.6666666666666669e-01
+pattern_used[59] 4.9999999999999994e-01
+pattern_used[85] 6.6666666666666663e-01
+pattern_used[93] 1.6666666666666669e-01
+pattern_used[100] 3.3333333333333337e-01
+pattern_used[106] 6.6666666666666663e-01
 pattern_used[120] 3.3333333333333337e-01
-pattern_used[123] 3.3333333333333337e-01
-pattern_used[124] 3.3333333333333331e-01
-pattern_used[126] 0.5
-pattern_used[127] 0.5
+pattern_used[121] 3.3333333333333337e-01
+pattern_used[122] 3.3333333333333331e-01
+pattern_used[124] 6.6666666666666663e-01
+pattern_used[125] 3.3333333333333337e-01
+pattern_used[126] 3.3333333333333337e-01
+pattern_used[127] 3.3333333333333337e-01
 pattern_used[128] 6.6666666666666663e-01
-pattern_used[129] 0.5
 
 
 used patterns:
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14 
-Pattern 44:   0   0   0   1   0   1   0   0   0   0   0   0   0   0   0 
-Pattern 57:   0   0   0   0   1   0   0   1   0   0   0   0   0   0   0 
 Pattern 58:   0   0   0   0   1   0   0   0   1   0   0   0   0   0   0 
+Pattern 59:   0   0   0   0   1   0   0   0   0   1   0   0   0   0   0 
 Pattern 85:   0   0   0   0   0   0   0   1   1   0   0   0   0   0   0 
-Pattern 107:   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0 
-Pattern 108:   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0 
-Pattern 115:   0   0   0   0   0   0   0   0   0   0   0   0   1   1   0 
-Pattern 120:   1   0   1   0   0   1   0   0   0   0   0   0   0   0   0 
-Pattern 123:   1   0   0   1   0   0   0   0   0   0   0   1   0   0   0 
-Pattern 124:   1   0   0   0   0   0   0   0   1   1   0   0   0   0   0 
-Pattern 126:   0   1   0   1   0   0   1   0   0   0   0   0   0   0   0 
-Pattern 127:   0   1   0   0   0   1   0   0   0   0   0   0   0   0   1 
-Pattern 128:   0   0   1   0   0   0   0   0   0   1   0   1   0   0   0 
-Pattern 129:   0   0   0   0   0   0   1   0   0   0   0   0   1   0   1 
+Pattern 93:   0   0   0   0   0   0   0   0   1   1   0   0   0   0   0 
+Pattern 100:   0   0   0   0   0   0   0   0   0   1   1   0   0   0   0 
+Pattern 106:   0   0   0   0   0   0   0   0   0   0   1   1   0   0   0 
+Pattern 120:   1   0   1   0   0   0   1   0   0   0   0   0   0   0   0 
+Pattern 121:   1   0   1   0   0   0   0   0   0   0   0   0   0   0   1 
+Pattern 122:   1   0   0   0   0   1   0   0   0   0   0   0   1   0   0 
+Pattern 124:   0   1   0   1   0   0   0   0   0   0   0   0   1   0   0 
+Pattern 125:   0   1   0   0   1   1   0   0   0   0   0   0   0   0   0 
+Pattern 126:   0   0   1   0   0   0   0   1   0   0   0   0   0   1   0 
+Pattern 127:   0   0   0   1   0   1   0   0   0   0   0   1   0   0   0 
+Pattern 128:   0   0   0   0   0   0   1   0   0   0   0   0   0   1   1 
 
 
 complete pattern_matrix:
@@ -156,13 +156,12 @@ Pattern 116:   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1
 Pattern 117:   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0 
 Pattern 118:   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1 
 Pattern 119:   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1 
-Pattern 120:   1   0   1   0   0   1   0   0   0   0   0   0   0   0   0 
+Pattern 120:   1   0   1   0   0   0   1   0   0   0   0   0   0   0   0 
 Pattern 121:   1   0   1   0   0   0   0   0   0   0   0   0   0   0   1 
-Pattern 122:   1   0   0   1   0   0   0   0   0   1   0   0   0   0   0 
-Pattern 123:   1   0   0   1   0   0   0   0   0   0   0   1   0   0   0 
-Pattern 124:   1   0   0   0   0   0   0   0   1   1   0   0   0   0   0 
-Pattern 125:   1   0   0   0   0   0   0   0   0   1   0   0   1   0   0 
-Pattern 126:   0   1   0   1   0   0   1   0   0   0   0   0   0   0   0 
-Pattern 127:   0   1   0   0   0   1   0   0   0   0   0   0   0   0   1 
-Pattern 128:   0   0   1   0   0   0   0   0   0   1   0   1   0   0   0 
-Pattern 129:   0   0   0   0   0   0   1   0   0   0   0   0   1   0   1 
+Pattern 122:   1   0   0   0   0   1   0   0   0   0   0   0   1   0   0 
+Pattern 123:   1   0   0   0   0   0   0   0   0   0   0   1   0   1   0 
+Pattern 124:   0   1   0   1   0   0   0   0   0   0   0   0   1   0   0 
+Pattern 125:   0   1   0   0   1   1   0   0   0   0   0   0   0   0   0 
+Pattern 126:   0   0   1   0   0   0   0   1   0   0   0   0   0   1   0 
+Pattern 127:   0   0   0   1   0   1   0   0   0   0   0   1   0   0   0 
+Pattern 128:   0   0   0   0   0   0   1   0   0   0   0   0   0   1   1 

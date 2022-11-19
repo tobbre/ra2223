@@ -1,23 +1,23 @@
 # Solution for model Naive BinPacking LP
 # Objective value = 7
-pattern_used[6] 1
-pattern_used[42] 1
-pattern_used[62] 1
-pattern_used[87] 1
-pattern_used[97] 1
-pattern_used[127] 1
+pattern_used[9] 1
+pattern_used[32] 1
+pattern_used[61] 1
+pattern_used[85] 1
+pattern_used[105] 1
+pattern_used[124] 1
 pattern_used[128] 1
 
 
 used patterns:
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14 
-Pattern 6:   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0 
-Pattern 42:   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0 
-Pattern 62:   0   0   0   0   1   0   0   0   0   0   0   0   1   0   0 
-Pattern 87:   0   0   0   0   0   0   0   1   0   0   1   0   0   0   0 
-Pattern 97:   0   0   0   0   0   0   0   0   1   0   0   0   0   1   0 
-Pattern 127:   0   1   0   0   0   1   0   0   0   0   0   0   0   0   1 
-Pattern 128:   0   0   1   0   0   0   0   0   0   1   0   1   0   0   0 
+Pattern 9:   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0 
+Pattern 32:   0   0   1   0   0   1   0   0   0   0   0   0   0   0   0 
+Pattern 61:   0   0   0   0   1   0   0   0   0   0   0   1   0   0   0 
+Pattern 85:   0   0   0   0   0   0   0   1   1   0   0   0   0   0   0 
+Pattern 105:   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0 
+Pattern 124:   0   1   0   1   0   0   0   0   0   0   0   0   1   0   0 
+Pattern 128:   0   0   0   0   0   0   1   0   0   0   0   0   0   1   1 
 
 
 complete pattern_matrix:
@@ -142,13 +142,12 @@ Pattern 116:   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1
 Pattern 117:   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0 
 Pattern 118:   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1 
 Pattern 119:   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1 
-Pattern 120:   1   0   1   0   0   1   0   0   0   0   0   0   0   0   0 
+Pattern 120:   1   0   1   0   0   0   1   0   0   0   0   0   0   0   0 
 Pattern 121:   1   0   1   0   0   0   0   0   0   0   0   0   0   0   1 
-Pattern 122:   1   0   0   1   0   0   0   0   0   1   0   0   0   0   0 
-Pattern 123:   1   0   0   1   0   0   0   0   0   0   0   1   0   0   0 
-Pattern 124:   1   0   0   0   0   0   0   0   1   1   0   0   0   0   0 
-Pattern 125:   1   0   0   0   0   0   0   0   0   1   0   0   1   0   0 
-Pattern 126:   0   1   0   1   0   0   1   0   0   0   0   0   0   0   0 
-Pattern 127:   0   1   0   0   0   1   0   0   0   0   0   0   0   0   1 
-Pattern 128:   0   0   1   0   0   0   0   0   0   1   0   1   0   0   0 
-Pattern 129:   0   0   0   0   0   0   1   0   0   0   0   0   1   0   1 
+Pattern 122:   1   0   0   0   0   1   0   0   0   0   0   0   1   0   0 
+Pattern 123:   1   0   0   0   0   0   0   0   0   0   0   1   0   1   0 
+Pattern 124:   0   1   0   1   0   0   0   0   0   0   0   0   1   0   0 
+Pattern 125:   0   1   0   0   1   1   0   0   0   0   0   0   0   0   0 
+Pattern 126:   0   0   1   0   0   0   0   1   0   0   0   0   0   1   0 
+Pattern 127:   0   0   0   1   0   1   0   0   0   0   0   1   0   0   0 
+Pattern 128:   0   0   0   0   0   0   1   0   0   0   0   0   0   1   1 
