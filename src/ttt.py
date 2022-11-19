@@ -46,7 +46,7 @@ model.build((None, observation_space))
 model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate=learning_rate))
 # Adam optimizer also works well, with lower learning rate
 
-with open('tttfile.txt', 'w') as f:
+with open('out/tttfile.txt', 'w') as f:
     original_stdout = sys.stdout
     sys.stdout = f # Change the standard output to the file we created.
     print(model.summary())
