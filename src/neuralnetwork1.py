@@ -298,7 +298,7 @@ for i in range(num_generations):
                 str(params.layer2_neurons) + "\n" +
                 str(params.layer3_neurons) + "\n" +
                 str(params.max_allowed_triplets_multiplier) + "\n" +
-                str(params.min_allowed_triplets_multiplier) + "\n"
+                str(params.min_allowed_triplets_multiplier) + "\n$"
                 )
 
 
