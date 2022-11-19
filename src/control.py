@@ -62,7 +62,7 @@ outputfolder = "out"
 filename1 = '%s/goodrun1_best_species_txt.txt' % outputfolder
 # filename1 = '%s/best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/testitest.txt' % outputfolder
-#bitstring = inputreader.read_bitstring_from_file(filename1, 2)
+# bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=2)
 
 #write_size_dist_for_bitstring(bitstring=bitstring)
 
