@@ -50,5 +50,5 @@ class ParameterTuple():
             self.layer1_neurons = int(lines[first_parameter_line + 6].split("=")[1].split(";")[0])
             self.layer2_neurons = int(lines[first_parameter_line + 7].split("=")[1].split(";")[0])
             self.layer3_neurons = int(lines[first_parameter_line + 8].split("=")[1].split(";")[0])
-            self.max_allowed_triplets_multiplier = lines[first_parameter_line + 9].split("=")[1].split(";")[0]
-            self.min_allowed_triplets_multiplier = lines[first_parameter_line + 10].split("=")[1].split(";")[0]
+            self.max_allowed_triplets_multiplier = float(lines[first_parameter_line + 9].split("=")[1].split(";")[0])
+            self.min_allowed_triplets_multiplier = float(lines[first_parameter_line + 10].split("=")[1].split(";")[0])
