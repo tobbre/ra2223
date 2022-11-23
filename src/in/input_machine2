@@ -1,5 +1,5 @@
 $
-Number of items (num_items) =12;
+Number of items (num_items) =10;
 Number of generations (num_generations) =10000;
 Learning rate (learning_rate) =0.0001;
 Number of sessions (num_sessions) =300;
@@ -8,5 +8,5 @@ Super percentile (super_percentile) =94;
 Neurons in Layer 1 (layer1_neurons) =128;
 Neurons in Layer 2 (layer2_neurons) =64;
 Neurons in Layer 3 (layer3_neurons) =4;
-Maximum number of allowed triplets multiplier (max_allowed_triplets_multiplier) =2;
-Maximum number of allowed triplets multiplier (min_allowed_triplets_multiplier) =0.5;
+Maximum number of allowed triplets multiplier (max_allowed_triplets_multiplier) =4;
+Maximum number of allowed triplets multiplier (min_allowed_triplets_multiplier) =0.25;

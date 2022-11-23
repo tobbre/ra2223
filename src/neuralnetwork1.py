@@ -11,8 +11,8 @@ import inputreader
 import sys
 
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-f = sys.argv[1]
-# f = "sampleinputfile.txt"
+# f = sys.argv[1]
+f = "input_machine1"
 params = inputreader.ParameterTuple("in/" + f)
 
 num_items = params.num_items
@@ -68,7 +68,7 @@ def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
     Input: a 0-1 vector of length num_decision_vars. It represents the graph (or other object) you have created.
     Output: the reward/score for your construction.
     """
-    bitstring = [input_bitstring[i] for i in range(int(len(input_bitstring)/2))]
+    bitstring = [input_bitstring[i] for i in range(int(len(input_bitstring) / 2))]
     num_allowed_triplets = np.sum(bitstring)
     max_allowed_triplets = num_items * params.max_allowed_triplets_multiplier
     min_allowed_triplets = num_items * params.min_allowed_triplets_multiplier
@@ -279,6 +279,7 @@ for i in range(num_generations):
 
     score_time = time.time() - tic
 
+
     # print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
 
     # uncomment below line to print out how much time each step in this loop takes.
@@ -287,19 +288,19 @@ for i in range(num_generations):
     #     select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
 
     def append_params_to_file(f, params):
-            f.write(
-            params.num_items + "\n" +
-            params.num_generations + "\n" +
-            params.learning_rate + "\n" +
-            params.num_sessions + "\n" +
-            params.learning_percentile + "\n" +
-            params.super_percentile + "\n" +
-            params.layer1_neurons + "\n" +
-            params.layer2_neurons + "\n" +
-            params.layer3_neurons + "\n" +
-            params.max_allowed_triplets_multiplier + "\n" +
-            params.min_allowed_triplets_multiplier + "\n"
-            )
+        f.write(str(params.num_items) + "\n" +
+                str(params.num_generations) + "\n" +
+                str(params.learning_rate) + "\n" +
+                str(params.num_sessions) + "\n" +
+                str(params.learning_percentile) + "\n" +
+                str(params.super_percentile) + "\n" +
+                str(params.layer1_neurons) + "\n" +
+                str(params.layer2_neurons) + "\n" +
+                str(params.layer3_neurons) + "\n" +
+                str(params.max_allowed_triplets_multiplier) + "\n" +
+                str(params.min_allowed_triplets_multiplier) + "\n$\n"
+                )
+
 
     output_folder = "out"
     if i % 20 == 1:  # Write all important info to files every 20 iterations

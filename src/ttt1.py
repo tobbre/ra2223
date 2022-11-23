@@ -7,10 +7,15 @@ from keras.layers import Dense
 from keras.optimizers import SGD
 import time
 from math import comb
+import inputreader
+import math
 import lpbp
 import lpsd
-import inputreader
 import sys
+
+'''
+Testing Tensorflow 
+'''
 
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 inputstring = sys.argv[1]
@@ -46,9 +51,50 @@ model.build((None, observation_space))
 model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate=learning_rate))
 # Adam optimizer also works well, with lower learning rate
 
-with open('out/tttfile.txt', 'w') as f:
+with open('tttfile.txt', 'w') as f:
     original_stdout = sys.stdout
     sys.stdout = f # Change the standard output to the file we created.
     print(model.summary())
     sys.stdout = original_stdout # Reset the standard output to its original value
+
+
+
+'''
+Testing Gurobipy
+'''
+def write_iLPsol_of_bitstring(bitstring):
+    """
+    This calculates the corresponding ILP and LP solutions of a bitstring and saves them as a <lp_type><sol_name>.sol file.
+    :param bitstring:
+    :return:
+    """
+
+    num_patterns = len(bitstring)
+    num_items = 0
+    for i in range(num_patterns):
+        if math.comb(i, 3) == num_patterns:
+            num_items = i
+            break
+    triplet_database = utils.create_triplet_database(num_items=num_items)
+    triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring, triplet_database=triplet_database)
+    pairs_singles_matrix = utils.create_pairs_and_singles_matrix(num_items=num_items)
+
+    lpbp.lp_runner_complete(num_items=num_items,
+                                 allowed_triplets=triplet_matrix,
+                                 pairs_singles_patterns=pairs_singles_matrix,
+                                 lp_type="ILP",
+                                 sol_name="testindocker")
+    lpbp.lp_runner_complete(num_items=num_items,
+                                 allowed_triplets=triplet_matrix,
+                                 pairs_singles_patterns=pairs_singles_matrix,
+                                 lp_type="LP",
+                                 sol_name="testindocker")
+
+
+outputfolder = "out"
+filename1 = '%s/goodrun1_best_species_txt.txt' % outputfolder
+# filename1 = '%s/best_species_txt_1.txt' % outputfolder
+# filename1 = '%s/testitest.txt' % outputfolder
+bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=0)
+write_iLPsol_of_bitstring(bitstring)
 
