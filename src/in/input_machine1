@@ -1,6 +1,6 @@
 $
-Number of items (num_items) =5;
-Number of generations (num_generations) =21;
+Number of items (num_items) =3;
+Number of generations (num_generations) =5;
 Learning rate (learning_rate) =0.0001;
 Number of sessions (num_sessions) =300;
 Learning percentile (learning_percentile) =93;
