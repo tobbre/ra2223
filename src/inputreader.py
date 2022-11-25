@@ -9,6 +9,7 @@ def read_bitstring_from_file(filename, bitstring_number):
     """
     with open(filename, 'r') as f:
         data = ''.join(line.rstrip() for line in f)
+        data = data.split("$")[1]
         data = data.split("]")[bitstring_number]
         data = data.replace("[", "")
         data = data.replace("]", "")

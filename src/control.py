@@ -47,7 +47,7 @@ def find_indices_of_1s_in_bitstring(bitstring):
     return indices
 
 
-def write_size_dist_for_bitstring(bitstring):
+def write_size_dist_for_bitstring(bitstring, sol_name="test"):
     num_patterns = len(bitstring)
     num_items = 0
     for i in range(num_patterns):
@@ -56,18 +56,18 @@ def write_size_dist_for_bitstring(bitstring):
             break
     triplet_database = utils.create_triplet_database(num_items=num_items)
 
-    lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring, sol_name="test")
+    lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring, sol_name=sol_name)
 
 outputfolder = "out"
-filename1 = '%s/goodrun1_best_species_txt.txt' % outputfolder
+filename1 = '%s/20221125-124616_best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/testitest.txt' % outputfolder
-# bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=2)
+bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=0)
 
-#write_size_dist_for_bitstring(bitstring=bitstring)
+write_size_dist_for_bitstring(bitstring=bitstring)
 
-#write_iLPsol_of_bitstring(bitstring)
+# write_iLPsol_of_bitstring(bitstring)
 
-#print(find_indices_of_1s_in_bitstring(bitstring=bitstring))
+# print(find_indices_of_1s_in_bitstring(bitstring=bitstring))
 
 

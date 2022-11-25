@@ -10,9 +10,9 @@ import lpsd
 import inputreader
 import sys
 
-timestamp = time.strftime("%Y%m%d-%H%M%S")
+timestamp = time.strftime("%d-%m-%Y_%H:%M")
 # f = sys.argv[1]
-f = "input_machine1"
+f = "input_machine0"
 params = inputreader.ParameterTuple("in/" + f)
 
 num_items = params.num_items
@@ -78,7 +78,7 @@ def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
     if num_allowed_triplets < min_allowed_triplets:
         extra_penalty += num_allowed_triplets - min_allowed_triplets
 
-    min_violated_constraints = lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring)
+    # min_violated_constraints = lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring)
 
     triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring,
                                                          triplet_database=triplet_database)
@@ -92,7 +92,8 @@ def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
                                        pairs_singles_patterns=pairs_singles_matrix,
                                        lp_type="LP")
     lp_value = model_LP.getObjective().getValue()
-    return ilp_value - lp_value - min_violated_constraints * num_items + extra_penalty
+
+    return ilp_value - lp_value + extra_penalty # - min_violated_constraints * num_items
 
 
 ################### No need to change anything below here ###################
@@ -303,10 +304,11 @@ for i in range(num_generations):
 
 
     output_folder = "out"
+    print("Generation %s\n" % i)
     if i % 20 == 1:  # Write all important info to files every 20 iterations
         # with open('%s/best_species_pickle_' % output_folder + str(myRand) + '.txt', 'wb') as fp:
         #     pickle.dump(super_actions, fp)
-        print("----Generation %s----\n" % i)
+        print("----Generation %s----" % i)
         print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
         print("Mean reward: " + str(mean_all_reward) + "\nSessgen: " + str(sessgen_time) + ", other: " + str(
             randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(

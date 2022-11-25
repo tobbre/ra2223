@@ -16,6 +16,8 @@ def lp_runner(triplet_database=[],
             model.write(filename="out/sizedist%s.sol" % sol_name)
     else:
         print("---!!!Infeasible Instance!!!---")
+        return len(bitstring)
+
 
     return model.getAttr("ObjVal")
 

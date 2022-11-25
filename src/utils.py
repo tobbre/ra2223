@@ -66,6 +66,12 @@ def append_used_patterns_to_sol_file(filepath, used_patterns_matrix, used_patter
 
 
 def create_triplet_database(num_items):
+    '''
+    Generates all possible triplets using itertools.combinations, and then transforms the resulting triplets of form
+    [0, 1, 4] into triplet_bitstrings of form [1, 1, 0, 0, 1].
+    :param num_items: number of items to choose from
+    :return: An array containing all possible triplet_bitstring arrays based on num_items.
+    '''
     lis = [i for i in itertools.combinations(range(0, num_items), 3)]
     triplet_database = []
     for triplet in lis:
