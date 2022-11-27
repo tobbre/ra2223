@@ -10,9 +10,10 @@ import lpsd
 import inputreader
 import sys
 
+start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
 # f = sys.argv[1]
-f = "input_machine0"
+f = "input_machine1"
 params = inputreader.ParameterTuple("in/" + f)
 
 num_items = params.num_items
@@ -304,7 +305,9 @@ for i in range(num_generations):
 
 
     output_folder = "out"
-    print("Generation %s\n" % i)
+    end_time = time.time()
+    print("Generation %s. %s\n" % (i, end_time - start_time))
+    start_time = end_time
     if i % 20 == 1:  # Write all important info to files every 20 iterations
         # with open('%s/best_species_pickle_' % output_folder + str(myRand) + '.txt', 'wb') as fp:
         #     pickle.dump(super_actions, fp)
