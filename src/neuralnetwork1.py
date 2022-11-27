@@ -13,7 +13,7 @@ import sys
 start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
 # f = sys.argv[1]
-f = "input_machine1"
+f = "input_machine0"
 params = inputreader.ParameterTuple("in/" + f)
 
 num_items = params.num_items
