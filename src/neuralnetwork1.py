@@ -334,5 +334,6 @@ for i in range(num_generations):
     if i % 200 == 2:  # To create a timeline, like in Figure 3
         with open('%s/' % output_folder + timestamp + '_best_species_timeline_txt_' + str(myRand) + '.txt', 'a') as f:
             append_params_to_file(f, params)
+            f.write(str(super_rewards[0]))
             f.write(str(super_actions[0]))
             f.write("\n")
