@@ -1,5 +1,5 @@
 $
-Number of items (num_items) =17;
+Number of items (num_items) =4;
 Number of generations (num_generations) =2;
 Learning rate (learning_rate) =0.01;
 Number of sessions (num_sessions) =500;
