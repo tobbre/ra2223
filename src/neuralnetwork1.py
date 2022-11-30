@@ -1,20 +1,25 @@
 import utils
 import numpy as np
+import time
+from math import comb
+import inputreader
+import sys
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import SGD
-import time
-from math import comb
 import lpbp
-import lpsd
-import inputreader
-import sys
+
 
 start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
 # f = sys.argv[1]
 f = "input_machine1"
 params = inputreader.ParameterTuple("in/" + f)
+output_folder = "out"
+consoleoutput = open('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt', 'w')
+sys.stdout = consoleoutput # Change the standard output to the file we created.
+sys.stderr = consoleoutput
+
 
 num_items = params.num_items
 num_decision_vars = comb(num_items, 3)
@@ -224,8 +229,6 @@ sessgen_time = 0
 fit_time = 0
 score_time = 0
 
-# myRand = random.randint(0, 1000)  # used in the filename
-myRand = 1
 
 for i in range(num_generations):
     # generate new sessions
@@ -291,7 +294,7 @@ for i in range(num_generations):
 
     def append_params_to_file(f, params):
         f.write(str(params.num_items) + "\n" +
-                str(params.num_generations) + "\n" +
+                str(params.num_generations) + "(Generations finished so far: " + str(i) + ")" + "\n" +
                 str(params.learning_rate) + "\n" +
                 str(params.num_sessions) + "\n" +
                 str(params.learning_percentile) + "\n" +
@@ -304,12 +307,12 @@ for i in range(num_generations):
                 )
 
 
-    output_folder = "out"
+
     end_time = time.time()
     print("Generation %s. %s\n" % (i, end_time - start_time))
     start_time = end_time
     if i % 20 == 1:  # Write all important info to files every 20 iterations
-        # with open('%s/best_species_pickle_' % output_folder + str(myRand) + '.txt', 'wb') as fp:
+        # with open('%s/best_species_pickle_' % output_folder + '.txt', 'wb') as fp:
         #     pickle.dump(super_actions, fp)
         print("----Generation %s----" % i)
         print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
@@ -317,23 +320,23 @@ for i in range(num_generations):
             randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(
             select2_time) + ", select3: " + str(
             select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
-        with open('%s/' % output_folder + timestamp + '_best_species_txt_' + str(myRand) + '.txt', 'w') as f:
+        with open('%s/' % output_folder + timestamp + '_best_species.txt', 'w') as f:
             append_params_to_file(f, params)
             for item in super_actions:
                 f.write(str(item))
                 f.write("\n")
-        with open('%s/' % output_folder + timestamp + '_best_species_rewards_' + str(myRand) + '.txt', 'w') as f:
+        with open('%s/' % output_folder + timestamp + '_best_species_rewards.txt', 'w') as f:
             append_params_to_file(f, params)
             for item in super_rewards:
                 f.write(str(item))
                 f.write("\n")
-        # with open('%s/best_100_rewards_' % output_folder + str(myRand) + '.txt', 'a') as f:
-        #     f.write(str(mean_all_reward) + "\n")
-        # with open('%s/best_elite_rewards_' % output_folder + str(myRand) + '.txt', 'a') as f:
-        #     f.write(str(mean_best_reward) + "\n")
     if i % 200 == 2:  # To create a timeline, like in Figure 3
-        with open('%s/' % output_folder + timestamp + '_best_species_timeline_txt_' + str(myRand) + '.txt', 'a') as f:
+        with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as f:
             append_params_to_file(f, params)
             f.write(str(super_rewards[0]))
             f.write(str(super_actions[0]))
             f.write("\n")
+
+
+sys.stdout = sys.__stdout__ # Reset the standard output to its original value
+sys.stderr = sys.__stderr__
