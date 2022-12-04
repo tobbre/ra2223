@@ -1,24 +1,24 @@
 # Solution for model Naive BinPacking LP
 # Objective value = 5.6666666666666670e+00
-pattern_used[154] 2.6666666666666661e-01
-pattern_used[157] 2.6666666666666666e-01
-pattern_used[158] 4.6666666666666667e-01
-pattern_used[159] 7.3333333333333339e-01
-pattern_used[160] 1.3333333333333333e-01
+pattern_used[154] 2.6666666666666672e-01
+pattern_used[157] 2.6666666666666672e-01
+pattern_used[158] 4.6666666666666673e-01
+pattern_used[159] 7.3333333333333328e-01
+pattern_used[160] 1.3333333333333336e-01
 pattern_used[161] 3.3333333333333337e-01
-pattern_used[162] 5.3333333333333333e-01
-pattern_used[163] 2.6666666666666661e-01
-pattern_used[164] 2.6666666666666661e-01
-pattern_used[168] 7.3333333333333339e-01
-pattern_used[169] 1.3333333333333333e-01
-pattern_used[170] 1.9999999999999996e-01
-pattern_used[171] 2.6666666666666677e-01
+pattern_used[162] 5.3333333333333321e-01
+pattern_used[163] 2.6666666666666672e-01
+pattern_used[164] 2.6666666666666672e-01
+pattern_used[168] 7.3333333333333328e-01
+pattern_used[169] 1.3333333333333336e-01
+pattern_used[170] 1.9999999999999984e-01
+pattern_used[171] 2.6666666666666672e-01
 pattern_used[172] 5.3333333333333344e-01
-pattern_used[173] 2.0000000000000018e-01
-pattern_used[174] 3.3333333333333326e-01
+pattern_used[173] 1.9999999999999996e-01
+pattern_used[174] 3.3333333333333320e-01
 
 
-used patterns:
+used patterns (subset of all allowed patterns):
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16 
 Pattern 154:   1   1   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0 
 Pattern 157:   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   1   0 
@@ -38,7 +38,7 @@ Pattern 173:   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   1
 Pattern 174:   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0   1 
 
 
-complete pattern_matrix:
+complete pattern_matrix (all allowed patterns, single, double and triplets (bottom of the matrix):
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16 
 Pattern 0:   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
 Pattern 1:   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 

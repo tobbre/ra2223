@@ -16,10 +16,7 @@ timestamp = time.strftime("%d-%m-%Y_%H:%M")
 f = "input_machine1"
 params = inputreader.ParameterTuple("in/" + f)
 output_folder = "out"
-consoleoutput = open('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt', 'w')
-sys.stdout = consoleoutput # Change the standard output to the file we created.
-sys.stderr = consoleoutput
-
+consoleoutput_filepath = ('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt')
 
 num_items = params.num_items
 num_decision_vars = comb(num_items, 3)
@@ -306,37 +303,38 @@ for i in range(num_generations):
                 str(params.min_allowed_triplets_multiplier) + "\n$\n"
                 )
 
-
-
-    end_time = time.time()
-    print("Generation %s. %s\n" % (i, end_time - start_time))
-    start_time = end_time
-    if i % 20 == 1:  # Write all important info to files every 20 iterations
-        # with open('%s/best_species_pickle_' % output_folder + '.txt', 'wb') as fp:
-        #     pickle.dump(super_actions, fp)
-        print("----Generation %s----" % i)
-        print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
-        print("Mean reward: " + str(mean_all_reward) + "\nSessgen: " + str(sessgen_time) + ", other: " + str(
-            randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(
-            select2_time) + ", select3: " + str(
-            select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
-        with open('%s/' % output_folder + timestamp + '_best_species.txt', 'w') as f:
-            append_params_to_file(f, params)
-            for item in super_actions:
-                f.write(str(item))
+    with open(consoleoutput_filepath, 'a') as c:
+        sys.stdout = c  # Change the standard output to the file we created.
+        sys.stderr = c
+        end_time = time.time()
+        print("Generation %s. %s\n" % (i, end_time - start_time))
+        start_time = end_time
+        time.sleep(10)
+        if i % 20 == 1:  # Write all important info to files every 20 iterations
+            # with open('%s/best_species_pickle_' % output_folder + '.txt', 'wb') as fp:
+            #     pickle.dump(super_actions, fp)
+            print("----Generation %s----" % i)
+            print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
+            print("Mean reward: " + str(mean_all_reward) + "\nSessgen: " + str(sessgen_time) + ", other: " + str(
+                randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(
+                select2_time) + ", select3: " + str(
+                select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
+            with open('%s/' % output_folder + timestamp + '_best_species.txt', 'w') as f:
+                append_params_to_file(f, params)
+                for item in super_actions:
+                    f.write(str(item))
+                    f.write("\n")
+            with open('%s/' % output_folder + timestamp + '_best_species_rewards.txt', 'w') as f:
+                append_params_to_file(f, params)
+                for item in super_rewards:
+                    f.write(str(item))
+                    f.write("\n")
+        if i % 200 == 2:  # To create a timeline, like in Figure 3
+            with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as f:
+                append_params_to_file(f, params)
+                f.write(str(super_rewards[0]))
+                f.write(str(super_actions[0]))
                 f.write("\n")
-        with open('%s/' % output_folder + timestamp + '_best_species_rewards.txt', 'w') as f:
-            append_params_to_file(f, params)
-            for item in super_rewards:
-                f.write(str(item))
-                f.write("\n")
-    if i % 200 == 2:  # To create a timeline, like in Figure 3
-        with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as f:
-            append_params_to_file(f, params)
-            f.write(str(super_rewards[0]))
-            f.write(str(super_actions[0]))
-            f.write("\n")
 
-
-sys.stdout = sys.__stdout__ # Reset the standard output to its original value
-sys.stderr = sys.__stderr__
+        sys.stdout = sys.__stdout__ # Reset the standard output to its original value
+        sys.stderr = sys.__stderr__

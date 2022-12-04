@@ -36,7 +36,7 @@ def remove_zero_rows(matrix):
 def append_complete_patternmatrix_to_txt_file(filepath, pattern_matrix):
     f = open(filepath, "a")
     f.write("\n" * 2)
-    f.write("complete pattern_matrix:\n")
+    f.write("complete pattern_matrix (all allowed patterns, single, double and triplets (bottom of the matrix):\n")
     f.write("Item       ")
     for j in range(len(pattern_matrix[0])):
         f.write("  %s " % j)
@@ -52,7 +52,7 @@ def append_complete_patternmatrix_to_txt_file(filepath, pattern_matrix):
 def append_used_patterns_to_sol_file(filepath, used_patterns_matrix, used_patterns_indices):
     f = open(filepath, "a")
     f.write("\n" * 2)
-    f.write("used patterns:\n")
+    f.write("used patterns (subset of all allowed patterns):\n")
     f.write("Item       ")
     for j in range(len(used_patterns_matrix[0])):
         f.write("  %s " % j)

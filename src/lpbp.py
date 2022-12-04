@@ -62,7 +62,7 @@ def lp_builder(num_items,
 
     # Constraints
     for i in range(num_items):
-        m.addConstr(quicksum(pattern_used[p] * pattern_matrix[p][i] for p in range(p_total)) == 1,
+        m.addConstr(quicksum(pattern_used[p] * pattern_matrix[p][i] for p in range(p_total)) >= 1,
                     name="item_coverage_constraint[%s]" % i)
     m.update()
 

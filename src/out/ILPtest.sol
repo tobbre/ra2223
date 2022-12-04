@@ -1,26 +1,26 @@
 # Solution for model Naive BinPacking LP
 # Objective value = 7
-pattern_used[12] 1
-pattern_used[42] 1
-pattern_used[109] 1
-pattern_used[144] 1
+pattern_used[158] 1
 pattern_used[159] 1
+pattern_used[162] 1
 pattern_used[168] 1
+pattern_used[172] 1
 pattern_used[173] 1
+pattern_used[174] 1
 
 
-used patterns:
+used patterns (subset of all allowed patterns):
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16 
-Pattern 12:   1   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0 
-Pattern 42:   0   0   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0 
-Pattern 109:   0   0   0   0   0   0   0   0   1   1   0   0   0   0   0   0   0 
-Pattern 144:   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   0   0 
+Pattern 158:   1   0   0   0   0   0   0   0   1   0   0   0   0   1   0   0   0 
 Pattern 159:   0   1   0   1   1   0   0   0   0   0   0   0   0   0   0   0   0 
+Pattern 162:   0   0   1   0   0   0   0   0   0   1   0   0   0   1   0   0   0 
 Pattern 168:   0   0   0   0   0   1   1   1   0   0   0   0   0   0   0   0   0 
+Pattern 172:   0   0   0   0   0   0   0   0   0   0   1   0   1   0   1   0   0 
 Pattern 173:   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   1 
+Pattern 174:   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0   1 
 
 
-complete pattern_matrix:
+complete pattern_matrix (all allowed patterns, single, double and triplets (bottom of the matrix):
 Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16 
 Pattern 0:   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
 Pattern 1:   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
