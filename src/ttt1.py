@@ -75,7 +75,7 @@ def write_iLPsol_of_bitstring(bitstring):
         if math.comb(i, 3) == num_patterns:
             num_items = i
             break
-    triplet_database = utils.create_triplet_database(num_items=num_items)
+    triplet_database = utils.create_triplet_database(num_items=num_items)[0]
     triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring, triplet_database=triplet_database)
     pairs_singles_matrix = utils.create_pairs_and_singles_matrix(num_items=num_items)
 

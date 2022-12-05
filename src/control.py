@@ -1,4 +1,5 @@
 import math
+import time
 import inputreader
 import lpbp
 import lpsd
@@ -18,7 +19,7 @@ def write_iLPsol_of_bitstring(bitstring):
         if math.comb(i, 3) == num_patterns:
             num_items = i
             break
-    triplet_database = utils.create_triplet_database(num_items=num_items)
+    triplet_database = utils.create_triplet_database(num_items=num_items)[0]
     triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring, triplet_database=triplet_database)
     pairs_singles_matrix = utils.create_pairs_and_singles_matrix(num_items=num_items)
 
@@ -54,20 +55,43 @@ def write_size_dist_for_bitstring(bitstring, sol_name="test"):
         if math.comb(i, 3) == num_patterns:
             num_items = i
             break
-    triplet_database = utils.create_triplet_database(num_items=num_items)
+    triplet_database = utils.create_triplet_database(num_items=num_items)[0]
 
     lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring, sol_name=sol_name)
 
+
+def write_triplet_database(num_items):
+    triplet_database = utils.create_triplet_database(num_items=num_items)[0]
+    print("          ",end='')
+    for j in range(len(triplet_database[0])):
+        print("  %s " % j, end='')
+    print()
+    for i in range(len(triplet_database)):
+        print("Pattern %s:" % i, end='')
+        for j in range(len(triplet_database[i])):
+            print("  %s " % triplet_database[i][j], end='')
+        print()
+
 outputfolder = "out"
-filename1 = '%s/28-11-2022_00:37_best_species_txt_1.txt' % outputfolder
+# filename1 = '%s/28-11-2022_00:37_best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/best_species_txt_1.txt' % outputfolder
-# filename1 = '%s/testitest.txt' % outputfolder
-bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=0)
+filename1 = '%s/testitest.txt' % outputfolder
+bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=5)
 
 # write_size_dist_for_bitstring(bitstring=bitstring)
 
-write_iLPsol_of_bitstring(bitstring)
+# write_iLPsol_of_bitstring(bitstring)
 
 # print(find_indices_of_1s_in_bitstring(bitstring=bitstring))
+
+# write_triplet_database(9)
+
+# triplet_database, database_index_by_triplet_items = utils.create_triplet_database(15)
+# t = utils.create_implied_bitstring(bitstring=bitstring,
+#                                    triplet_database=triplet_database,
+#                                    database_index_by_triplet_items=database_index_by_triplet_items,)
+# print(t)
+
+
 
 

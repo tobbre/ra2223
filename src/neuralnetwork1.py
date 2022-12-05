@@ -13,7 +13,7 @@ import lpbp
 start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
 # f = sys.argv[1]
-f = "input_machine1"
+f = "input_machine0"
 params = inputreader.ParameterTuple("in/" + f)
 output_folder = "out"
 consoleoutput_filepath = ('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt')
@@ -61,7 +61,7 @@ model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate=learning_r
 # Adam optimizer also works well, with lower learning rate
 # print(model.summary())
 
-triplet_database = utils.create_triplet_database(num_items=num_items)
+triplet_database = utils.create_triplet_database(num_items=num_items)[0]
 pairs_singles_matrix = utils.create_pairs_and_singles_matrix(num_items=num_items)
 
 
@@ -281,14 +281,6 @@ for i in range(num_generations):
 
     score_time = time.time() - tic
 
-
-    # print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
-
-    # uncomment below line to print out how much time each step in this loop takes.
-    # print("Mean reward: " + str(mean_all_reward) + "\nSessgen: " + str(sessgen_time) + ", other: " + str(
-    #     randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(select2_time) + ", select3: " + str(
-    #     select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
-
     def append_params_to_file(f, params):
         f.write(str(params.num_items) + "\n" +
                 str(params.num_generations) + "(Generations finished so far: " + str(i) + ")" + "\n" +
@@ -311,8 +303,6 @@ for i in range(num_generations):
         start_time = end_time
         time.sleep(10)
         if i % 20 == 1:  # Write all important info to files every 20 iterations
-            # with open('%s/best_species_pickle_' % output_folder + '.txt', 'wb') as fp:
-            #     pickle.dump(super_actions, fp)
             print("----Generation %s----" % i)
             print("\n" + str(i) + ". Best individuals: " + str(np.flip(np.sort(super_rewards))))
             print("Mean reward: " + str(mean_all_reward) + "\nSessgen: " + str(sessgen_time) + ", other: " + str(
@@ -329,7 +319,11 @@ for i in range(num_generations):
                 for item in super_rewards:
                     f.write(str(item))
                     f.write("\n")
-        if i % 200 == 2:  # To create a timeline, like in Figure 3
+            model_save_start = time.time()
+            model.save('%s/' % output_folder + timestamp + '_savedmodel')
+            model_save_end = time.time()
+            print("Saving model took %s seconds." % (model_save_end - model_save_start))
+        if i % 200 == 2:
             with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as f:
                 append_params_to_file(f, params)
                 f.write(str(super_rewards[0]))

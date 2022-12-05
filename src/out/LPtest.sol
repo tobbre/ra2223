@@ -19,7 +19,7 @@ pattern_used[174] 3.3333333333333320e-01
 
 
 used patterns (subset of all allowed patterns):
-Item         0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16 
+Item           0   1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16
 Pattern 154:   1   1   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0 
 Pattern 157:   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   1   0 
 Pattern 158:   1   0   0   0   0   0   0   0   1   0   0   0   0   1   0   0   0 

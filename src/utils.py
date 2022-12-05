@@ -74,6 +74,8 @@ def create_triplet_database(num_items):
     '''
     lis = [i for i in itertools.combinations(range(0, num_items), 3)]
     triplet_database = []
+    database_index_by_triplet_items = {}
+    index = 0
     for triplet in lis:
         triplet_bitstring = []
         position = 0
@@ -87,8 +89,52 @@ def create_triplet_database(num_items):
             else:
                 triplet_bitstring.append(0)
         triplet_database.append(triplet_bitstring)
+        database_index_by_triplet_items[triplet] = index
+        index = index + 1
 
-    return triplet_database
+
+    return triplet_database, database_index_by_triplet_items
+
+
+def create_implied_bitstring(bitstring, triplet_database, database_index_by_triplet_items):
+    '''
+    When this method is used, it is assumed that items are ordered ascending by weight, i.e. s1 ≤ s2 ≤ ... ≤ s(num_items).
+    This method takes the allowed triplets, and makes sure that all dominated triplets (where 2 items indices are the
+    same but one item has a lower index, i.e. the same triplet but one item is swapped for a smaller item) area also allowed.
+    :param bitstring:
+    :param triplet_database:
+    :param database_index_by_triplet_items: python dictionary with key: tuple of items in triplet and value: index of triplet in tripelt_database
+    :return: a new_bitstring where all triplets implied by the allowed triplets from bitstring are also allowed
+    '''
+
+    def find_1step_dominated_triplets(dominator_index):
+        dominator_triplet = triplet_database[dominator_index]  # single triplet, array of length n
+        dominator_triplet_items = [i for i in range(len(dominator_triplet)) if
+                                   dominator_triplet[i] == 1]  # single triplet, array of length 3
+        implied_triplets_items = []  # array of triplets, each array of length 3
+        for i in range(3):
+            a_dominated_item = dominator_triplet_items[i] - 1  # integer
+            while a_dominated_item >= 0:
+                if (a_dominated_item != dominator_triplet_items[0] and
+                        a_dominated_item != dominator_triplet_items[1] and
+                        a_dominated_item != dominator_triplet_items[2]):
+                    temp_implied_triplet = dominator_triplet_items.copy()  # single triplet, array of length 3
+                    temp_implied_triplet[i] = a_dominated_item
+                    temp_implied_triplet.sort()
+                    implied_triplets_items.append(temp_implied_triplet)
+                a_dominated_item = a_dominated_item - 1
+
+        implied_triplets_indices = [database_index_by_triplet_items[tuple(triplet)] for triplet in
+                                    implied_triplets_items]  # array of indices, each index corresponds to a triplet in the triplet database
+
+        return implied_triplets_indices
+    new_bitstring = bitstring.copy()
+    for i in range(len(new_bitstring)-1, -1, -1):
+        if new_bitstring[i] == 1:
+            implied_triplets_indices = find_1step_dominated_triplets(dominator_index=i)
+            for index in implied_triplets_indices:
+                new_bitstring[index] = 1
+    return new_bitstring
 
 
 def create_allowed_triplet_matrix(bitstring, triplet_database):
