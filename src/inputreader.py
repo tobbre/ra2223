@@ -32,6 +32,8 @@ class ParameterTuple():
         self.layer3_neurons = 0
         self.max_allowed_triplets_multiplier = 0.0
         self.min_allowed_triplets_multiplier = 0.0
+        self.load_model_filepath = "x"
+        self.eval_score_method = 1
 
         self.read_parameter_file(filepath=filepath)
 
@@ -53,3 +55,9 @@ class ParameterTuple():
             self.layer3_neurons = int(lines[first_parameter_line + 8].split("=")[1].split(";")[0])
             self.max_allowed_triplets_multiplier = float(lines[first_parameter_line + 9].split("=")[1].split(";")[0])
             self.min_allowed_triplets_multiplier = float(lines[first_parameter_line + 10].split("=")[1].split(";")[0])
+            tmp = lines[first_parameter_line + 11].split("=")[1].split(";")[0]
+            if tmp != "":
+                self.load_model_filepath = tmp
+            tmp = lines[first_parameter_line + 12].split("=")[1].split(";")[0]
+            if tmp != "":
+                self.eval_score_method = int(tmp)

@@ -1,25 +1,27 @@
 import utils
 import numpy as np
 import time
-from math import comb
+from math import comb, sqrt
 import inputreader
 import sys
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.optimizers import SGD
 import lpbp
 
-
 start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
-# f = sys.argv[1]
-f = "input_machine0"
-params = inputreader.ParameterTuple("in/" + f)
+inputfile = sys.argv[1]
+# f = "input_machine0"
+params = inputreader.ParameterTuple("in/" + inputfile)
 output_folder = "out"
-consoleoutput_filepath = ('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt')
+eval_score_method = params.eval_score_method
 
 num_items = params.num_items
-num_decision_vars = comb(num_items, 3)
+if eval_score_method == 1:
+    num_decision_vars = comb(num_items, 3)
+if eval_score_method == 2:
+    num_decision_vars = num_items * num_items
 # The length of the word we are generating.
 
 num_generations = params.num_generations  # 100000 generations should be plenty
@@ -46,32 +48,53 @@ len_game = num_decision_vars
 state_dim = (observation_space,)
 INF = 1000000
 
+
 # Model structure: a sequential network with three hidden layers, sigmoid activation in the output.
 # I usually used relu activation in the hidden layers but play around to see what activation function and what
 # optimizer works best.
 # It is important that the loss is binary cross-entropy if alphabet size is 2.
+def createNewMLModel():
+    model = Sequential()
+    model.add(Dense(layer1_neurons, activation="relu"))
+    model.add(Dense(layer2_neurons, activation="relu"))
+    model.add(Dense(layer3_neurons, activation="relu"))
+    model.add(Dense(1, activation="sigmoid"))
+    model.build((None, observation_space))
+    model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate=learning_rate))
+    return model
 
-model = Sequential()
-model.add(Dense(layer1_neurons, activation="relu"))
-model.add(Dense(layer2_neurons, activation="relu"))
-model.add(Dense(layer3_neurons, activation="relu"))
-model.add(Dense(1, activation="sigmoid"))
-model.build((None, observation_space))
-model.compile(loss="binary_crossentropy", optimizer=SGD(learning_rate=learning_rate))
-# Adam optimizer also works well, with lower learning rate
-# print(model.summary())
 
-triplet_database = utils.create_triplet_database(num_items=num_items)[0]
+def loadMLModel(model_filepath):
+    model = load_model(model_filepath)
+    return model
+
+
+if params.load_model_filepath != "x":
+    model = loadMLModel(params.load_model_filepath)
+    timestamp = params.load_model_filepath.split("/")[1].split("_saved")[0]
+else:
+    model = createNewMLModel()
+
+consoleoutput_filepath = ('%s/' % output_folder + timestamp + '_consoleoutput' + '.txt')
+
+triplet_database, database_index_by_triplet_items = utils.create_triplet_database(num_items=num_items)
+
 pairs_singles_matrix = utils.create_pairs_and_singles_matrix(num_items=num_items)
 
 
-def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
+def eval_score1(input_bitstring, triplet_database, database_index_by_triplet_items, pairs_singles_matrix):
     """
     Reward function for your problem.
     Input: a 0-1 vector of length num_decision_vars. It represents the graph (or other object) you have created.
     Output: the reward/score for your construction.
     """
+    # Prepares bitstring
     bitstring = [input_bitstring[i] for i in range(int(len(input_bitstring) / 2))]
+    bitstring = utils.create_implied_bitstring(bitstring=bitstring,
+                                               triplet_database=triplet_database,
+                                               database_index_by_triplet_items=database_index_by_triplet_items)
+
+    # Gives penalty for too many allowed triplets
     num_allowed_triplets = np.sum(bitstring)
     max_allowed_triplets = num_items * params.max_allowed_triplets_multiplier
     min_allowed_triplets = num_items * params.min_allowed_triplets_multiplier
@@ -81,6 +104,7 @@ def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
     if num_allowed_triplets < min_allowed_triplets:
         extra_penalty += num_allowed_triplets - min_allowed_triplets
 
+    # Calculates how far bitstring is off from corresponding to a valid item size distribution
     # min_violated_constraints = lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring)
 
     triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring,
@@ -96,7 +120,46 @@ def eval_score(input_bitstring, triplet_database, pairs_singles_matrix):
                                        lp_type="LP")
     lp_value = model_LP.getObjective().getValue()
 
-    return ilp_value - lp_value + extra_penalty # - min_violated_constraints * num_items
+    return ilp_value - lp_value + extra_penalty  # - min_violated_constraints * num_items
+
+
+def eval_score2(input_bitstring, triplet_database, database_index_by_triplet_items, pairs_singles_matrix):
+    '''
+
+    :param input_bitstring: array of length num_items^2, containing num_items intervals of num_items bits --> patterns
+    :param triplet_database: num_items x num_items matrix. Contains all possible triplets for num_items items.
+    :param database_index_by_triplet_items: A dictionary. key = (3, 4, 9), value = index of corresponding triplet in triplet_database
+    :param pairs_singles_matrix:
+    :return:
+    '''
+    bitstring = [input_bitstring[i] for i in range(int(len(input_bitstring) / 2))]
+    bitstring, extra_penalty = utils.transform_patternbitstring_to_DBbitstring(patternbitstring=bitstring,
+                                                                               triplet_database=triplet_database,
+                                                                               database_index_by_triplet_items=database_index_by_triplet_items)
+
+    # Creates implied bitstring
+    bitstring = utils.create_implied_bitstring(bitstring=bitstring,
+                                               triplet_database=triplet_database,
+                                               database_index_by_triplet_items=database_index_by_triplet_items)
+
+    # TODO: think about whether it would be smart to train an NN once to be able to find triplets,
+    #  and then use it to further predict good triplets...
+    #  So that you can always restart at the NN already knowing how to make triplets.
+
+    triplet_matrix = utils.create_allowed_triplet_matrix(bitstring=bitstring,
+                                                         triplet_database=triplet_database)
+
+    model_ILP = lpbp.lp_runner_complete(num_items=num_items, allowed_triplets=triplet_matrix,
+                                        pairs_singles_patterns=pairs_singles_matrix,
+                                        lp_type="ILP")
+    ilp_value = model_ILP.getObjective().getValue()
+
+    model_LP = lpbp.lp_runner_complete(num_items=num_items, allowed_triplets=triplet_matrix,
+                                       pairs_singles_patterns=pairs_singles_matrix,
+                                       lp_type="LP")
+    lp_value = model_LP.getObjective().getValue()
+
+    return ilp_value - lp_value + extra_penalty
 
 
 ################### No need to change anything below here ###################
@@ -137,16 +200,24 @@ def generate_session(agent, n_sessions, verbose=1):
             tic = time.time()
             state_next[i] = states[i, :, step - 1]
             play_time += time.time() - tic
-            if (action > 0):
+            if action > 0:
                 state_next[i][step - 1] = action
             state_next[i][num_decision_vars + step - 1] = 0
-            if (step < num_decision_vars):
+            if step < num_decision_vars:
                 state_next[i][num_decision_vars + step] = 1
             terminal = step == num_decision_vars
             tic = time.time()
             if terminal:
-                total_score[i] = eval_score(state_next[i], triplet_database=triplet_database,
-                                            pairs_singles_matrix=pairs_singles_matrix)
+                if eval_score_method == 1:
+                    total_score[i] = eval_score1(input_bitstring=state_next[i],
+                                                 triplet_database=triplet_database,
+                                                 database_index_by_triplet_items=database_index_by_triplet_items,
+                                                 pairs_singles_matrix=pairs_singles_matrix)
+                if eval_score_method == 2:
+                    total_score[i] = eval_score2(input_bitstring=state_next[i],
+                                                 triplet_database=triplet_database,
+                                                 database_index_by_triplet_items=database_index_by_triplet_items,
+                                                 pairs_singles_matrix=pairs_singles_matrix)
             scorecalc_time += time.time() - tic
             tic = time.time()
             if not terminal:
@@ -226,7 +297,6 @@ sessgen_time = 0
 fit_time = 0
 score_time = 0
 
-
 for i in range(num_generations):
     # generate new sessions
     # performance can be improved with joblib
@@ -281,6 +351,7 @@ for i in range(num_generations):
 
     score_time = time.time() - tic
 
+
     def append_params_to_file(f, params):
         f.write(str(params.num_items) + "\n" +
                 str(params.num_generations) + "(Generations finished so far: " + str(i) + ")" + "\n" +
@@ -292,8 +363,11 @@ for i in range(num_generations):
                 str(params.layer2_neurons) + "\n" +
                 str(params.layer3_neurons) + "\n" +
                 str(params.max_allowed_triplets_multiplier) + "\n" +
-                str(params.min_allowed_triplets_multiplier) + "\n$\n"
+                str(params.min_allowed_triplets_multiplier) + "\n" +
+                str(params.load_model_filepath) + "\n" +
+                "eval_score_method " + str(params.eval_score_method) + "\n$\n"
                 )
+
 
     with open(consoleoutput_filepath, 'a') as c:
         sys.stdout = c  # Change the standard output to the file we created.
@@ -309,26 +383,27 @@ for i in range(num_generations):
                 randomcomp_time) + ", select1: " + str(select1_time) + ", select2: " + str(
                 select2_time) + ", select3: " + str(
                 select3_time) + ", fit: " + str(fit_time) + ", score: " + str(score_time))
-            with open('%s/' % output_folder + timestamp + '_best_species.txt', 'w') as f:
-                append_params_to_file(f, params)
+            with open('%s/' % output_folder + timestamp + '_best_species.txt', 'w') as inputfile:
+                append_params_to_file(inputfile, params)
                 for item in super_actions:
-                    f.write(str(item))
-                    f.write("\n")
-            with open('%s/' % output_folder + timestamp + '_best_species_rewards.txt', 'w') as f:
-                append_params_to_file(f, params)
+                    inputfile.write(str(item))
+                    inputfile.write("\n")
+            with open('%s/' % output_folder + timestamp + '_best_species_rewards.txt', 'w') as inputfile:
+                append_params_to_file(inputfile, params)
                 for item in super_rewards:
-                    f.write(str(item))
-                    f.write("\n")
+                    inputfile.write(str(item))
+                    inputfile.write("\n")
             model_save_start = time.time()
             model.save('%s/' % output_folder + timestamp + '_savedmodel')
             model_save_end = time.time()
             print("Saving model took %s seconds." % (model_save_end - model_save_start))
         if i % 200 == 2:
-            with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as f:
-                append_params_to_file(f, params)
-                f.write(str(super_rewards[0]))
-                f.write(str(super_actions[0]))
-                f.write("\n")
+            with open('%s/' % output_folder + timestamp + '_best_species_timeline.txt', 'a') as inputfile:
+                append_params_to_file(inputfile, params)
+                inputfile.write(str(super_rewards[0]))
+                inputfile.write("\n")
+                inputfile.write(str(super_actions[0]))
+                inputfile.write("\n")
 
-        sys.stdout = sys.__stdout__ # Reset the standard output to its original value
+        sys.stdout = sys.__stdout__  # Reset the standard output to its original value
         sys.stderr = sys.__stderr__

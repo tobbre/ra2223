@@ -1,4 +1,5 @@
 import itertools
+import math
 
 def series_to_matrix(series, len_interval):
     matrix = []
@@ -16,7 +17,7 @@ def series_to_matrix(series, len_interval):
 
 
 def remove_zero_rows(matrix):
-    # TODO: Fix this method! It does not do its job. Then write a test about it.
+    #TODO: Fix this method! It does not do its job. Then write a test about it.
     zero_rows = []
     for i in range(len(matrix)):
         broken = False
@@ -70,9 +71,10 @@ def create_triplet_database(num_items):
     Generates all possible triplets using itertools.combinations, and then transforms the resulting triplets of form
     [0, 1, 4] into triplet_bitstrings of form [1, 1, 0, 0, 1].
     :param num_items: number of items to choose from
-    :return: An array containing all possible triplet_bitstring arrays based on num_items.
+    :return: An array containing all possible triplet_bitstring arrays based on num_items
+    :return: A dictionary: key = (3, 4, 9), value = index of corresponding triplet in triplet_database
     '''
-    lis = [i for i in itertools.combinations(range(0, num_items), 3)]
+    lis = [i for i in itertools.combinations(range(0, num_items), 3)]   # Note that every element is an array like (3, 4, 9)
     triplet_database = []
     database_index_by_triplet_items = {}
     index = 0
@@ -96,6 +98,33 @@ def create_triplet_database(num_items):
     return triplet_database, database_index_by_triplet_items
 
 
+def transform_patternbitstring_to_DBbitstring(patternbitstring, triplet_database, database_index_by_triplet_items):
+    '''
+
+    :param patternbitstring:
+    :param triplet_database: created in utils.create_triplet_database
+    :param database_index_by_triplet_items: created in utils.create_triplet_database
+    :return:
+    '''
+    bitstring_as_patterns = series_to_matrix(patternbitstring, int(math.sqrt(len(patternbitstring))))
+
+    # Transforms each n bit pattern of bitstring_as_patterns into "item representation", (3, 4, 9)
+    patterns_as_indices = [[i for i in range(len(pattern)) if pattern[i] == 1] for pattern in bitstring_as_patterns]
+
+    # Adds penalty for non-triplets (used for neuralnetwork1.py, if not needed simply ignore the output)
+    extra_penalty = 0
+    for pattern in patterns_as_indices:
+        extra_penalty -= abs(len(pattern) - 3)
+
+    # Replaces bitstring by a database bitstring (i.e. bitstring[i]=1 ==> triplet_database[i] is allowed)
+    num_triplets = len(triplet_database)
+    bitstring = [0] * num_triplets
+    for i in [database_index_by_triplet_items[tuple(pattern)] for pattern in patterns_as_indices if len(pattern) == 3]:
+        bitstring[i] = 1
+
+    return bitstring, extra_penalty
+
+
 def create_implied_bitstring(bitstring, triplet_database, database_index_by_triplet_items):
     '''
     When this method is used, it is assumed that items are ordered ascending by weight, i.e. s1 ≤ s2 ≤ ... ≤ s(num_items).
@@ -108,7 +137,7 @@ def create_implied_bitstring(bitstring, triplet_database, database_index_by_trip
     '''
 
     def find_1step_dominated_triplets(dominator_index):
-        dominator_triplet = triplet_database[dominator_index]  # single triplet, array of length n
+        dominator_triplet = triplet_database[dominator_index]  # single triplet, array of length num_items
         dominator_triplet_items = [i for i in range(len(dominator_triplet)) if
                                    dominator_triplet[i] == 1]  # single triplet, array of length 3
         implied_triplets_items = []  # array of triplets, each array of length 3
@@ -187,5 +216,7 @@ def find_used_patterns_indices_from_solfile(filepath):
             pattern_index = int(line.split("[")[1].split("]")[0])
             used_patterns_indices.append(pattern_index)
     return used_patterns_indices
+
+
 
 

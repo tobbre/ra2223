@@ -13,3 +13,5 @@ Neurons in Layer 2 (layer2_neurons) =64;
 Neurons in Layer 3 (layer3_neurons) =4;
 Maximum number of allowed triplets multiplier (max_allowed_triplets_multiplier) =2;
 Maximum number of allowed triplets multiplier (min_allowed_triplets_multiplier) =0.5;
+Load existing model from path =07-12-2022_09:00_savedmodel;
+Which eval_score_method to use?=1;
