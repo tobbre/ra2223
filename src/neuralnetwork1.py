@@ -1,3 +1,4 @@
+import math
 import utils
 import numpy as np
 import time
@@ -8,6 +9,7 @@ from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.optimizers import SGD
 import lpbp
+import lpbpmp
 
 start_time = time.time()
 timestamp = time.strftime("%d-%m-%Y_%H:%M")
@@ -20,7 +22,7 @@ eval_score_method = params.eval_score_method
 num_items = params.num_items
 if eval_score_method == 1:
     num_decision_vars = comb(num_items, 3)
-if eval_score_method == 2:
+if eval_score_method == 2 or eval_score_method == 3:
     num_decision_vars = num_items * num_items
 # The length of the word we are generating.
 
@@ -136,11 +138,21 @@ def eval_score2(input_bitstring, triplet_database, database_index_by_triplet_ite
     bitstring, extra_penalty = utils.transform_patternbitstring_to_DBbitstring(patternbitstring=bitstring,
                                                                                triplet_database=triplet_database,
                                                                                database_index_by_triplet_items=database_index_by_triplet_items)
+    # if extra_penalty != 0:
+    #     return extra_penalty
 
     # Creates implied bitstring
     bitstring = utils.create_implied_bitstring(bitstring=bitstring,
                                                triplet_database=triplet_database,
                                                database_index_by_triplet_items=database_index_by_triplet_items)
+    # Gives penalty for too many allowed triplets
+    num_allowed_triplets = np.sum(bitstring)
+    max_allowed_triplets = num_items * params.max_allowed_triplets_multiplier
+    min_allowed_triplets = num_items * params.min_allowed_triplets_multiplier
+    if num_allowed_triplets > max_allowed_triplets:
+        extra_penalty += max_allowed_triplets - num_allowed_triplets
+    if num_allowed_triplets < min_allowed_triplets:
+        extra_penalty += num_allowed_triplets - min_allowed_triplets
 
     # TODO: think about whether it would be smart to train an NN once to be able to find triplets,
     #  and then use it to further predict good triplets...
@@ -160,6 +172,34 @@ def eval_score2(input_bitstring, triplet_database, database_index_by_triplet_ite
     lp_value = model_LP.getObjective().getValue()
 
     return ilp_value - lp_value + extra_penalty
+
+
+def eval_score3(input_bitstring):
+    '''
+
+    :param input_bitstring: array of length num_items^2, containing num_items intervals of num_items bits --> patterns
+    :return:
+    '''
+    bitstring = [input_bitstring[i] for i in range(int(len(input_bitstring) / 2))]
+    maximum_triplets = utils.series_to_matrix(bitstring, int(math.sqrt(len(bitstring))))
+
+    # Since it's possible that the bitstring from the ML does not contain only triplets, we must make the ML
+    # understand that it should produce only triplets.
+    extra_penalty = 0
+    for pattern in maximum_triplets:
+        extra_penalty -= abs(sum(pattern) - 3)
+    if extra_penalty != 0:
+        return extra_penalty
+
+    model_ILP = lpbpmp.lp_runner_complete(num_items=num_items, maximum_triplets=maximum_triplets,
+                                          lp_type="ILP")
+    ilp_value = model_ILP.getObjective().getValue()
+
+    model_LP = lpbpmp.lp_runner_complete(num_items=num_items, maximum_triplets=maximum_triplets,
+                                         lp_type="LP")
+    lp_value = model_LP.getObjective().getValue()
+
+    return ilp_value - lp_value
 
 
 ################### No need to change anything below here ###################
@@ -218,6 +258,9 @@ def generate_session(agent, n_sessions, verbose=1):
                                                  triplet_database=triplet_database,
                                                  database_index_by_triplet_items=database_index_by_triplet_items,
                                                  pairs_singles_matrix=pairs_singles_matrix)
+                if eval_score_method == 3:
+                    total_score[i] = eval_score3(input_bitstring=state_next[i])
+
             scorecalc_time += time.time() - tic
             tic = time.time()
             if not terminal:
@@ -302,7 +345,7 @@ for i in range(num_generations):
     # performance can be improved with joblib
     tic = time.time()
     sessions = generate_session(model, num_sessions,
-                                0)  # change 0 to 1 to print out how much time each step in generate_session takes
+                                verbose=1)  # change 0 to 1 to print out how much time each step in generate_session takes
     sessgen_time = time.time() - tic
     tic = time.time()
 

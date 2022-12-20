@@ -111,20 +111,16 @@ def write_triplet_database(num_items):
 outputfolder = "out"
 # filename1 = '%s/28-11-2022_00:37_best_species_txt_1.txt' % outputfolder
 # filename1 = '%s/best_species_txt_1.txt' % outputfolder
-filename1 = '%s/10-12-2022_18:43_best_species.txt' % outputfolder
+filename1 = '%s/20-12-2022_14:46_best_species.txt' % outputfolder
 bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=0)
 
-# write_size_dist_for_bitstring(bitstring=bitstring)
-
-
 write_iLPsol_of_bitstring2(bitstring)
-
-# print(find_indices_of_1s_in_bitstring(bitstring=bitstring))
-
-# write_triplet_database(9)
 
 # triplet_database, database_index_by_triplet_items = utils.create_triplet_database(15)
 # t = utils.create_implied_bitstring(bitstring=bitstring,
 #                                    triplet_database=triplet_database,
-#                                    database_index_by_triplet_items=database_index_by_triplet_items,)
+#                                    database_index_by_triplet_items=database_index_by_triplet_items)
+# write_size_dist_for_bitstring(bitstring=bitstring)
 # print(t)
+
+

@@ -50,6 +50,22 @@ def append_complete_patternmatrix_to_txt_file(filepath, pattern_matrix):
     f.close()
 
 
+def append_maximum_triplets_to_txt_file(filepath, maximum_triplets):
+    f = open(filepath, "a")
+    f.write("\n" * 2)
+    f.write("All Maximum Triplets:\n")
+    f.write("Item       ")
+    for j in range(len(maximum_triplets[0])):
+        f.write("  %s " % j)
+    f.write("\n")
+    for i in range(len(maximum_triplets)):
+        f.write("Pattern %s: " % i)
+        for j in range(len(maximum_triplets[i])):
+            f.write("  %s " % maximum_triplets[i][j])
+        f.write("\n")
+    f.close()
+
+
 def append_used_patterns_to_sol_file(filepath, used_patterns_matrix, used_patterns_indices):
     f = open(filepath, "a")
     f.write("\n" * 2)

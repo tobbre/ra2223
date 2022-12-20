@@ -1,8 +1,8 @@
 $
-Number of items (num_items) =17;
+Number of items (num_items) =15;
 Number of generations (num_generations) =500;
 Learning rate (learning_rate) =0.01;
-Number of sessions (num_sessions) =500;
+Number of sessions (num_sessions) =300;
 Learning percentile (learning_percentile) =93;
 Super percentile (super_percentile) =94;
 Neurons in Layer 1 (layer1_neurons) =128;
@@ -11,4 +11,4 @@ Neurons in Layer 3 (layer3_neurons) =4;
 Maximum number of allowed triplets multiplier (max_allowed_triplets_multiplier) =2;
 Maximum number of allowed triplets multiplier (min_allowed_triplets_multiplier) =0.5;
 Load existing model from path =;
-Which eval_score_method to use? =2;
+Which eval_score_method to use? =3;

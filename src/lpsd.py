@@ -60,3 +60,19 @@ def lp_builder(triplet_database,
 
     return m
 
+
+def sd_n_binding_constr(binding_constraints, index_first_forbidden):
+    '''
+
+    :param binding_constraints: a 2D array containing the n patterns of the binding constraints in bit format
+    :param index_first_forbidden: the index of the first forbidden pattern in binding_constraints
+    :return: item size distribution if it exists, -1 if it does not exist. sd = binding_constraints^-1 * b
+    '''
+    n = len(binding_constraints)
+    b = [1] * index_first_forbidden + [1.001] * (n - index_first_forbidden)
+    if np.linalg.det(binding_constraints) != 0:
+        inverse = np.linalg.inv(binding_constraints)
+        sd = inverse.dot(b)
+        return sd
+    else:
+        return -1
