@@ -1,4 +1,6 @@
+import itertools
 import math
+import random
 import time
 import inputreader
 import lpbp
@@ -114,13 +116,28 @@ outputfolder = "out"
 filename1 = '%s/20-12-2022_14:46_best_species.txt' % outputfolder
 bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_number=0)
 
-write_iLPsol_of_bitstring2(bitstring)
+# write_iLPsol_of_bitstring2(bitstring)
 
-# triplet_database, database_index_by_triplet_items = utils.create_triplet_database(15)
-# t = utils.create_implied_bitstring(bitstring=bitstring,
-#                                    triplet_database=triplet_database,
-#                                    database_index_by_triplet_items=database_index_by_triplet_items)
-# write_size_dist_for_bitstring(bitstring=bitstring)
-# print(t)
+num_items = 15
+triplet_database, database_index_by_triplet_items = utils.create_triplet_database(num_items=num_items)
+for i in range (100000):
+    max_num_ones = random.randint(1, 15)
+    bitstring = [0] * 455
+    for j in range(max_num_ones):
+        bitstring[random.randint(1, math.comb(15, 3)) - 1] = 1
+
+    bitstring = utils.create_implied_bitstring(bitstring=bitstring,
+                                       triplet_database=triplet_database,
+                                       database_index_by_triplet_items=database_index_by_triplet_items)
+
+    lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring)
+    if i%100==0:
+        print(i)
+
+
+
+
+
+
 
 
