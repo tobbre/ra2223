@@ -118,10 +118,13 @@ bitstring = inputreader.read_bitstring_from_file(filename=filename1, bitstring_n
 
 # write_iLPsol_of_bitstring2(bitstring)
 
+
+
+#----- The following is to test whether there are instances of implied bitstrings that produce infeasible instances regarding weight distributions
 num_items = 15
 triplet_database, database_index_by_triplet_items = utils.create_triplet_database(num_items=num_items)
 for i in range (100000):
-    max_num_ones = random.randint(1, 15)
+    max_num_ones = random.randint(1, 5)
     bitstring = [0] * 455
     for j in range(max_num_ones):
         bitstring[random.randint(1, math.comb(15, 3)) - 1] = 1
@@ -133,11 +136,3 @@ for i in range (100000):
     lpsd.lp_runner(triplet_database=triplet_database, bitstring=bitstring)
     if i%100==0:
         print(i)
-
-
-
-
-
-
-
-

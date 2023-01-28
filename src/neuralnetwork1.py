@@ -138,8 +138,8 @@ def eval_score2(input_bitstring, triplet_database, database_index_by_triplet_ite
     bitstring, extra_penalty = utils.transform_patternbitstring_to_DBbitstring(patternbitstring=bitstring,
                                                                                triplet_database=triplet_database,
                                                                                database_index_by_triplet_items=database_index_by_triplet_items)
-    # if extra_penalty != 0:
-    #     return extra_penalty
+    if extra_penalty != 0:
+        return extra_penalty
 
     # Creates implied bitstring
     bitstring = utils.create_implied_bitstring(bitstring=bitstring,
@@ -176,7 +176,7 @@ def eval_score2(input_bitstring, triplet_database, database_index_by_triplet_ite
 
 def eval_score3(input_bitstring):
     '''
-
+    This method uses lpbpmp instead of lpbp.
     :param input_bitstring: array of length num_items^2, containing num_items intervals of num_items bits --> patterns
     :return:
     '''

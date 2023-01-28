@@ -8,7 +8,7 @@ It can be found (on Tobias' mac) at /Users/tobiasbreuer/miniforge3/envs . Its na
 
 ...Classes...
 There are different files for different purposes.
-neuralnetwork1.py - This file houses the code based on Adam Wagner's neural network. The evaluation function of instances
+neuralnetwork1.py - This file houses the code based on Adam Wagner's neural network. The evaluation functions of instances
         and the neural network can be found here. neuralnetwork1.py is able to start a new model and train it, or read an
         existing model and continue its training.
         neuralnetwork1.py is able to run in two different ways:
@@ -32,6 +32,7 @@ control.py - This file contains methods to check the correctness of the neural n
 lpbp.py - This file contains the (Integer) Linear Program to find a solution for the bin packing problem, using the pattern approach.
 lpsd.py - This file contains the Linear Program to find a possible item size distribution corresponding to a given selection of
         allowed patterns.
+lpbpmp.py -
 
 ...Patterns...
 A pattern can be in

@@ -63,7 +63,7 @@ def lp_builder(triplet_database,
 
 def sd_n_binding_constr(binding_constraints, index_first_forbidden):
     '''
-
+    Calucaltes the size distribution using matrix inversion based on a total of n allowed or forbidden patterns
     :param binding_constraints: a 2D array containing the n patterns of the binding constraints in bit format
     :param index_first_forbidden: the index of the first forbidden pattern in binding_constraints
     :return: item size distribution if it exists, -1 if it does not exist. sd = binding_constraints^-1 * b

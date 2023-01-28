@@ -1,5 +1,6 @@
 # Linear Programming Solver for the Binpacking problem based on allowed item combinations (only maximum triplets as input)
 
+
 from gurobipy import Model, quicksum, GRB, setParam
 from math import comb
 import utils
@@ -51,7 +52,7 @@ def lp_builder(num_items,
         for p in range(num_maximum_triplets):
             pattern_intersection_ItemsAfteri = sum(maximum_triplets[p][i:])
             lhs += pattern_used[p] * pattern_intersection_ItemsAfteri
-        m.addConstr(lhs >= rhs, name="item_comverage[%s]" % i)
+        m.addConstr(lhs >= rhs, name="item_coverage[%s]" % i)
 
     m.update()
 
