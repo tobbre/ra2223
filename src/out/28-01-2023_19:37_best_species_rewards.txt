@@ -1,5 +1,5 @@
 21
-1000(Generations finished so far: 241)
+1000(Generations finished so far: 641)
 0.01
 500
 93
