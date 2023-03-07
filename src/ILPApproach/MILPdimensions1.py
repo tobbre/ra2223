@@ -1,12 +1,11 @@
 import gurobipy as gp
 from gurobipy import GRB
-import operator as op
 
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
 dimension = 7
-target_lp_sol = dimension - 1  # TODO: also check for lp solutions for dim - 2, dim - 3, ...
+target_lp_sol = dimension
 num_items = dimension * (dimension - 1)
 M = 1000
 
@@ -48,7 +47,7 @@ while target_lp_sol > 0:
         for i in range(dimension):
             var_list = []
             for k in range(num_items):
-                var_list.append(m.addVar(vtype=GRB.BINARY, name="n_%s^%s" % (i, k + 1)))
+                var_list.append(m.addVar(vtype=GRB.BINARY, name="n_%s^%s" % (i, k)))
             n_ik.append(var_list)
         m.update()
         for i in range(dimension):
@@ -64,7 +63,7 @@ while target_lp_sol > 0:
 
         # s[i] is the size of an item in category i
         # In the following constraints we use big M
-        s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1/7, ub=1, name="s[%s]" % i) for i in range(dimension)]
+        s = [m.addVar(vtype=GRB.CONTINUOUS, lb=(1/dimension + 0.00001), ub=1, name="s[%s]" % i) for i in range(dimension)]
         for p in range(len(patterns)):
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - x[p]) * M)
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.0001 - x[p] * M)
@@ -118,7 +117,7 @@ while target_lp_sol > 0:
             obj = -1
             if status == 2:
                 x_used = [pat.X for pat in z]
-                obj = m2.model.getObjective().getValue()
+                obj = m2.getObjective().getValue()
             return status, x_used, obj
 
 
@@ -135,14 +134,14 @@ while target_lp_sol > 0:
                 status, x_used, obj = callbackMIP(x_, n_)
 
                 if status == 2: # If the callback MIP has found a solution
-                    if obj <= target_lp_sol + 1:
+                    if obj <= target_lp_sol: # + 1:
                         sum = 0
                         counter = 0
                         for i in range(len(x_used)):
                             if x_used[i] >= 0.999:
                                 sum += x[i]
                                 counter += 1
-                        model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension)]) <= counter - 1)
+                        model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if round(n_[i]) < num_items]) <= counter - 1)
                         # Above constraint ensures that either a pattern is forbidden or an item is increased in number.
                         # since n_ik[i][k] = 1 iff n_i >= k + 1 (this is since python starts indexing at 0), having k = n[i] forces some item to increase.
                         model.update()
