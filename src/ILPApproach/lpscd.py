@@ -21,40 +21,45 @@ def pattern_finder(dimension):
 
 
 def lp_runner():
-    dimension = 7
+    dimension = 4
     patterns = pattern_finder(dimension)
     isAllowed = [0] * len(patterns)
     # So far, I have to hard code the allowed patterns.
     # TODO: If needed, write method that reads allowed patterns from file.
     for i in range(dimension):
         if (patterns[i][0] == 0 and
-                patterns[i][1] == 0 and
-                patterns[i][2] == 0 and
-                patterns[i][3] == 0):
-            if ((patterns[i][4] == 0 and
-                 patterns[i][5] == 1 and
-                 patterns[i][6] == 5) or
-
-                    (patterns[i][4] == 1 and
-                     patterns[i][5] == 5 and
-                     patterns[i][6] == 0) or
-
-                    (patterns[i][4] == 6 and
-                     patterns[i][5] == 0 and
-                     patterns[i][6] == 0) or
-
-                    (patterns[i][4] == 6 and
-                     patterns[i][5] == 0 and
-                     patterns[i][6] == 0) or
-
-                    (patterns[i][4] == 6 and
-                     patterns[i][5] == 0 and
-                     patterns[i][6] == 0) or
-
-                    (patterns[i][4] == 6 and
-                     patterns[i][5] == 0 and
-                     patterns[i][6] == 0)
-            ):
+            patterns[i][1] == 0 and
+            patterns[i][2] == 0 and
+            patterns[i][3] == 2
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 0 and
+            patterns[i][2] == 1 and
+            patterns[i][3] == 1
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 0 and
+            patterns[i][2] == 2 and
+            patterns[i][3] == 1
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 1 and
+            patterns[i][2] == 0 and
+            patterns[i][3] == 1
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 1 and
+            patterns[i][2] == 0 and
+            patterns[i][3] == 2
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 1 and
+            patterns[i][2] == 2 and
+            patterns[i][3] == 0
+        ) or (patterns[i][0] == 0 and
+            patterns[i][1] == 2 and
+            patterns[i][2] == 0 and
+            patterns[i][3] == 0
+        ) or (patterns[i][0] == 2 and
+            patterns[i][1] == 1 and
+            patterns[i][2] == 0 and
+            patterns[i][3] == 0
+        ):
                 isAllowed[i] = 1
 
     model = lp_builder(patterns=patterns,
@@ -68,7 +73,7 @@ def lp_builder(patterns,
                isAllowed,
                dimension):
     m = Model("Size Category Distribution Finder")
-    s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / 7, ub=1, name="s[%s]" % i) for i in range(dimension)]
+    s = [m.addVar(vtype=GRB.CONTINUOUS, lb=(1 / dimension + 0.0001), ub=1, name="s[%s]" % i) for i in range(dimension)]
     for p in range(len(patterns)):
         m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - isAllowed[p]) * M)
         m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.0001 - isAllowed[p] * M)

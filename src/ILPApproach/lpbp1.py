@@ -73,7 +73,7 @@ def lp_builder(n,
 	return m
 
 
-model = lp_runner(inputfilepath="in/instance6.txt")
+model = lp_runner(inputfilepath="in/instance7.txt")
 if model.status == GRB.OPTIMAL:
 	for v in model.getVars():
 		if v.X > 0.001:
