@@ -1,10 +1,12 @@
+import time
+
 import gurobipy as gp
 from gurobipy import GRB
 
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 7
+dimension = 8
 target_lp_sol = dimension
 num_items = dimension * (dimension - 1)
 M = 1000
@@ -32,6 +34,7 @@ def pattern_to_string(pattern):
 patterns = pattern_finder(dimension)
 
 while target_lp_sol > 0:
+    start_time = time.time()
     print("#############################################################")
     print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
     print("#############################################################")
@@ -67,9 +70,9 @@ while target_lp_sol > 0:
         for p in range(len(patterns)):
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - x[p]) * M)
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.0001 - x[p] * M)
-        for i in range(dimension - 2):
-            m.addConstr(s[i] <= s[i+1])
-            # m.addConstr(n[i] <= n[i+1])
+        for i in range(dimension - 1):
+            # m.addConstr(s[i] <= s[i+1])   Including this constraint instead results in significantly higher running times.
+            m.addConstr(n[i] <= n[i+1])
         m.update()
 
         y = [m.addVar(vtype=GRB.CONTINUOUS,
@@ -131,6 +134,18 @@ while target_lp_sol > 0:
                 for i in range(dimension):
                     n_ik_.append(model.cbGetSolution(n_ik[i]))
 
+                # The following checks whether all solution values are indeed integral.
+                # decimal_counter = 0
+                # for value in x_:
+                #     if (1 - value > 0.0001) and (value > 0.0001):
+                #         decimal_counter += 1
+                # for value in n_:
+                #     if (1 - value > 0.0001) and (value > 0.0001):
+                #         decimal_counter += 1
+                #
+                # if decimal_counter > 0:
+                #     raise Exception(str(decimal_counter) + "incorrect solution values detected. Threshold 0.0001 .")
+
                 status, x_used, obj = callbackMIP(x_, n_)
 
                 if status == 2: # If the callback MIP has found a solution
@@ -143,7 +158,6 @@ while target_lp_sol > 0:
                                 counter += 1
                         model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if round(n_[i]) < num_items]) <= counter - 1)
                         # Above constraint ensures that either a pattern is forbidden or an item is increased in number.
-                        # since n_ik[i][k] = 1 iff n_i >= k + 1 (this is since python starts indexing at 0), having k = n[i] forces some item to increase.
                         model.update()
                 elif status == 3:
                     # Callback MIP is infeasible.
@@ -162,4 +176,6 @@ while target_lp_sol > 0:
                     print('%s %g' % (v.VarName, v.X))
 
             print('Obj: %g' % m.ObjVal)
+        end_time = time.time()
+        print("RT: " + str(end_time - start_time) + " seconds.")
     target_lp_sol -= 1
