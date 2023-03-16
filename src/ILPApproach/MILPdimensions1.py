@@ -7,8 +7,9 @@ from gurobipy import GRB
 #######
 dimension = 7
 target_lp_sol = dimension
-num_items = dimension * (dimension - 1)
-M = 1000
+# num_items = dimension * (dimension - 1) # outdated, I found a better bound
+num_items = target_lp_sol * (dimension - 1) + (target_lp_sol - 1)
+M = num_items * 2
 
 
 def pattern_finder(dimension):
