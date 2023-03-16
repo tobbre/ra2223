@@ -1,12 +1,11 @@
 import time
-
 import gurobipy as gp
 from gurobipy import GRB
 
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 8
+dimension = 7
 target_lp_sol = dimension
 num_items = dimension * (dimension - 1)
 M = 1000
@@ -38,11 +37,11 @@ while target_lp_sol > 0:
     print("#############################################################")
     print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
     print("#############################################################")
-    with gp.Env() as env, gp.Model(env=env) as m:
+    with gp.Model("MainMIP") as m:
         # m is MainMIP
 
         # The n vector contains information how many items are in each of the len(n) different size categories
-        n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items) for i in
+        n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items-1) for i in
              range(dimension)]
         m.addConstr(gp.quicksum(n) <= num_items)
 
@@ -90,28 +89,28 @@ while target_lp_sol > 0:
 
         def callbackMIP(x_, n_):
             '''
-            Objective obj2 is maximized in order to ensure that z[p] = 1 only for patterns p that are allowed, i.e. x_[p] = 1
-            :param x_: integer values of variables x from model m
-            :param n_: integer values of variables n from model m
+            Finds optimal integer solution to instance with allowed patterns and item quantities according to x_ and n_ respectively.
+            :param x_: integral values of variables x from model m
+            :param n_: integral values of variables n from model m
             :return:
             '''
-            # m2 is the problem of finding a violated inequality, CallbackMIP
-            m2 = gp.Model(env=env)
+            m2 = gp.Model("CallbackMIP")
             m2.Params.OutputFlag = 0
             # m2.Params.Threads = 24
-            m2.Params.Method = -1
+            # m2.Params.Method = -1
             m2.update()
 
+            allowed_patterns = [patterns[i] for i in range(len(x_)) if int(x_[i]) == 1]
+
             z = [m2.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
-                           name="z(" + pattern_to_string(pat) + ")") for pat in patterns]
-            for p in range(len(patterns)):
-                m2.addConstr(z[p] <= x_[p] * dimension)
+                           name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
+
             for i in range(dimension):
-                m2.addConstr(gp.quicksum([z[p] * patterns[p][i] for p in range(len(patterns))]) >= n_[i],
+                m2.addConstr(gp.quicksum([z[p] * patterns[p][i] for p in range(len(allowed_patterns))]) >= n_[i],
                              name="m2coverage%s" % i)
             m2.update()
 
-            obj2 = gp.quicksum([z[p] for p in range(len(patterns))])
+            obj2 = gp.quicksum([z[p] for p in range(len(allowed_patterns))])
             m2.setObjective(obj2, GRB.MINIMIZE)
             m2.optimize()
 
@@ -127,12 +126,13 @@ while target_lp_sol > 0:
         def callback(model, where):
             if where == GRB.Callback.MIPSOL:
                 x_ = model.cbGetSolution(x)
-                y_ = model.cbGetSolution(y)
-                sumy = gp.quicksum(y_)  # for diagnostic purposes only
                 n_ = model.cbGetSolution(n)
-                n_ik_ = []
-                for i in range(dimension):
-                    n_ik_.append(model.cbGetSolution(n_ik[i]))
+
+                # y_ = model.cbGetSolution(y)
+                # sumy = gp.quicksum(y_)  # for diagnostic purposes only
+                # n_ik_ = []
+                # for i in range(dimension):
+                #     n_ik_.append(model.cbGetSolution(n_ik[i]))
 
                 # The following checks whether all solution values are indeed integral.
                 # decimal_counter = 0
