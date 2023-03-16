@@ -1,4 +1,4 @@
-from gurobipy import Model, quicksum, GRB, setParam
+from gurobipy import GRB
 import gurobipy as gp
 
 
@@ -57,7 +57,7 @@ def lp_runner(inputfilepath):
 def lp_builder(n,
 			   allowed_patterns,
 			   dimension):
-	m = Model("ILP solution finder")
+	m = gp.Model("ILP solution finder")
 
 	z = [m.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
 				  name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
@@ -73,7 +73,7 @@ def lp_builder(n,
 	return m
 
 
-model = lp_runner(inputfilepath="in/instance7.txt")
+model = lp_runner(inputfilepath="in/instance9.txt")
 if model.status == GRB.OPTIMAL:
 	for v in model.getVars():
 		if v.X > 0.001:
