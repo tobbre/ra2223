@@ -9,7 +9,7 @@ dimension = 7
 target_lp_sol = dimension
 # num_items = dimension * (dimension - 1) # outdated, I found a better bound
 num_items = target_lp_sol * (dimension - 1) + (target_lp_sol - 1)
-M = num_items * 2
+M = 1000
 
 
 def pattern_finder(dimension):
@@ -42,7 +42,7 @@ while target_lp_sol > 0:
         # m is MainMIP
 
         # The n vector contains information how many items are in each of the len(n) different size categories
-        n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items-1) for i in
+        n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items - 1) for i in
              range(dimension)]
         m.addConstr(gp.quicksum(n) <= num_items)
 
@@ -71,8 +71,8 @@ while target_lp_sol > 0:
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - x[p]) * M)
             m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.0001 - x[p] * M)
         for i in range(dimension - 1):
-            # m.addConstr(s[i] <= s[i+1])   Including this constraint instead results in significantly higher running times.
-            m.addConstr(n[i] <= n[i+1])
+            m.addConstr(s[i] <= s[i+1])   # Including this constraint instead results in significantly higher running times.
+            # m.addConstr(n[i] <= n[i+1])
         m.update()
 
         y = [m.addVar(vtype=GRB.CONTINUOUS,
@@ -98,20 +98,22 @@ while target_lp_sol > 0:
             m2 = gp.Model("CallbackMIP")
             m2.Params.OutputFlag = 0
             # m2.Params.Threads = 24
-            # m2.Params.Method = -1
+            m2.Params.Method = -1
             m2.update()
 
-            allowed_patterns = [patterns[i] for i in range(len(x_)) if int(x_[i]) == 1]
+            # allowed_patterns = [patterns[i] for i in range(len(x_)) if int(x_[i]) == 1]
 
             z = [m2.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
-                           name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
+                           name="z(" + pattern_to_string(pat) + ")") for pat in patterns]
 
             for i in range(dimension):
-                m2.addConstr(gp.quicksum([z[p] * patterns[p][i] for p in range(len(allowed_patterns))]) >= n_[i],
+                m2.addConstr(gp.quicksum([z[p] * patterns[p][i] for p in range(len(patterns))]) >= n_[i],
                              name="m2coverage%s" % i)
+            for p in range(len(patterns)):
+                m2.addConstr(z[p] <= x_[p] * dimension)
             m2.update()
 
-            obj2 = gp.quicksum([z[p] for p in range(len(allowed_patterns))])
+            obj2 = gp.quicksum([z[p] for p in range(len(patterns))])
             m2.setObjective(obj2, GRB.MINIMIZE)
             m2.optimize()
 
@@ -121,6 +123,8 @@ while target_lp_sol > 0:
             if status == 2:
                 x_used = [pat.X for pat in z]
                 obj = m2.getObjective().getValue()
+            if status == 3:
+                pass
             return status, x_used, obj
 
 
@@ -129,11 +133,11 @@ while target_lp_sol > 0:
                 x_ = model.cbGetSolution(x)
                 n_ = model.cbGetSolution(n)
 
-                # y_ = model.cbGetSolution(y)
-                # sumy = gp.quicksum(y_)  # for diagnostic purposes only
-                # n_ik_ = []
-                # for i in range(dimension):
-                #     n_ik_.append(model.cbGetSolution(n_ik[i]))
+                y_ = model.cbGetSolution(y)
+                sumy = gp.quicksum(y_)  # for diagnostic purposes only
+                n_ik_ = []
+                for i in range(dimension):
+                    n_ik_.append(model.cbGetSolution(n_ik[i]))
 
                 # The following checks whether all solution values are indeed integral.
                 # decimal_counter = 0
@@ -150,7 +154,7 @@ while target_lp_sol > 0:
                 status, x_used, obj = callbackMIP(x_, n_)
 
                 if status == 2: # If the callback MIP has found a solution
-                    if obj <= target_lp_sol: # + 1:
+                    if obj <= target_lp_sol + 1:
                         sum = 0
                         counter = 0
                         for i in range(len(x_used)):
@@ -161,7 +165,7 @@ while target_lp_sol > 0:
                         # Above constraint ensures that either a pattern is forbidden or an item is increased in number.
                         model.update()
                 elif status == 3:
-                    # Callback MIP is infeasible.
+                    print("Callback MIP is infeasible.")
                     pass
 
 
