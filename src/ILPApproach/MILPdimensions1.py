@@ -6,9 +6,8 @@ from gurobipy import GRB
 # In this file, the number of items per size category is a VARIABLE.
 #######
 dimension = 5
-target_lp_sol = dimension
+target_lp_sol = dimension # TODO: CHANGE THIS BACK TO dimension
 # num_items = dimension * (dimension - 1) # outdated, I found a better bound
-num_items = target_lp_sol * (dimension - 1) + (target_lp_sol - 1)
 M = 1000
 
 
@@ -34,6 +33,7 @@ def pattern_to_string(pattern):
 patterns = pattern_finder(dimension)
 
 while target_lp_sol > 0:
+    num_items = target_lp_sol * (dimension - 1) + (target_lp_sol - 1)
     start_time = time.time()
     print("#############################################################")
     print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
@@ -68,8 +68,8 @@ while target_lp_sol > 0:
         # In the following constraints we use big M
         s = [m.addVar(vtype=GRB.CONTINUOUS, lb=(1/dimension + 0.00001), ub=1, name="s[%s]" % i) for i in range(dimension)]
         for p in range(len(patterns)):
-            m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - x[p]) * M)
-            m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.00001 - x[p] * M)
+            m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) <= 1 + (1 - x[p]) * M, name="size_consistent_allowed")
+            m.addConstr(gp.quicksum(s[i] * patterns[p][i] for i in range(dimension)) >= 1.00001 - x[p] * M, name="size_consistent_forbidden")
         for i in range(dimension - 1):
             # m.addConstr(s[i] <= s[i+1])   # Including this constraint instead results in significantly higher running times.
             m.addConstr(n[i] <= n[i+1])
@@ -78,7 +78,7 @@ while target_lp_sol > 0:
         y = [m.addVar(vtype=GRB.CONTINUOUS,
                       name="y(" + pattern_to_string(pat) + ")", lb=0, ub=dimension)
              for pat in patterns]
-        for p in range(len(y)):
+        for p in range(len(patterns)):
             m.addConstr(y[p] <= x[p] * dimension, name="usage")
         for i in range(len(n)):
             m.addConstr(gp.quicksum([y[p] * patterns[p][i] for p in range(len(patterns))]) == n[i], name="coverage")
@@ -97,18 +97,16 @@ while target_lp_sol > 0:
             '''
             m2 = gp.Model("CallbackMIP")
             m2.Params.OutputFlag = 0
-            # m2.Params.Threads = 24
-            m2.Params.Method = -1
             m2.update()
 
             z = [m2.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
                            name="z(" + pattern_to_string(pat) + ")") for pat in patterns]
-
             for i in range(dimension):
                 m2.addConstr(gp.quicksum([z[p] * patterns[p][i] for p in range(len(patterns))]) >= n_[i],
                              name="m2coverage%s" % i)
+            m2.update()
             for p in range(len(patterns)):
-                m2.addConstr(z[p] <= x_[p] * dimension)
+                m2.addConstr(z[p] <= x_[p] * (dimension+1))
             m2.update()
 
             obj2 = gp.quicksum([z[p] for p in range(len(patterns))])
@@ -120,7 +118,20 @@ while target_lp_sol > 0:
             obj = -1
             if status == 2:
                 x_used = [v.X for v in z]
-                obj = m2.getObjective().getValue()
+                obj = m2.ObjVal
+
+                # TODO: REMOVE THE CODE BELOW IN THIS IF STATEMENT
+                if obj == target_lp_sol + 2:
+                    allowed = [patterns[i] for i in range(len(patterns)) if x_[i] == 1]
+                    print("allowed patters for CallbackMIP:")
+                    for i in range(len(allowed)):
+                        print(allowed[i])
+                    print("n:")
+                    print(n_)
+                    for v in m2.getVars():
+                        if v.X > 0.001:
+                            print('%s %g' % (v.VarName, v.X))
+                    print('Obj: %g' % m2.ObjVal + "\n\n\n")
             if status == 3:
                 pass
             return status, x_used, obj
@@ -160,7 +171,6 @@ while target_lp_sol > 0:
 
         m.Params.LazyConstraints = 1
         m.Params.NodefileStart = 4
-        m.Params.Method = -1
 
         m.optimize(callback)
 

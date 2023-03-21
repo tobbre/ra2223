@@ -28,12 +28,12 @@ def read_allowed_patterns(filepath):
 			if lines[i][0] == "x":
 				x_start = i
 				break
-		dimension = int(lines[x_start-1].split(" ")[0].split("n")[1]) + 1
+		dimension = len(lines[x_start].split("(")[1].split(")")[0].split(", ")[:])
 		for i in range(x_start, len(lines)):
 			if lines[i][0] == "s":
 				s_start = i
 				break
-		n = [0]*dimension
+		n = [0] * dimension
 		for i in range(n_start, x_start):
 			item = int(lines[i].split(" ")[0].split("n")[1])
 			n[item] = int(lines[i].split("\n")[0].split(" ")[1])
@@ -63,7 +63,7 @@ def lp_builder(n,
 				  name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
 	for i in range(dimension):
 		m.addConstr(gp.quicksum([z[p] * allowed_patterns[p][i] for p in range(len(allowed_patterns))]) >= n[i],
-					name="m2coverage%s" % i)
+					name="coverage%s" % i)
 	m.update()
 
 	obj2 = gp.quicksum([z[p] for p in range(len(allowed_patterns))])
@@ -73,7 +73,7 @@ def lp_builder(n,
 	return m
 
 
-model = lp_runner(inputfilepath="in/instance11.txt")
+model = lp_runner(inputfilepath="in/instance1.txt")
 if model.status == GRB.OPTIMAL:
 	for v in model.getVars():
 		if v.X > 0.001:
