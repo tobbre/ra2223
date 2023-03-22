@@ -147,7 +147,7 @@ while target_lp_sol > 0:
 					x_used[pat] = z[pat].X
 				obj = m2.getObjective().getValue()
 
-				if obj >= target_lp_sol + 1:
+				if obj >= target_lp_sol + 2:
 					print("Allowed patterns:")
 					for pat in patterns:
 						if x_[pat] >= 0.9:
