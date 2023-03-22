@@ -62,7 +62,7 @@ def lp_builder(n,
 	z = [m.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
 				  name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
 	for i in range(dimension):
-		m.addConstr(gp.quicksum([z[p] * allowed_patterns[p][i] for p in range(len(allowed_patterns))]) >= n[i],
+		m.addConstr(gp.quicksum([z[p] * allowed_patterns[p][i] for p in range(len(allowed_patterns))]) == n[i],
 					name="m2coverage%s" % i)
 	m.update()
 
@@ -73,7 +73,7 @@ def lp_builder(n,
 	return m
 
 
-model = lp_runner(inputfilepath="in/instance11.txt")
+model = lp_runner(inputfilepath="in/instance0.txt")
 if model.status == GRB.OPTIMAL:
 	for v in model.getVars():
 		if v.X > 0.001:
