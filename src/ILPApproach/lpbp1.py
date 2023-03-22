@@ -59,7 +59,7 @@ def lp_builder(n,
 			   dimension):
 	m = gp.Model("ILP solution finder")
 
-	z = [m.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
+	z = [m.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=dimension,
 				  name="z(" + pattern_to_string(pat) + ")") for pat in allowed_patterns]
 	for i in range(dimension):
 		m.addConstr(gp.quicksum([z[p] * allowed_patterns[p][i] for p in range(len(allowed_patterns))]) == n[i],

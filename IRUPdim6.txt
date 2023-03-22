@@ -1,0 +1,685 @@
+/Users/tobiasbreuer/miniforge3/envs/mlp/bin/python /Users/tobiasbreuer/Desktop/E&OR/Research Assistantship/pythoncode/RA2223/src/ILPApproach/MILPdimensions1.py
+#############################################################
+--------------------- target_lp_sol = 6---------------------
+#############################################################
+Set parameter Username
+Academic license - for non-commercial use only - expires 2023-09-16
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6663 rows, 1116 columns and 16812 nonzeros
+Model fingerprint: 0x3d912db5
+Variable types: 468 continuous, 648 integer (642 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 3e+01]
+  RHS range        [1e+00, 3e+01]
+Presolve removed 3460 rows and 58 columns
+Presolve time: 0.05s
+Presolved: 3203 rows, 1058 columns, 9845 nonzeros
+Variable types: 468 continuous, 590 integer (584 binary)
+
+Root relaxation: objective 0.000000e+00, 452 iterations, 0.01 seconds (0.02 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   82          -    0.00000      -     -    0s
+     0     0    0.00000    0   87          -    0.00000      -     -    0s
+     0     0    0.00000    0   91          -    0.00000      -     -    0s
+     0     0    0.00000    0    2          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     2    0.00000    0    8          -    0.00000      -     -    0s
+  2466   491    0.00000   28    5          -    0.00000      -  14.0    5s
+  5818   875 infeasible   32               -    0.00000      -  10.5   10s
+  8859  1023 infeasible   34               -    0.00000      -   9.3   15s
+ 12072  1240 infeasible   41               -    0.00000      -   8.8   20s
+ 15034  1424    0.00000   30    -          -    0.00000      -   8.5   25s
+ 19094  1573    0.00000   29    -          -    0.00000      -   8.1   31s
+ 21801  1639    0.00000   33    6          -    0.00000      -   8.0   35s
+ 25306  1885 infeasible   28               -    0.00000      -   7.9   40s
+ 28670  2002    0.00000   34    -          -    0.00000      -   7.9   45s
+ 32043  2288 infeasible   30               -    0.00000      -   7.9   50s
+ 36495  2302 infeasible   44               -    0.00000      -   8.0   55s
+ 40076  2348    0.00000   27    6          -    0.00000      -   8.0   60s
+ 44729  2347 infeasible   34               -    0.00000      -   8.1   65s
+ 49498  2402 infeasible   35               -    0.00000      -   8.2   70s
+ 54467  2372    0.00000   29    4          -    0.00000      -   8.2   75s
+ 58599  2436    0.00000   33    -          -    0.00000      -   8.3   80s
+ 62699  2393    0.00000   29    6          -    0.00000      -   8.3   85s
+ 67865  2270    0.00000   38    6          -    0.00000      -   8.4   90s
+ 74156  2136    0.00000   38    5          -    0.00000      -   8.5   95s
+ 79580  2049    0.00000   33    -          -    0.00000      -   8.5  101s
+ 83981  1856 infeasible   28               -    0.00000      -   8.6  105s
+ 89623  1651    0.00000   24    8          -    0.00000      -   8.6  110s
+ 94236  1704    0.00000   28    8          -    0.00000      -   8.6  115s
+ 100719  1430 infeasible   36               -    0.00000      -   8.7  120s
+ 106380  1283    0.00000   23    5          -    0.00000      -   8.7  125s
+ 110890  1091 infeasible   31               -    0.00000      -   8.7  130s
+ 116488   865 infeasible   36               -    0.00000      -   8.8  135s
+ 121450   853    0.00000   22    -          -    0.00000      -   8.8  140s
+ 124663   997    0.00000   22    1          -    0.00000      -   8.8  145s
+ 128217  1241 infeasible   33               -    0.00000      -   8.8  150s
+ 131406  1218 infeasible   32               -    0.00000      -   8.7  155s
+ 134651  1308 infeasible   39               -    0.00000      -   8.7  160s
+ 138526  1314    0.00000   31    3          -    0.00000      -   8.8  165s
+ 142429  1276    0.00000   27    9          -    0.00000      -   8.8  170s
+ 147206  1152    0.00000   30    7          -    0.00000      -   8.8  175s
+ 152193  1088    0.00000   31    9          -    0.00000      -   8.9  180s
+ 157696   788    0.00000   38   11          -    0.00000      -   8.9  185s
+ 162244   800 infeasible   29               -    0.00000      -   9.0  191s
+ 164953   797    0.00000   29    7          -    0.00000      -   9.0  195s
+ 169682   852    0.00000   26    2          -    0.00000      -   9.1  200s
+ 171548  1078    0.00000   24    8          -    0.00000      -   9.1  206s
+ 171551  1080    0.00000   27   10          -    0.00000      -   9.1  210s
+ 171553  1083    0.00000   10   17          -    0.00000      -   9.1  237s
+ 171555  1086    0.00000   11   15          -    0.00000      -   9.1  255s
+ 171558  1090    0.00000   12    1          -    0.00000      -   9.2  271s
+ 171564  1094 infeasible   13               -    0.00000      -   9.2  277s
+ 171610  1107    0.00000   15   10          -    0.00000      -   9.2  280s
+ 173131   960    0.00000   24    -          -    0.00000      -   9.2  285s
+Allowed patterns:
+(0, 0, 0, 0, 0, 0) 1
+(0, 0, 0, 0, 0, 1) 1
+(0, 0, 0, 0, 1, 0) 1
+(0, 0, 0, 0, 2, 0) 1
+(0, 0, 0, 1, 0, 0) 1
+(0, 0, 0, 1, 1, 0) 1
+(0, 0, 0, 2, 0, 0) 1
+(0, 0, 1, 0, 0, 0) 1
+(0, 0, 1, 0, 0, 1) 1
+(0, 0, 1, 0, 1, 0) 1
+(0, 0, 1, 1, 0, 0) 1
+(0, 0, 2, 0, 0, 0) 1
+(0, 0, 3, 0, 0, 0) 1
+(0, 1, 0, 0, 0, 0) 1
+(0, 1, 0, 0, 0, 1) 1
+(0, 1, 0, 0, 1, 0) 1
+(0, 1, 0, 1, 0, 0) 1
+(0, 1, 1, 0, 0, 0) 1
+(0, 1, 2, 0, 0, 0) 1
+(0, 2, 0, 0, 0, 0) 1
+(0, 2, 0, 0, 1, 0) 1
+(0, 2, 0, 1, 0, 0) 1
+(0, 2, 1, 0, 0, 0) 1
+(0, 3, 0, 0, 0, 0) 1
+(0, 3, 1, 0, 0, 0) 1
+(0, 4, 0, 0, 0, 0) 1
+(1, 0, 0, 0, 0, 0) 1
+(1, 0, 0, 0, 0, 1) 1
+(1, 0, 0, 0, 1, 0) 1
+(1, 0, 0, 1, 0, 0) 1
+(1, 0, 1, 0, 0, 0) 1
+(1, 0, 2, 0, 0, 0) 1
+(1, 1, 0, 0, 0, 0) 1
+(1, 1, 0, 0, 1, 0) 1
+(1, 1, 0, 1, 0, 0) 1
+(1, 1, 1, 0, 0, 0) 1
+(1, 2, 0, 0, 0, 0) 1
+(1, 2, 1, 0, 0, 0) 1
+(1, 3, 0, 0, 0, 0) 1
+(1, 4, 0, 0, 0, 0) 1
+(2, 0, 0, 0, 0, 0) 1
+(2, 0, 0, 0, 1, 0) 1
+(2, 0, 0, 1, 0, 0) 1
+(2, 0, 1, 0, 0, 0) 1
+(2, 1, 0, 0, 0, 0) 1
+(2, 1, 1, 0, 0, 0) 1
+(2, 2, 0, 0, 0, 0) 1
+(2, 3, 0, 0, 0, 0) 1
+(3, 0, 0, 0, 0, 0) 1
+(3, 0, 1, 0, 0, 0) 1
+(3, 1, 0, 0, 0, 0) 1
+(3, 2, 0, 0, 0, 0) 1
+(4, 0, 0, 0, 0, 0) 1
+(4, 1, 0, 0, 0, 0) 1
+(5, 0, 0, 0, 0, 0) 1
+Used patterns:
+(0, 0, 0, 0, 2, 0) 1.0
+(0, 0, 1, 0, 1, 0) 1.0
+(1, 0, 0, 0, 0, 1) 1.0
+(1, 0, 0, 1, 0, 0) 2.0
+(1, 2, 1, 0, 0, 0) 2.0
+CallbackMIP is feasible, but ILP objective value is 7.0!
+*173763   823              27       0.0000000    0.00000  0.00%   9.2  287s
+
+Cutting planes:
+  Lazy constraints: 536
+
+Explored 174308 nodes (1611812 simplex iterations) in 287.53 seconds (541.26 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 0
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+User-callback calls 417993, time in user-callback 131.25 sec
+n0 5
+n1 4
+n2 3
+n3 2
+n4 3
+n5 1
+n_0^0 1
+n_0^1 1
+n_0^2 1
+n_0^3 1
+n_0^4 1
+n_1^0 1
+n_1^1 1
+n_1^2 1
+n_1^3 1
+n_2^0 1
+n_2^1 1
+n_2^2 1
+n_3^0 1
+n_3^1 1
+n_4^0 1
+n_4^1 1
+n_4^2 1
+n_5^0 1
+x(0, 0, 0, 0, 0, 0) 1
+x(0, 0, 0, 0, 0, 1) 1
+x(0, 0, 0, 0, 1, 0) 1
+x(0, 0, 0, 0, 2, 0) 1
+x(0, 0, 0, 1, 0, 0) 1
+x(0, 0, 0, 1, 1, 0) 1
+x(0, 0, 0, 2, 0, 0) 1
+x(0, 0, 1, 0, 0, 0) 1
+x(0, 0, 1, 0, 0, 1) 1
+x(0, 0, 1, 0, 1, 0) 1
+x(0, 0, 1, 1, 0, 0) 1
+x(0, 0, 2, 0, 0, 0) 1
+x(0, 0, 3, 0, 0, 0) 1
+x(0, 1, 0, 0, 0, 0) 1
+x(0, 1, 0, 0, 0, 1) 1
+x(0, 1, 0, 0, 1, 0) 1
+x(0, 1, 0, 1, 0, 0) 1
+x(0, 1, 1, 0, 0, 0) 1
+x(0, 1, 2, 0, 0, 0) 1
+x(0, 2, 0, 0, 0, 0) 1
+x(0, 2, 0, 0, 1, 0) 1
+x(0, 2, 0, 1, 0, 0) 1
+x(0, 2, 1, 0, 0, 0) 1
+x(0, 3, 0, 0, 0, 0) 1
+x(0, 3, 1, 0, 0, 0) 1
+x(0, 4, 0, 0, 0, 0) 1
+x(1, 0, 0, 0, 0, 0) 1
+x(1, 0, 0, 0, 0, 1) 1
+x(1, 0, 0, 0, 1, 0) 1
+x(1, 0, 0, 1, 0, 0) 1
+x(1, 0, 1, 0, 0, 0) 1
+x(1, 0, 2, 0, 0, 0) 1
+x(1, 1, 0, 0, 0, 0) 1
+x(1, 1, 0, 0, 1, 0) 1
+x(1, 1, 0, 1, 0, 0) 1
+x(1, 1, 1, 0, 0, 0) 1
+x(1, 2, 0, 0, 0, 0) 1
+x(1, 2, 1, 0, 0, 0) 1
+x(1, 3, 0, 0, 0, 0) 1
+x(1, 4, 0, 0, 0, 0) 1
+x(2, 0, 0, 0, 0, 0) 1
+x(2, 0, 0, 0, 1, 0) 1
+x(2, 0, 0, 1, 0, 0) 1
+x(2, 0, 1, 0, 0, 0) 1
+x(2, 1, 0, 0, 0, 0) 1
+x(2, 1, 1, 0, 0, 0) 1
+x(2, 2, 0, 0, 0, 0) 1
+x(2, 3, 0, 0, 0, 0) 1
+x(3, 0, 0, 0, 0, 0) 1
+x(3, 0, 1, 0, 0, 0) 1
+x(3, 1, 0, 0, 0, 0) 1
+x(3, 2, 0, 0, 0, 0) 1
+x(4, 0, 0, 0, 0, 0) 1
+x(4, 1, 0, 0, 0, 0) 1
+x(5, 0, 0, 0, 0, 0) 1
+s[0] 0.199992
+s[1] 0.200002
+s[2] 0.333333
+s[3] 0.466685
+s[4] 0.5
+s[5] 0.666667
+y(0, 0, 0, 0, 2, 0) 1
+y(0, 0, 0, 1, 1, 0) 1
+y(0, 0, 0, 2, 0, 0) 0.5
+y(0, 0, 1, 0, 0, 1) 1
+y(0, 0, 3, 0, 0, 0) 0.666667
+y(1, 4, 0, 0, 0, 0) 0.5
+y(3, 2, 0, 0, 0, 0) 1
+y(5, 0, 0, 0, 0, 0) 0.3
+Obj: 0
+RT: 287.5855462551117 seconds.
+#############################################################
+--------------------- target_lp_sol = 5---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6633 rows, 1086 columns and 16722 nonzeros
+Model fingerprint: 0xe7e7caf7
+Variable types: 468 continuous, 618 integer (612 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 2e+01]
+  RHS range        [1e+00, 2e+01]
+Presolve removed 3821 rows and 173 columns
+Presolve time: 0.09s
+Presolved: 2812 rows, 913 columns, 8660 nonzeros
+Variable types: 414 continuous, 499 integer (493 binary)
+
+Root relaxation: objective 0.000000e+00, 420 iterations, 0.01 seconds (0.02 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0  104          -    0.00000      -     -    0s
+     0     0    0.00000    0   17          -    0.00000      -     -    0s
+     0     0    0.00000    0  199          -    0.00000      -     -    0s
+     0     0    0.00000    0  197          -    0.00000      -     -    0s
+     0     0    0.00000    0   98          -    0.00000      -     -    0s
+     0     0    0.00000    0    3          -    0.00000      -     -    1s
+     0     0    0.00000    0   62          -    0.00000      -     -    1s
+     0     0    0.00000    0    7          -    0.00000      -     -    1s
+     0     2    0.00000    0    7          -    0.00000      -     -    1s
+  3043   420    0.00000   16    3          -    0.00000      -  16.0    5s
+Allowed patterns:
+(0, 0, 0, 0, 0, 0) 1
+(0, 0, 0, 0, 0, 1) 1
+(0, 0, 0, 0, 1, 0) 1
+(0, 0, 0, 1, 0, 0) 1
+(0, 0, 0, 1, 1, 0) 1
+(0, 0, 0, 2, 0, 0) 1
+(0, 0, 0, 3, 0, 0) 1
+(0, 0, 1, 0, 0, 0) 1
+(0, 0, 1, 0, 0, 1) 1
+(0, 0, 1, 0, 1, 0) 1
+(0, 0, 1, 1, 0, 0) 1
+(0, 0, 1, 2, 0, 0) 1
+(0, 0, 2, 0, 0, 0) 1
+(0, 0, 2, 1, 0, 0) 1
+(0, 0, 3, 0, 0, 0) 1
+(0, 1, 0, 0, 0, 0) 1
+(0, 1, 0, 0, 0, 1) 1
+(0, 1, 0, 0, 1, 0) 1
+(0, 1, 0, 1, 0, 0) 1
+(0, 1, 0, 2, 0, 0) 1
+(0, 1, 1, 0, 0, 0) 1
+(0, 1, 1, 0, 1, 0) 1
+(0, 1, 1, 1, 0, 0) 1
+(0, 1, 2, 0, 0, 0) 1
+(0, 1, 3, 0, 0, 0) 1
+(0, 2, 0, 0, 0, 0) 1
+(0, 2, 0, 0, 1, 0) 1
+(0, 2, 0, 1, 0, 0) 1
+(0, 2, 1, 0, 0, 0) 1
+(0, 2, 2, 0, 0, 0) 1
+(0, 3, 0, 0, 0, 0) 1
+(0, 3, 0, 1, 0, 0) 1
+(0, 3, 1, 0, 0, 0) 1
+(0, 4, 0, 0, 0, 0) 1
+(1, 0, 0, 0, 0, 0) 1
+(1, 0, 0, 0, 0, 1) 1
+(1, 0, 0, 0, 1, 0) 1
+(1, 0, 0, 1, 0, 0) 1
+(1, 0, 0, 2, 0, 0) 1
+(1, 0, 1, 0, 0, 0) 1
+(1, 0, 1, 0, 1, 0) 1
+(1, 0, 1, 1, 0, 0) 1
+(1, 0, 2, 0, 0, 0) 1
+(1, 0, 3, 0, 0, 0) 1
+(1, 1, 0, 0, 0, 0) 1
+(1, 1, 0, 0, 1, 0) 1
+(1, 1, 0, 1, 0, 0) 1
+(1, 1, 1, 0, 0, 0) 1
+(1, 1, 1, 1, 0, 0) 1
+(1, 1, 2, 0, 0, 0) 1
+(1, 2, 0, 0, 0, 0) 1
+(1, 2, 0, 1, 0, 0) 1
+(1, 2, 1, 0, 0, 0) 1
+(1, 3, 0, 0, 0, 0) 1
+(1, 4, 0, 0, 0, 0) 1
+(2, 0, 0, 0, 0, 0) 1
+(2, 0, 0, 0, 1, 0) 1
+(2, 0, 0, 1, 0, 0) 1
+(2, 0, 0, 2, 0, 0) 1
+(2, 0, 1, 0, 0, 0) 1
+(2, 0, 1, 1, 0, 0) 1
+(2, 0, 2, 0, 0, 0) 1
+(2, 1, 0, 0, 0, 0) 1
+(2, 1, 0, 1, 0, 0) 1
+(2, 1, 1, 0, 0, 0) 1
+(2, 2, 0, 0, 0, 0) 1
+(2, 3, 0, 0, 0, 0) 1
+(3, 0, 0, 0, 0, 0) 1
+(3, 0, 0, 1, 0, 0) 1
+(3, 0, 1, 0, 0, 0) 1
+(3, 1, 0, 0, 0, 0) 1
+(3, 1, 1, 0, 0, 0) 1
+(3, 2, 0, 0, 0, 0) 1
+(4, 0, 0, 0, 0, 0) 1
+(4, 0, 0, 1, 0, 0) 1
+(4, 0, 1, 0, 0, 0) 1
+(4, 1, 0, 0, 0, 0) 1
+(5, 0, 0, 0, 0, 0) 1
+Used patterns:
+(0, 0, 0, 0, 1, 0) 1.0
+(0, 0, 1, 0, 0, 1) 1.0
+(0, 2, 0, 1, 0, 0) 1.0
+(1, 0, 3, 0, 0, 0) 1.0
+(2, 1, 0, 1, 0, 0) 2.0
+CallbackMIP is feasible, but ILP objective value is 6.0!
+* 3044   409              17       0.0000000    0.00000  0.00%  16.0    5s
+
+Cutting planes:
+  Cover: 24
+  Implied bound: 51
+  Clique: 10
+  MIR: 12
+  GUB cover: 3
+  Relax-and-lift: 4
+  BQP: 4
+  PSD: 32
+  Lazy constraints: 421
+
+Explored 3605 nodes (66908 simplex iterations) in 5.46 seconds (3.16 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 0
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+User-callback calls 8334, time in user-callback 3.56 sec
+n0 5
+n1 4
+n2 4
+n3 3
+n4 1
+n5 1
+n_0^0 1
+n_0^1 1
+n_0^2 1
+n_0^3 1
+n_0^4 1
+n_1^0 1
+n_1^1 1
+n_1^2 1
+n_1^3 1
+n_2^0 1
+n_2^1 1
+n_2^2 1
+n_2^3 1
+n_3^0 1
+n_3^1 1
+n_3^2 1
+n_4^0 1
+n_5^0 1
+x(0, 0, 0, 0, 0, 0) 1
+x(0, 0, 0, 0, 0, 1) 1
+x(0, 0, 0, 0, 1, 0) 1
+x(0, 0, 0, 1, 0, 0) 1
+x(0, 0, 0, 1, 1, 0) 1
+x(0, 0, 0, 2, 0, 0) 1
+x(0, 0, 0, 3, 0, 0) 1
+x(0, 0, 1, 0, 0, 0) 1
+x(0, 0, 1, 0, 0, 1) 1
+x(0, 0, 1, 0, 1, 0) 1
+x(0, 0, 1, 1, 0, 0) 1
+x(0, 0, 1, 2, 0, 0) 1
+x(0, 0, 2, 0, 0, 0) 1
+x(0, 0, 2, 1, 0, 0) 1
+x(0, 0, 3, 0, 0, 0) 1
+x(0, 1, 0, 0, 0, 0) 1
+x(0, 1, 0, 0, 0, 1) 1
+x(0, 1, 0, 0, 1, 0) 1
+x(0, 1, 0, 1, 0, 0) 1
+x(0, 1, 0, 2, 0, 0) 1
+x(0, 1, 1, 0, 0, 0) 1
+x(0, 1, 1, 0, 1, 0) 1
+x(0, 1, 1, 1, 0, 0) 1
+x(0, 1, 2, 0, 0, 0) 1
+x(0, 1, 3, 0, 0, 0) 1
+x(0, 2, 0, 0, 0, 0) 1
+x(0, 2, 0, 0, 1, 0) 1
+x(0, 2, 0, 1, 0, 0) 1
+x(0, 2, 1, 0, 0, 0) 1
+x(0, 2, 2, 0, 0, 0) 1
+x(0, 3, 0, 0, 0, 0) 1
+x(0, 3, 0, 1, 0, 0) 1
+x(0, 3, 1, 0, 0, 0) 1
+x(0, 4, 0, 0, 0, 0) 1
+x(1, 0, 0, 0, 0, 0) 1
+x(1, 0, 0, 0, 0, 1) 1
+x(1, 0, 0, 0, 1, 0) 1
+x(1, 0, 0, 1, 0, 0) 1
+x(1, 0, 0, 2, 0, 0) 1
+x(1, 0, 1, 0, 0, 0) 1
+x(1, 0, 1, 0, 1, 0) 1
+x(1, 0, 1, 1, 0, 0) 1
+x(1, 0, 2, 0, 0, 0) 1
+x(1, 0, 3, 0, 0, 0) 1
+x(1, 1, 0, 0, 0, 0) 1
+x(1, 1, 0, 0, 1, 0) 1
+x(1, 1, 0, 1, 0, 0) 1
+x(1, 1, 1, 0, 0, 0) 1
+x(1, 1, 1, 1, 0, 0) 1
+x(1, 1, 2, 0, 0, 0) 1
+x(1, 2, 0, 0, 0, 0) 1
+x(1, 2, 0, 1, 0, 0) 1
+x(1, 2, 1, 0, 0, 0) 1
+x(1, 3, 0, 0, 0, 0) 1
+x(1, 4, 0, 0, 0, 0) 1
+x(2, 0, 0, 0, 0, 0) 1
+x(2, 0, 0, 0, 1, 0) 1
+x(2, 0, 0, 1, 0, 0) 1
+x(2, 0, 0, 2, 0, 0) 1
+x(2, 0, 1, 0, 0, 0) 1
+x(2, 0, 1, 1, 0, 0) 1
+x(2, 0, 2, 0, 0, 0) 1
+x(2, 1, 0, 0, 0, 0) 1
+x(2, 1, 0, 1, 0, 0) 1
+x(2, 1, 1, 0, 0, 0) 1
+x(2, 2, 0, 0, 0, 0) 1
+x(2, 3, 0, 0, 0, 0) 1
+x(3, 0, 0, 0, 0, 0) 1
+x(3, 0, 0, 1, 0, 0) 1
+x(3, 0, 1, 0, 0, 0) 1
+x(3, 1, 0, 0, 0, 0) 1
+x(3, 1, 1, 0, 0, 0) 1
+x(3, 2, 0, 0, 0, 0) 1
+x(4, 0, 0, 0, 0, 0) 1
+x(4, 0, 0, 1, 0, 0) 1
+x(4, 0, 1, 0, 0, 0) 1
+x(4, 1, 0, 0, 0, 0) 1
+x(5, 0, 0, 0, 0, 0) 1
+s[0] 0.166677
+s[1] 0.208331
+s[2] 0.250055
+s[3] 0.333293
+s[4] 0.50004
+s[5] 0.666717
+y(0, 0, 0, 3, 0, 0) 0.527778
+y(0, 0, 1, 0, 0, 1) 1
+y(0, 1, 1, 0, 1, 0) 1
+y(0, 1, 3, 0, 0, 0) 0.666667
+y(1, 4, 0, 0, 0, 0) 0.583333
+y(2, 0, 0, 2, 0, 0) 0.208333
+y(4, 0, 0, 1, 0, 0) 1
+Obj: 0
+RT: 5.514107942581177 seconds.
+#############################################################
+--------------------- target_lp_sol = 4---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6603 rows, 1056 columns and 16632 nonzeros
+Model fingerprint: 0x3e683005
+Variable types: 468 continuous, 588 integer (582 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 2e+01]
+  RHS range        [1e+00, 2e+01]
+Presolve removed 4913 rows and 476 columns
+Presolve time: 0.09s
+Presolved: 1690 rows, 580 columns, 5138 nonzeros
+Variable types: 261 continuous, 319 integer (313 binary)
+
+Root relaxation: objective 0.000000e+00, 286 iterations, 0.00 seconds (0.01 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   80          -    0.00000      -     -    0s
+     0     0    0.00000    0   63          -    0.00000      -     -    0s
+     0     0    0.00000    0   48          -    0.00000      -     -    0s
+     0     0    0.00000    0   48          -    0.00000      -     -    0s
+     0     0    0.00000    0   54          -    0.00000      -     -    0s
+     0     0    0.00000    0   53          -    0.00000      -     -    0s
+     0     0    0.00000    0   63          -    0.00000      -     -    0s
+     0     0    0.00000    0   60          -    0.00000      -     -    0s
+     0     0    0.00000    0   60          -    0.00000      -     -    0s
+     0     2    0.00000    0   60          -    0.00000      -     -    0s
+
+Cutting planes:
+  Cover: 123
+  Implied bound: 116
+  Clique: 17
+  MIR: 25
+  Flow cover: 3
+  GUB cover: 2
+  Zero half: 1
+  RLT: 7
+  Relax-and-lift: 10
+
+Explored 349 nodes (31961 simplex iterations) in 1.10 seconds (2.07 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 1172, time in user-callback 0.00 sec
+RT: 1.1544420719146729 seconds.
+#############################################################
+--------------------- target_lp_sol = 3---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6573 rows, 1026 columns and 16542 nonzeros
+Model fingerprint: 0xcaba9004
+Variable types: 468 continuous, 558 integer (552 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 1e+01]
+  RHS range        [1e+00, 2e+01]
+Presolve removed 5872 rows and 749 columns
+Presolve time: 0.07s
+Presolved: 701 rows, 277 columns, 2087 nonzeros
+Variable types: 126 continuous, 151 integer (145 binary)
+
+Root relaxation: objective 0.000000e+00, 284 iterations, 0.00 seconds (0.01 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   68          -    0.00000      -     -    0s
+     0     0    0.00000    0   65          -    0.00000      -     -    0s
+     0     0    0.00000    0   69          -    0.00000      -     -    0s
+     0     0    0.00000    0   86          -    0.00000      -     -    0s
+     0     0    0.00000    0   88          -    0.00000      -     -    0s
+     0     0    0.00000    0   67          -    0.00000      -     -    0s
+     0     0    0.00000    0   62          -    0.00000      -     -    0s
+     0     0    0.00000    0   65          -    0.00000      -     -    0s
+     0     0    0.00000    0   65          -    0.00000      -     -    0s
+     0     2    0.00000    0   65          -    0.00000      -     -    0s
+
+Cutting planes:
+  Cover: 22
+  Implied bound: 23
+  Clique: 14
+  MIR: 11
+  Flow cover: 1
+  RLT: 7
+  Relax-and-lift: 6
+  BQP: 2
+
+Explored 11 nodes (3039 simplex iterations) in 0.24 seconds (0.34 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 512, time in user-callback 0.00 sec
+RT: 0.2973949909210205 seconds.
+#############################################################
+--------------------- target_lp_sol = 2---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6543 rows, 996 columns and 16452 nonzeros
+Model fingerprint: 0xa020d10c
+Variable types: 468 continuous, 528 integer (522 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 9e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 6388 rows and 915 columns
+Presolve time: 0.02s
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds (0.02 work units)
+Thread count was 1 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 252, time in user-callback 0.00 sec
+RT: 0.06270623207092285 seconds.
+#############################################################
+--------------------- target_lp_sol = 1---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6513 rows, 966 columns and 16362 nonzeros
+Model fingerprint: 0x550873ce
+Variable types: 468 continuous, 498 integer (492 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 7e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [2e-01, 6e+00]
+  RHS range        [1e+00, 8e+00]
+Presolve removed 2719 rows and 47 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)
+Thread count was 1 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 56, time in user-callback 0.00 sec
+RT: 0.05299997329711914 seconds.
+
+Process finished with exit code 0

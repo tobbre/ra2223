@@ -5,7 +5,7 @@ from gurobipy import GRB
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 5
+dimension = 8
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -65,7 +65,7 @@ while target_lp_sol > 0:
 
 		for pat in patterns:
 			for i in range(dimension):
-				m.addConstr(n[i] - pat[i] >= 0 - (1-x[pat]) * M)
+				m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
 
 		keys = list(x)
 		for key_as_tuple in keys:
@@ -86,7 +86,7 @@ while target_lp_sol > 0:
 
 		# s[i] is the size of an item in category i
 		# In the following constraints we use big M
-		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=(1 / dimension + 0.00001), ub=1, name="s[%s]" % i) for i in
+		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
 		     range(dimension)]
 		m.update()
 		for pat in patterns:
@@ -99,7 +99,7 @@ while target_lp_sol > 0:
 
 		y = {}
 		for pat in patterns:
-			y[pat] = m.addVar(vtype=GRB.CONTINUOUS, name="y(" + pattern_to_string(list(pat)) + ")", lb=0, ub=dimension)
+			y[pat] = m.addVar(vtype=GRB.CONTINUOUS, name="y(" + pattern_to_string(list(pat)) + ")", lb=0, ub=1 - 0.00001)
 		m.update()
 		for pat in patterns:
 			m.addConstr(y[pat] <= x[pat], name="usage")
@@ -119,7 +119,6 @@ while target_lp_sol > 0:
 			m2 = gp.Model("CallbackMIP")
 			m2.Params.OutputFlag = 0
 			# m2.Params.Threads = 24
-			m2.Params.Method = -1
 			m2.update()
 
 			z = {}
@@ -166,10 +165,11 @@ while target_lp_sol > 0:
 		def callback(model, where):
 			if where == GRB.Callback.MIPSOL:
 				x_ = model.cbGetSolution(x)
+				n_ = model.cbGetSolution(n)
 				for pat in patterns:
 					x_[pat] = round(x_[pat])
-
-				n_ = model.cbGetSolution(n)
+				for i in range(dimension):
+					n_[i] = round(n_[i])
 
 				y_ = model.cbGetSolution(y)
 				sumy = gp.quicksum(y_)  # for diagnostic purposes only
@@ -180,7 +180,7 @@ while target_lp_sol > 0:
 				status, x_used, obj = callbackMIP(x_, n_)
 
 				if status == 2:  # If the callback MIP has found a solution
-					if obj <= target_lp_sol: # + 1:
+					if obj <= target_lp_sol + 1.00001:
 						sum = 0
 						counter = 0
 						for pat in patterns:
