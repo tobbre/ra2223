@@ -86,7 +86,10 @@ while target_lp_sol > 0:
 
 		# s[i] is the size of an item in category i
 		# In the following constraints we use big M
-		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
+		# TODO: potentially switch the variable definition back.
+		# s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
+		#      range(dimension)]
+		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1/4 + 0.00001, ub=1/2 - 0.00001, name="s[%s]" % i) for i in
 		     range(dimension)]
 		m.update()
 		for pat in patterns:
