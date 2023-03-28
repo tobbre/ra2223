@@ -1,0 +1,406 @@
+/Users/alinabilokonieva/PycharmProjects/ra2223/venv/bin/Python /Users/alinabilokonieva/PycharmProjects/ra2223/src/ILPApproach/MILPdimensions1.py
+#############################################################
+--------------------- target_lp_sol = 7---------------------
+#############################################################
+Set parameter Username
+Academic license - for non-commercial use only - expires 2023-12-15
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27767 rows, 3740 columns and 70731 nonzeros
+Model fingerprint: 0x2bf36530
+Variable types: 1723 continuous, 2017 integer (2010 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 4e+01]
+  RHS range        [1e+00, 4e+01]
+Presolve removed 27241 rows and 3438 columns
+Presolve time: 0.04s
+Presolved: 526 rows, 302 columns, 1721 nonzeros
+Variable types: 127 continuous, 175 integer (168 binary)
+
+Root relaxation: objective 0.000000e+00, 232 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     0    0.00000    0   15          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0   16          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0    9          -    0.00000      -     -    0s
+     0     0    0.00000    0    2          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     2    0.00000    0    8          -    0.00000      -     -    0s
+   411    19    0.00000   11    6          -    0.00000      -   6.5    5s
+  1034    74    0.00000   14    2          -    0.00000      -   6.4   11s
+  1321   140    0.00000   11    -          -    0.00000      -   6.6   15s
+  1754   164    0.00000   22    -          -    0.00000      -   7.0   21s
+  1952   137    0.00000   19    5          -    0.00000      -   7.0   25s
+  2375   149 infeasible   16               -    0.00000      -   7.0   32s
+  2574   185    0.00000   16    2          -    0.00000      -   7.1   35s
+  2975   212 infeasible   19               -    0.00000      -   7.2   43s
+  3193   226    0.00000   17    5          -    0.00000      -   7.0   47s
+  3401   235 infeasible   19               -    0.00000      -   7.0   50s
+  3810   200    0.00000   18    -          -    0.00000      -   7.0   56s
+  4252   242    0.00000   19   12          -    0.00000      -   7.0   62s
+  4448   232    0.00000   15   10          -    0.00000      -   7.0   65s
+  5049   152 infeasible   18               -    0.00000      -   7.2   70s
+  5663   108    0.00000   18   11          -    0.00000      -   7.3   75s
+  6758    29 infeasible   13               -    0.00000      -   7.5   80s
+  7457    38 infeasible   22               -    0.00000      -   7.5   85s
+  8003   136    0.00000   23    3          -    0.00000      -   7.6   92s
+  8334   224    0.00000   14    7          -    0.00000      -   7.6   97s
+  8690   265    0.00000   16    7          -    0.00000      -   7.6  101s
+  9030   267    0.00000   15    5          -    0.00000      -   7.6  106s
+  9407   315 infeasible   18               -    0.00000      -   7.5  112s
+  9768   307    0.00000   15    8          -    0.00000      -   7.5  117s
+ 10161   310    0.00000   19   11          -    0.00000      -   7.5  122s
+ 10553   309    0.00000   19    6          -    0.00000      -   7.4  129s
+ 10931   329 infeasible   21               -    0.00000      -   7.4  135s
+ 11303   363    0.00000   17    -          -    0.00000      -   7.4  141s
+ 11663   396    0.00000   17    -          -    0.00000      -   7.4  147s
+ 12014   395 infeasible   16               -    0.00000      -   7.4  152s
+ 12394   408 infeasible   18               -    0.00000      -   7.3  157s
+ 12735   399    0.00000   14    -          -    0.00000      -   7.3  162s
+ 13112   464    0.00000   14    9          -    0.00000      -   7.3  167s
+ 13400   447    0.00000   19   12          -    0.00000      -   7.3  170s
+ 13735   462    0.00000   16    8          -    0.00000      -   7.3  175s
+ 14368   457 infeasible   21               -    0.00000      -   7.3  181s
+ 14973   444    0.00000   15    7          -    0.00000      -   7.3  186s
+ 15585   459    0.00000   16    1          -    0.00000      -   7.4  191s
+ 16200   442 infeasible   18               -    0.00000      -   7.4  197s
+ 16787   432 infeasible   19               -    0.00000      -   7.4  200s
+ 17400   418 infeasible   20               -    0.00000      -   7.5  205s
+ 18378   414    0.00000   23    4          -    0.00000      -   7.5  212s
+ 19029   383 infeasible   19               -    0.00000      -   7.5  216s
+ 19673   367 infeasible   18               -    0.00000      -   7.6  220s
+ 20614   319    0.00000   19    7          -    0.00000      -   7.6  225s
+ 21657   296 infeasible   19               -    0.00000      -   7.7  230s
+ 22808   241    0.00000   16   10          -    0.00000      -   7.7  235s
+ 24228   120 infeasible   22               -    0.00000      -   7.8  241s
+ 25270    74 infeasible   14               -    0.00000      -   7.8  245s
+ 26447   153 infeasible   20               -    0.00000      -   7.8  254s
+ 26948   238    0.00000   19    5          -    0.00000      -   7.8  260s
+ 27492   249    0.00000   19    8          -    0.00000      -   7.8  267s
+ 28054   326    0.00000   21    -          -    0.00000      -   7.8  274s
+ 28571   347    0.00000   20    7          -    0.00000      -   7.7  281s
+ 29117   402    0.00000   23    -          -    0.00000      -   7.7  287s
+ 29640   435 infeasible   20               -    0.00000      -   7.7  292s
+ 30171   437    0.00000   22    8          -    0.00000      -   7.7  298s
+ 30706   482    0.00000   24    -          -    0.00000      -   7.6  305s
+ 31248   489    0.00000   15    8          -    0.00000      -   7.6  311s
+ 31789   504    0.00000   23    5          -    0.00000      -   7.6  316s
+ 32294   529 infeasible   22               -    0.00000      -   7.5  320s
+ 33231   544    0.00000   23    5          -    0.00000      -   7.5  326s
+ 34070   542    0.00000   21    -          -    0.00000      -   7.5  330s
+ 34950   565 infeasible   21               -    0.00000      -   7.5  335s
+ 35808   592    0.00000   20    6          -    0.00000      -   7.5  340s
+ 36673   591    0.00000   20    8          -    0.00000      -   7.5  345s
+ 38005   534    0.00000   19    5          -    0.00000      -   7.5  352s
+ 38924   529    0.00000   24    6          -    0.00000      -   7.5  356s
+ 39935   525    0.00000   19    8          -    0.00000      -   7.5  363s
+ 40506   523    0.00000   20    7          -    0.00000      -   7.5  368s
+ 41053   538 infeasible   24               -    0.00000      -   7.4  372s
+ 41556   543 infeasible   22               -    0.00000      -   7.4  375s
+ 42498   530    0.00000   23   11          -    0.00000      -   7.4  380s
+ 43913   488    0.00000   22    7          -    0.00000      -   7.4  386s
+ 44430   462 infeasible   22               -    0.00000      -   7.4  390s
+ 45899   451    0.00000   23    8          -    0.00000      -   7.4  396s
+ 46881   429 infeasible   22               -    0.00000      -   7.4  402s
+ 47878   360 infeasible   21               -    0.00000      -   7.4  406s
+ 49747   347    0.00000   17    8          -    0.00000      -   7.5  414s
+ 49749   348    0.00000   14    4          -    0.00000      -   7.5  419s
+ 49751   350    0.00000   25    7          -    0.00000      -   7.5  420s
+ 50163   396 infeasible   26               -    0.00000      -   7.6  425s
+ 51190   216    0.00000   26    6          -    0.00000      -   7.6  431s
+ 52213   231 infeasible   27               -    0.00000      -   7.6  435s
+ 54553   249    0.00000   22    6          -    0.00000      -   7.6  441s
+ 55923   248 infeasible   31               -    0.00000      -   7.6  445s
+ 58544   223 infeasible   30               -    0.00000      -   7.6  450s
+ 60902   252 infeasible   27               -    0.00000      -   7.7  455s
+ 63920   234    0.00000   26    8          -    0.00000      -   7.8  461s
+ 66630   104    0.00000   34   11          -    0.00000      -   7.8  465s
+ 68420    97    0.00000   26    6          -    0.00000      -   7.8  470s
+ 71097   103    0.00000   30    8          -    0.00000      -   7.9  475s
+ 73640    64 infeasible   30               -    0.00000      -   7.9  480s
+ 75492    41 infeasible   30               -    0.00000      -   8.0  485s
+ 77233    40    0.00000   31   11          -    0.00000      -   8.0  490s
+ 79012    15    0.00000   34    4          -    0.00000      -   8.1  495s
+
+Cutting planes:
+  Cover: 1
+  Implied bound: 1
+  Projected implied bound: 4
+  Clique: 2
+  Flow cover: 1
+  Inf proof: 10
+  Relax-and-lift: 1
+  Lazy constraints: 570
+
+Explored 79420 nodes (651250 simplex iterations) in 495.51 seconds (83.30 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 171826, time in user-callback 415.94 sec
+RT: 496.24914503097534 seconds.
+#############################################################
+--------------------- target_lp_sol = 6---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27725 rows, 3698 columns and 70605 nonzeros
+Model fingerprint: 0x664c113f
+Variable types: 1723 continuous, 1975 integer (1968 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 4e+01]
+  RHS range        [1e+00, 4e+01]
+Presolve removed 27213 rows and 3410 columns
+Presolve time: 0.04s
+Presolved: 512 rows, 288 columns, 1679 nonzeros
+Variable types: 127 continuous, 161 integer (154 binary)
+
+Root relaxation: objective 0.000000e+00, 257 iterations, 0.01 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     0    0.00000    0   10          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     0    0.00000    0    5          -    0.00000      -     -    0s
+     0     0    0.00000    0    7          -    0.00000      -     -    0s
+     0     0    0.00000    0    4          -    0.00000      -     -    0s
+     0     0    0.00000    0    7          -    0.00000      -     -    0s
+     0     0    0.00000    0    7          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0   13          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0   14          -    0.00000      -     -    0s
+     0     0    0.00000    0   11          -    0.00000      -     -    0s
+     0     0    0.00000    0   16          -    0.00000      -     -    0s
+     0     0    0.00000    0   16          -    0.00000      -     -    0s
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+     0     0    0.00000    0   30          -    0.00000      -     -    0s
+     0     0    0.00000    0   41          -    0.00000      -     -    1s
+     0     0    0.00000    0    -          -    0.00000      -     -    1s
+     0     0    0.00000    0    9          -    0.00000      -     -    1s
+     0     0    0.00000    0    9          -    0.00000      -     -    1s
+     0     0    0.00000    0    7          -    0.00000      -     -    1s
+     0     0    0.00000    0    -          -    0.00000      -     -    1s
+     0     0    0.00000    0    3          -    0.00000      -     -    1s
+     0     0    0.00000    0    -          -    0.00000      -     -    1s
+     0     0    0.00000    0   10          -    0.00000      -     -    1s
+     0     2    0.00000    0    9          -    0.00000      -     -    1s
+   334    12 infeasible   11               -    0.00000      -   8.9    6s
+   908     0 infeasible   11               -    0.00000      -   9.5   10s
+
+Cutting planes:
+  Cover: 10
+  Implied bound: 4
+  MIR: 5
+  Relax-and-lift: 2
+  Lazy constraints: 137
+
+Explored 977 nodes (11526 simplex iterations) in 10.59 seconds (0.25 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 2582, time in user-callback 10.21 sec
+RT: 11.266533136367798 seconds.
+#############################################################
+--------------------- target_lp_sol = 5---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27683 rows, 3656 columns and 70479 nonzeros
+Model fingerprint: 0x319d21aa
+Variable types: 1723 continuous, 1933 integer (1926 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 3e+01]
+  RHS range        [1e+00, 3e+01]
+Presolve removed 27185 rows and 3382 columns
+Presolve time: 0.04s
+Presolved: 498 rows, 274 columns, 1637 nonzeros
+Variable types: 127 continuous, 147 integer (140 binary)
+
+Root relaxation: infeasible, 7 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 infeasible    0               - infeasible      -     -    0s
+
+Explored 1 nodes (7 simplex iterations) in 0.05 seconds (0.04 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 252, time in user-callback 0.00 sec
+RT: 0.7301080226898193 seconds.
+#############################################################
+--------------------- target_lp_sol = 4---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27641 rows, 3614 columns and 70353 nonzeros
+Model fingerprint: 0x63976f80
+Variable types: 1723 continuous, 1891 integer (1884 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 2e+01]
+  RHS range        [1e+00, 2e+01]
+Presolve removed 27157 rows and 3354 columns
+Presolve time: 0.04s
+Presolved: 484 rows, 260 columns, 1595 nonzeros
+Variable types: 127 continuous, 133 integer (126 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds (0.04 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 242, time in user-callback 0.00 sec
+RT: 0.7200827598571777 seconds.
+#############################################################
+--------------------- target_lp_sol = 3---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27599 rows, 3572 columns and 70227 nonzeros
+Model fingerprint: 0x0a4c7967
+Variable types: 1723 continuous, 1849 integer (1842 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 2e+01]
+  RHS range        [1e+00, 2e+01]
+Presolve removed 27186 rows and 3352 columns
+Presolve time: 0.04s
+Presolved: 413 rows, 220 columns, 1398 nonzeros
+Variable types: 117 continuous, 103 integer (99 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds (0.04 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 327, time in user-callback 0.00 sec
+RT: 0.7278976440429688 seconds.
+#############################################################
+--------------------- target_lp_sol = 2---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27557 rows, 3530 columns and 70101 nonzeros
+Model fingerprint: 0x534d387b
+Variable types: 1723 continuous, 1807 integer (1800 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+01]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 27031 rows and 3228 columns
+Presolve time: 0.01s
+
+Explored 0 nodes (0 simplex iterations) in 0.01 seconds (0.02 work units)
+Thread count was 1 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 80, time in user-callback 0.00 sec
+RT: 0.6875791549682617 seconds.
+#############################################################
+--------------------- target_lp_sol = 1---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter NodefileStart to value 4
+Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (mac64[x86])
+
+CPU model: Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 27515 rows, 3488 columns and 69975 nonzeros
+Model fingerprint: 0x3f71f2a8
+Variable types: 1723 continuous, 1765 integer (1758 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 5e+00]
+  RHS range        [1e+00, 9e+00]
+Presolve removed 25936 rows and 3228 columns
+Presolve time: 0.01s
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds (0.02 work units)
+Thread count was 1 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 66, time in user-callback 0.00 sec
+RT: 0.693648099899292 seconds.
+
+Process finished with exit code 0
