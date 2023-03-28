@@ -105,6 +105,7 @@ while target_lp_sol > 0:
 			m.addConstr(y[pat] <= x[pat], name="usage")
 		for i in range(len(n)):
 			m.addConstr(gp.quicksum([y[pat] * pat[i] for pat in patterns]) == n[i], name="coverage")
+
 		m.addConstr(gp.quicksum([y[pat] for pat in patterns]) <= target_lp_sol - 0.01, name="lp_value_constraint")
 		m.update()
 
@@ -130,6 +131,8 @@ while target_lp_sol > 0:
 			for i in range(dimension):
 				m2.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) == n_[i],
 				             name="m2coverage%s" % i)
+
+
 			for pat in patterns:
 				m2.addConstr(z[pat] <= x_[pat] * dimension)
 
@@ -147,7 +150,7 @@ while target_lp_sol > 0:
 					x_used[pat] = z[pat].X
 				obj = m2.getObjective().getValue()
 
-				if obj >= target_lp_sol + 2:
+				if obj >= target_lp_sol + 1:
 					print("Allowed patterns:")
 					for pat in patterns:
 						if x_[pat] >= 0.9:
@@ -180,7 +183,7 @@ while target_lp_sol > 0:
 				status, x_used, obj = callbackMIP(x_, n_)
 
 				if status == 2:  # If the callback MIP has found a solution
-					if obj <= target_lp_sol + 1.00001:
+					if obj <= target_lp_sol + 0.00001:
 						sum = 0
 						counter = 0
 						for pat in patterns:
