@@ -1,0 +1,9 @@
+FIND DIFFERENT INSTANCE OF THIS PROBLEM!
+
+See the output BELOW the MILPdimensions1.py output. So for some reason, the CallbackILP does not find the
+actually optimal solution. For this I should investigate the differences between the CallbackMIP and my testerILP,
+regarding input and execution.
+ATTEMPTS:
+- Execution: the two MIPs CallbackMIP and testerILP are the same (Since they work in different environments the code is slightly
+different, but they should do exactly the same thing).
+- Inputs:
