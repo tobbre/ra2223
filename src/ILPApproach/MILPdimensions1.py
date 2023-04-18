@@ -5,7 +5,8 @@ from gurobipy import GRB
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 8
+dimension = 9
+# TODO: Switch this back
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -30,7 +31,7 @@ def pattern_to_string(pattern):
 
 patterns = pattern_finder(dimension)
 
-while target_lp_sol > 0:
+while target_lp_sol > 1:
 	num_items = target_lp_sol * (dimension - 1)
 	start_time = time.time()
 	print("#############################################################")
@@ -43,6 +44,7 @@ while target_lp_sol > 0:
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items - 1) for i in
 		     range(dimension)]
 		m.addConstr(gp.quicksum(n) <= num_items)
+
 
 		n_ik = []
 		for i in range(dimension):
@@ -60,56 +62,58 @@ while target_lp_sol > 0:
 		for pat in patterns:
 			x[pat] = m.addVar(vtype=GRB.BINARY, name="x(" + pattern_to_string(list(pat)) + ")")
 		m.update()
-		m.addConstr(x[patterns[0]] == 1)
-		m.addConstr(x[patterns[1]] == 1)
+		m.addConstr(x[patterns[0]] == 1)    # This ensures that pattern (0,0,...,0) is allowed
 
+		# This constraint ensures that no allowed pattern contains more items than there exist in a category
+		# In the following constraints we use big M
 		for pat in patterns:
 			for i in range(dimension):
 				m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
 
-		keys = list(x)
-		for key_as_tuple in keys:
-			key_as_array = list(key_as_tuple)
-			for i in range(dimension):
-				if key_as_array[i] != 0:
-					key_as_array[i] -= 1
-					m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
-					key_as_array[i] += 1
-			for i in range(1, dimension):
-				if key_as_array[i] != 0 and key_as_array[i-1] != dimension-1:
-					key_as_array[i] -= 1
-					key_as_array[i-1] += 1
-					m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
-					key_as_array[i-1] -= 1
-					key_as_array[i] += 1
-
-
 		# s[i] is the size of an item in category i
 		# In the following constraints we use big M
-		# TODO: potentially switch the variable definition back.
-		# s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
-		#      range(dimension)]
-		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1/4 + 0.00001, ub=1/2 - 0.00001, name="s[%s]" % i) for i in
+		def s_order_constraints():
+			for i in range(dimension - 1):
+				m.addConstr(s[i] <= s[i + 1])
+			keys = list(x)
+			for key_as_tuple in keys:
+				key_as_array = list(key_as_tuple)
+				for i in range(dimension):
+					if key_as_array[i] != 0:
+						key_as_array[i] -= 1
+						m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
+						key_as_array[i] += 1
+				for i in range(1, dimension):
+					if key_as_array[i] != 0 and key_as_array[i - 1] != dimension - 1:
+						key_as_array[i] -= 1
+						key_as_array[i - 1] += 1
+						m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
+						key_as_array[i - 1] -= 1
+						key_as_array[i] += 1
+
+		def n_order_constraints():
+			for i in range(dimension - 1):
+				m.addConstr(n[i] <= n[i + 1])
+
+		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
 		     range(dimension)]
 		m.update()
 		for pat in patterns:
 			m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
-			m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
-		for i in range(dimension - 1):
-			# Only one of these two constraints may be added.
-			m.addConstr(s[i] <= s[i + 1])
-			# m.addConstr(n[i] <= n[i + 1])
+			if sum(list(pat)) != 1:
+				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
+
 
 		y = {}
 		for pat in patterns:
-			y[pat] = m.addVar(vtype=GRB.CONTINUOUS, name="y(" + pattern_to_string(list(pat)) + ")", lb=0, ub=1 - 0.00001)
+			y[pat] = m.addVar(vtype=GRB.CONTINUOUS, name="y(" + pattern_to_string(list(pat)) + ")", lb=0, ub=1)
 		m.update()
 		for pat in patterns:
 			m.addConstr(y[pat] <= x[pat], name="usage")
 		for i in range(len(n)):
 			m.addConstr(gp.quicksum([y[pat] * pat[i] for pat in patterns]) == n[i], name="coverage")
 
-		m.addConstr(gp.quicksum([y[pat] for pat in patterns]) <= target_lp_sol - 0.01, name="lp_value_constraint")
+		m.addConstr(gp.quicksum([y[pat] for pat in patterns]) <= target_lp_sol, name="lp_value_constraint")
 		m.update()
 
 
@@ -153,15 +157,15 @@ while target_lp_sol > 0:
 					x_used[pat] = z[pat].X
 				obj = m2.getObjective().getValue()
 
-				if obj >= target_lp_sol + 1:
-					print("Allowed patterns:")
-					for pat in patterns:
-						if x_[pat] >= 0.9:
-							print(str(pat) + " " + str(x_[pat]))
-					print("Used patterns:")
-					for pat in patterns:
-						if x_used[pat] >= 0.99999:
-							print(str(pat) + " " + str(x_used[pat]))
+				# if obj >= target_lp_sol + 1:
+				# 	print("Allowed patterns:")
+				# 	for pat in patterns:
+				# 		if x_[pat] >= 0.9:
+				# 			print(str(pat) + " " + str(x_[pat]))
+				# 	print("Used patterns:")
+				# 	for pat in patterns:
+				# 		if x_used[pat] >= 0.99999:
+				# 			print(str(pat) + " " + str(x_used[pat]))
 
 			if status == 3:
 				pass
@@ -213,9 +217,10 @@ while target_lp_sol > 0:
 
 
 		m.Params.LazyConstraints = 1
+		m.Params.CutPasses = 1
 		m.Params.NodefileStart = 4
-		m.Params.Method = -1
 
+		m.setObjective(gp.quicksum(n), GRB.MINIMIZE)
 		m.optimize(callback)
 
 		if m.status == GRB.OPTIMAL:
