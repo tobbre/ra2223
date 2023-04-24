@@ -396,7 +396,7 @@ for i in range(num_generations):
 
 
     def append_params_to_file(f, params):
-        f.write(str(params.num_items) + "\n" +
+        f.write(str(params.max_num_items) + "\n" +
                 str(params.num_generations) + "(Generations finished so far: " + str(i) + ")" + "\n" +
                 str(params.learning_rate) + "\n" +
                 str(params.num_sessions) + "\n" +

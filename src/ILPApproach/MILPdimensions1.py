@@ -5,7 +5,7 @@ from gurobipy import GRB
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 9
+dimension = 5
 # TODO: Switch this back
 target_lp_sol = dimension
 M = dimension + 1
@@ -32,7 +32,7 @@ def pattern_to_string(pattern):
 patterns = pattern_finder(dimension)
 
 while target_lp_sol > 1:
-	num_items = target_lp_sol * (dimension - 1)
+	max_num_items = target_lp_sol * (dimension - 1)
 	start_time = time.time()
 	print("#############################################################")
 	print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
@@ -40,22 +40,22 @@ while target_lp_sol > 1:
 	with gp.Model("MainMIP") as m:
 		# m is MainMIP
 
-		# The n vector contains information how many items are in each of the len(n) different size categories
-		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=num_items - 1) for i in
+		# The n vector contains information how many items are in each of the len(n) = dimension different size categories
+		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
-		m.addConstr(gp.quicksum(n) <= num_items)
+		m.addConstr(gp.quicksum(n) <= max_num_items)
 
 
 		n_ik = []
 		for i in range(dimension):
 			var_list = []
-			for k in range(num_items):
+			for k in range(max_num_items):
 				var_list.append(m.addVar(vtype=GRB.BINARY, name="n_%s^%s" % (i, k)))
 			n_ik.append(var_list)
 		m.update()
 		for i in range(dimension):
-			m.addConstr(n[i] == gp.quicksum([n_ik[i][k] for k in range(num_items)]))
-			for k in range(num_items - 1):
+			m.addConstr(n[i] == gp.quicksum([n_ik[i][k] for k in range(max_num_items)]))
+			for k in range(max_num_items - 1):
 				m.addConstr(n_ik[i][k] >= n_ik[i][k + 1])
 
 		x = {}
@@ -70,19 +70,20 @@ while target_lp_sol > 1:
 			for i in range(dimension):
 				m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
 
-		# s[i] is the size of an item in category i
-		# In the following constraints we use big M
+		keys = list(x)
+		for key_as_tuple in keys:
+			key_as_array = list(key_as_tuple)
+			for i in range(dimension):
+				if key_as_array[i] != 0:
+					key_as_array[i] -= 1
+					m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
+					key_as_array[i] += 1
+
 		def s_order_constraints():
 			for i in range(dimension - 1):
 				m.addConstr(s[i] <= s[i + 1])
-			keys = list(x)
 			for key_as_tuple in keys:
 				key_as_array = list(key_as_tuple)
-				for i in range(dimension):
-					if key_as_array[i] != 0:
-						key_as_array[i] -= 1
-						m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
-						key_as_array[i] += 1
 				for i in range(1, dimension):
 					if key_as_array[i] != 0 and key_as_array[i - 1] != dimension - 1:
 						key_as_array[i] -= 1
@@ -90,19 +91,25 @@ while target_lp_sol > 1:
 						m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
 						key_as_array[i - 1] -= 1
 						key_as_array[i] += 1
+			m.update()
 
 		def n_order_constraints():
 			for i in range(dimension - 1):
 				m.addConstr(n[i] <= n[i + 1])
+			m.update()
 
+		# s[i] is the size of an item in category i
 		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
 		     range(dimension)]
 		m.update()
+		# Allowed patterns and forbidden patterns must satisfy the following
 		for pat in patterns:
 			m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
 			if sum(list(pat)) != 1:
 				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
 
+		n_order_constraints()
+		# s_order_constraints()
 
 		y = {}
 		for pat in patterns:
@@ -198,7 +205,7 @@ while target_lp_sol > 1:
 								sum += x[pat]
 								counter += 1
 						added_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
-						                                              round(n_[i]) < num_items]) <= counter - 1)
+						                                              round(n_[i]) < max_num_items]) <= counter - 1)
 						# Above constraint ensures that either a pattern is forbidden or an item is increased in number.
 						model.update()
 					else:
@@ -219,8 +226,11 @@ while target_lp_sol > 1:
 		m.Params.LazyConstraints = 1
 		m.Params.CutPasses = 1
 		m.Params.NodefileStart = 4
+		m.Params.IntFeasTol = 1e-09
 
-		m.setObjective(gp.quicksum(n), GRB.MINIMIZE)
+		# m.setObjective(expr=gp.quicksum(list(y.values())), sense=GRB.MINIMIZE)
+		# m.setObjectiveN(expr=gp.quicksum(n), index=1)
+		m.setObjective(expr=gp.quicksum(n), sense=GRB.MINIMIZE)
 		m.optimize(callback)
 
 		if m.status == GRB.OPTIMAL:

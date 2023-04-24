@@ -13,7 +13,7 @@ Optimize a model with 1619 rows, 362 columns and 4042 nonzeros
 Model fingerprint: 0x1ead4e92
 Variable types: 131 continuous, 231 integer (226 binary)
 Coefficient statistics:
-  Matrix range     [1e+00, 6e+00]
+  Matrix range     [1e+00,6e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [2e-01, 2e+01]
   RHS range        [1e+00, 2e+01]
