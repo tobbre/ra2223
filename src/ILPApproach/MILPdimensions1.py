@@ -5,7 +5,7 @@ from gurobipy import GRB
 #######
 # In this file, the number of items per size category is a VARIABLE.
 #######
-dimension = 5
+dimension = 6
 # TODO: Switch this back
 target_lp_sol = dimension
 M = dimension + 1
@@ -44,6 +44,8 @@ while target_lp_sol > 1:
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
 		m.addConstr(gp.quicksum(n) <= max_num_items)
+		for i in range(dimension - 1):
+			m.addConstr(n[i] == n[i+1])
 
 
 		n_ik = []
@@ -164,6 +166,7 @@ while target_lp_sol > 1:
 					x_used[pat] = z[pat].X
 				obj = m2.getObjective().getValue()
 
+				# The code below outputs the list of allowed patterns in a found solution.
 				# if obj >= target_lp_sol + 1:
 				# 	print("Allowed patterns:")
 				# 	for pat in patterns:
@@ -197,7 +200,7 @@ while target_lp_sol > 1:
 				status, x_used, obj = callbackMIP(x_, n_)
 
 				if status == 2:  # If the callback MIP has found a solution
-					if obj <= target_lp_sol + 0.00001:
+					if obj <= target_lp_sol + 1.00001:
 						sum = 0
 						counter = 0
 						for pat in patterns:
