@@ -6,7 +6,6 @@ from gurobipy import GRB
 # In this file, the number of items per size category is a VARIABLE.
 #######
 dimension = 6
-# TODO: Switch this back
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -25,14 +24,29 @@ def pattern_finder(dimension):
 	return output
 
 
+def triple_double_single_pattern_finder(dimension):
+	output = []
+	pat = [0] * dimension
+	output.append(tuple(pat.copy()))
+	while (pat[0] < 3):
+		pointer = dimension - 1
+		while sum(pat) == 3:
+			pat[pointer] = 0
+			pointer -= 1
+		pat[pointer] += 1
+		output.append(tuple(pat.copy()))
+	return output
+
+
 def pattern_to_string(pattern):
 	return ', '.join(str(e) for e in pattern)
 
 
-patterns = pattern_finder(dimension)
+# patterns = pattern_finder(dimension)
+patterns = triple_double_single_pattern_finder(dimension)
 
 while target_lp_sol > 1:
-	max_num_items = target_lp_sol * (dimension - 1)
+	max_num_items = target_lp_sol * 3   # Due to 3-partition instance
 	start_time = time.time()
 	print("#############################################################")
 	print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
@@ -44,8 +58,7 @@ while target_lp_sol > 1:
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
 		m.addConstr(gp.quicksum(n) <= max_num_items)
-		for i in range(dimension - 1):
-			m.addConstr(n[i] == n[i+1])
+
 
 
 		n_ik = []
@@ -66,11 +79,17 @@ while target_lp_sol > 1:
 		m.update()
 		m.addConstr(x[patterns[0]] == 1)    # This ensures that pattern (0,0,...,0) is allowed
 
-		# This constraint ensures that no allowed pattern contains more items than there exist in a category
-		# In the following constraints we use big M
+		# Due to 3-partition instance
 		for pat in patterns:
-			for i in range(dimension):
-				m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
+			if sum(pat) != 3:
+				m.addConstr(x[patterns[0]] == 1)
+
+		# # This constraint ensures that no allowed pattern contains more items than there exist in a category
+		# # In the following constraints we use big M
+		# # WE DO NOT USE THIS CONSTRAINT ANYMORE SINCE WE ARE NOW CONSIDERING THE UUNBOUNDED CASE! SO THERE CAN BE MORE ITEMS COVERED THAN EXIST IN A CATEGORY
+		# for pat in patterns:
+		# 	for i in range(dimension):
+		# 		m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
 
 		keys = list(x)
 		for key_as_tuple in keys:
@@ -101,8 +120,7 @@ while target_lp_sol > 1:
 			m.update()
 
 		# s[i] is the size of an item in category i
-		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=1 / dimension + 0.00001, ub=1, name="s[%s]" % i) for i in
-		     range(dimension)]
+		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=0.25, ub=0.5, name="s[%s]" % i) for i in range(dimension)]   # Due to 3-partition instance
 		m.update()
 		# Allowed patterns and forbidden patterns must satisfy the following
 		for pat in patterns:
@@ -233,7 +251,7 @@ while target_lp_sol > 1:
 
 		# m.setObjective(expr=gp.quicksum(list(y.values())), sense=GRB.MINIMIZE)
 		# m.setObjectiveN(expr=gp.quicksum(n), index=1)
-		m.setObjective(expr=gp.quicksum(n), sense=GRB.MINIMIZE)
+		# m.setObjective(expr=gp.quicksum(n), sense=GRB.MINIMIZE)
 		m.optimize(callback)
 
 		if m.status == GRB.OPTIMAL:

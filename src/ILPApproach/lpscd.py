@@ -88,7 +88,7 @@ def lp_builder(patterns,
     return m
 
 
-model = lp_runner(filepath="in/instance0.txt")
+model = lp_runner(filepath="in/instancecaprara.txt")
 if model.status == GRB.OPTIMAL:
     for v in model.getVars():
         if v.X > 0.001:
