@@ -1,0 +1,795 @@
+/Users/tobiasbreuer/miniforge3/envs/mlp/bin/python /Users/tobiasbreuer/Desktop/E&OR/Research Assistantship/pythoncode/RA2223/src/ILPApproach/MILPdimensions2.py
+#############################################################
+--------------------- target_lp_sol = 8---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter Username
+Academic license - for non-commercial use only - expires 2023-09-16
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x00539cb7
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 77 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 2
+
+Explored 1 nodes (77 simplex iterations) in 0.02 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 130, time in user-callback 0.01 sec
+
+
+size_cat_dist: (2, 2, 2, 2, 2, 2, 2, 2)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x9929526f
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 87 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    2          -    0.00000      -     -    0s
+     0     0    0.00000    0    2          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 3
+
+Explored 1 nodes (87 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 133, time in user-callback 0.01 sec
+#############################################################
+--------------------- target_lp_sol = 7---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x79457a8f
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 77 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 2
+
+Explored 1 nodes (77 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 129, time in user-callback 0.01 sec
+
+
+size_cat_dist: (2, 2, 2, 2, 2, 2, 2, 2)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x0f50c74e
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 95 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    3          -    0.00000      -     -    0s
+     0     0    0.00000    0    3          -    0.00000      -     -    0s
+     0     2    0.00000    0    3          -    0.00000      -     -    0s
+
+Cutting planes:
+  Cover: 89
+  Implied bound: 21
+  Inf proof: 11
+  Lazy constraints: 153
+
+Explored 9197 nodes (38821 simplex iterations) in 0.72 seconds (0.30 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 18723, time in user-callback 0.53 sec
+#############################################################
+--------------------- target_lp_sol = 6---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x64cff1d0
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 77 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 2
+
+Explored 1 nodes (77 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 129, time in user-callback 0.01 sec
+
+
+size_cat_dist: (2, 2, 2, 2, 2, 2, 2, 2)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x5e177b0e
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 111 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    6          -    0.00000      -     -    0s
+     0     0    0.00000    0    7          -    0.00000      -     -    0s
+     0     2    0.00000    0    7          -    0.00000      -     -    0s
+ 28473  1784    0.00000   40    -          -    0.00000      -  10.4    5s
+ 70694  3667 infeasible   49               -    0.00000      -  11.0   10s
+ 124315  4962    0.00000   54    2          -    0.00000      -  10.9   15s
+ 175658  5649    0.00000   51    3          -    0.00000      -  11.0   20s
+ 219406  6173 infeasible   48               -    0.00000      -  11.0   25s
+ 270243  6775    0.00000   43    4          -    0.00000      -  11.0   30s
+ 320561  6726    0.00000   46    1          -    0.00000      -  11.1   35s
+ 368259  7140    0.00000   51    3          -    0.00000      -  11.1   40s
+ 412395  7408    0.00000   38    3          -    0.00000      -  11.2   45s
+ 459673  7774 infeasible   55               -    0.00000      -  11.2   50s
+ 498051  7845 infeasible   41               -    0.00000      -  11.2   55s
+ 534559  7896 infeasible   49               -    0.00000      -  11.2   60s
+ 579600  7994 infeasible   57               -    0.00000      -  11.2   65s
+ 625355  7902    0.00000   49    3          -    0.00000      -  11.2   70s
+ 670033  7841    0.00000   46    4          -    0.00000      -  11.2   75s
+ 713539  7638    0.00000   44    4          -    0.00000      -  11.2   80s
+ 754665  7644    0.00000   45    4          -    0.00000      -  11.3   85s
+ 798700  7455    0.00000   51    3          -    0.00000      -  11.3   90s
+ 842000  7561    0.00000   46    2          -    0.00000      -  11.3   95s
+ 886482  7564 infeasible   57               -    0.00000      -  11.2  100s
+ 930545  7421    0.00000   44    1          -    0.00000      -  11.2  105s
+ 972736  7353 infeasible   40               -    0.00000      -  11.2  110s
+ 1017110  7474 infeasible   49               -    0.00000      -  11.2  115s
+ 1059307  7741    0.00000   41    5          -    0.00000      -  11.2  120s
+ 1104079  7603 infeasible   45               -    0.00000      -  11.2  125s
+ 1147863  7274 infeasible   60               -    0.00000      -  11.2  130s
+ 1189981  7600 infeasible   40               -    0.00000      -  11.2  135s
+ 1223889  8033    0.00000   44    3          -    0.00000      -  11.2  140s
+ 1262564  7879 infeasible   39               -    0.00000      -  11.1  145s
+ 1302980  7748    0.00000   25    5          -    0.00000      -  11.2  150s
+ 1341052  7824 infeasible   54               -    0.00000      -  11.2  155s
+ 1382058  7671    0.00000   39    4          -    0.00000      -  11.2  160s
+ 1423491  7578    0.00000   44    2          -    0.00000      -  11.2  165s
+ 1464014  7466    0.00000   34    5          -    0.00000      -  11.2  170s
+ 1506373  7481    0.00000   43    2          -    0.00000      -  11.2  175s
+ 1548233  7149 infeasible   26               -    0.00000      -  11.2  180s
+ 1590052  7084 infeasible   38               -    0.00000      -  11.2  185s
+ 1632054  6815    0.00000   40    5          -    0.00000      -  11.2  190s
+ 1673105  7056    0.00000   59    4          -    0.00000      -  11.2  195s
+ 1715541  6972    0.00000   46    6          -    0.00000      -  11.2  200s
+ 1756543  6956    0.00000   46    4          -    0.00000      -  11.2  205s
+ 1797822  6938 infeasible   47               -    0.00000      -  11.2  210s
+ 1838532  6795    0.00000   37    5          -    0.00000      -  11.2  215s
+ 1879833  6517    0.00000   41    3          -    0.00000      -  11.2  220s
+ 1920048  6375    0.00000   51    5          -    0.00000      -  11.2  225s
+ 1961594  6257    0.00000   45    4          -    0.00000      -  11.2  230s
+ 2004192  6409    0.00000   45    5          -    0.00000      -  11.2  235s
+ 2045090  6027    0.00000   65    5          -    0.00000      -  11.2  240s
+ 2086025  6195    0.00000   40    3          -    0.00000      -  11.2  245s
+ 2125648  6655    0.00000   41    7          -    0.00000      -  11.2  250s
+ 2165090  6671    0.00000   41    3          -    0.00000      -  11.2  255s
+ 2204368  6839 infeasible   53               -    0.00000      -  11.2  260s
+ 2245032  6828    0.00000   42    2          -    0.00000      -  11.2  265s
+ 2284029  6946    0.00000   43    4          -    0.00000      -  11.3  270s
+ 2323709  6963 infeasible   67               -    0.00000      -  11.3  275s
+ 2363650  7386    0.00000   46    3          -    0.00000      -  11.3  280s
+ 2404016  7251 infeasible   49               -    0.00000      -  11.3  285s
+ 2444502  7067 infeasible   58               -    0.00000      -  11.3  290s
+ 2484969  6839 infeasible   59               -    0.00000      -  11.3  295s
+ 2524618  7681 infeasible   45               -    0.00000      -  11.3  300s
+ 2564557  7750    0.00000   61    2          -    0.00000      -  11.3  305s
+ 2605632  7694    0.00000   40    1          -    0.00000      -  11.3  310s
+ 2647873  7416    0.00000   48    4          -    0.00000      -  11.3  315s
+ 2688907  7507    0.00000   41    2          -    0.00000      -  11.2  320s
+ 2729193  7329    0.00000   41    3          -    0.00000      -  11.2  325s
+ 2768929  7372    0.00000   45    6          -    0.00000      -  11.2  330s
+ 2809727  7164    0.00000   31    3          -    0.00000      -  11.2  335s
+ 2847776  7588    0.00000   56    3          -    0.00000      -  11.2  340s
+ 2882815  7516    0.00000   51    3          -    0.00000      -  11.2  345s
+ 2922209  7495 infeasible   56               -    0.00000      -  11.2  350s
+ 2961697  7351    0.00000   42    2          -    0.00000      -  11.2  355s
+ 3000456  7202    0.00000   36    7          -    0.00000      -  11.2  360s
+ 3041911  7090    0.00000   50    3          -    0.00000      -  11.2  365s
+ 3081127  6929    0.00000   46    3          -    0.00000      -  11.2  370s
+ 3120558  7010 infeasible   32               -    0.00000      -  11.2  375s
+ 3160362  6959    0.00000   37    1          -    0.00000      -  11.2  380s
+ 3200133  6896    0.00000   40    3          -    0.00000      -  11.2  385s
+ 3239030  6646    0.00000   53    6          -    0.00000      -  11.2  390s
+ 3280450  6350 infeasible   63               -    0.00000      -  11.2  395s
+ 3318344  6193 infeasible   59               -    0.00000      -  11.2  400s
+ 3356968  6057    0.00000   49    2          -    0.00000      -  11.2  405s
+ 3395952  5960    0.00000   45    2          -    0.00000      -  11.2  410s
+ 3434961  5779 infeasible   52               -    0.00000      -  11.2  415s
+ 3475876  5685 infeasible   34               -    0.00000      -  11.2  420s
+ 3514917  5790    0.00000   63    6          -    0.00000      -  11.2  425s
+ 3554187  5620    0.00000   39    2          -    0.00000      -  11.3  430s
+ 3593110  5491    0.00000   46    4          -    0.00000      -  11.3  435s
+ 3632160  5485    0.00000   45    3          -    0.00000      -  11.3  440s
+ 3671627  5815 infeasible   48               -    0.00000      -  11.3  445s
+ 3711854  5868 infeasible   53               -    0.00000      -  11.3  450s
+ 3752649  5944    0.00000   52    1          -    0.00000      -  11.3  455s
+ 3793148  5626 infeasible   58               -    0.00000      -  11.3  460s
+ 3833228  5572    0.00000   45    5          -    0.00000      -  11.3  465s
+ 3873235  5713    0.00000   54    7          -    0.00000      -  11.3  470s
+ 3912197  5598    0.00000   44    3          -    0.00000      -  11.3  475s
+ 3951026  5513 infeasible   54               -    0.00000      -  11.3  480s
+ 3990860  5245 infeasible   48               -    0.00000      -  11.3  485s
+ 4029771  5308 infeasible   57               -    0.00000      -  11.3  490s
+ 4070152  5204 infeasible   48               -    0.00000      -  11.3  495s
+ 4109056  5666 infeasible   61               -    0.00000      -  11.3  500s
+ 4147489  5623    0.00000   46    5          -    0.00000      -  11.3  505s
+ 4183105  5470 infeasible   55               -    0.00000      -  11.3  510s
+ 4220295  5400    0.00000   51    2          -    0.00000      -  11.3  515s
+ 4260954  5280    0.00000   52    7          -    0.00000      -  11.3  520s
+ 4300330  4976 infeasible   39               -    0.00000      -  11.3  525s
+ 4338628  5037 infeasible   48               -    0.00000      -  11.3  530s
+ 4378377  5446    0.00000   49    2          -    0.00000      -  11.3  535s
+ 4417623  5263    0.00000   60    4          -    0.00000      -  11.3  540s
+ 4455748  5096 infeasible   34               -    0.00000      -  11.3  545s
+ 4494602  5052 infeasible   34               -    0.00000      -  11.3  550s
+ 4533088  5065    0.00000   48    5          -    0.00000      -  11.3  555s
+ 4572002  5006    0.00000   35    4          -    0.00000      -  11.3  560s
+ 4609838  4859 infeasible   53               -    0.00000      -  11.3  565s
+ 4649561  4793 infeasible   56               -    0.00000      -  11.3  570s
+ 4686876  4880 infeasible   44               -    0.00000      -  11.3  575s
+ 4723918  4704 infeasible   41               -    0.00000      -  11.3  580s
+ 4762418  4607    0.00000   48    4          -    0.00000      -  11.3  585s
+ 4801429  4479 infeasible   68               -    0.00000      -  11.3  590s
+ 4839311  4386    0.00000   44    6          -    0.00000      -  11.3  595s
+ 4879763  4579    0.00000   54    3          -    0.00000      -  11.3  600s
+ 4919567  4457 infeasible   57               -    0.00000      -  11.3  605s
+ 4959955  4413    0.00000   38    3          -    0.00000      -  11.3  610s
+ 5000500  4268    0.00000   34    6          -    0.00000      -  11.3  615s
+ 5038689  4332 infeasible   45               -    0.00000      -  11.3  620s
+ 5075844  4516 infeasible   53               -    0.00000      -  11.3  625s
+ 5114264  4547    0.00000   51    6          -    0.00000      -  11.3  630s
+ 5154358  4323    0.00000   34    5          -    0.00000      -  11.3  635s
+ 5192650  4187 infeasible   46               -    0.00000      -  11.3  640s
+ 5232038  4103    0.00000   41    8          -    0.00000      -  11.3  645s
+ 5270742  4153 infeasible   51               -    0.00000      -  11.3  650s
+ 5304903  4100    0.00000   33    3          -    0.00000      -  11.3  655s
+ 5343908  4068 infeasible   58               -    0.00000      -  11.3  660s
+ 5380416  3974    0.00000   58    2          -    0.00000      -  11.3  665s
+ 5416791  3876 infeasible   49               -    0.00000      -  11.3  670s
+ 5456070  4128    0.00000   46    5          -    0.00000      -  11.3  675s
+ 5495302  3974    0.00000   51    4          -    0.00000      -  11.3  680s
+ 5534383  4012 infeasible   44               -    0.00000      -  11.3  685s
+ 5571758  3965 infeasible   58               -    0.00000      -  11.3  690s
+ 5611031  4178    0.00000   35    6          -    0.00000      -  11.3  695s
+ 5649294  4267 infeasible   60               -    0.00000      -  11.3  700s
+ 5687907  4158 infeasible   55               -    0.00000      -  11.3  705s
+ 5722265  3962    0.00000   32    7          -    0.00000      -  11.3  710s
+ 5758716  3993    0.00000   49    3          -    0.00000      -  11.3  715s
+ 5801244  4294 infeasible   54               -    0.00000      -  11.3  720s
+ 5842625  4057 infeasible   49               -    0.00000      -  11.3  725s
+ 5881037  4018    0.00000   41    2          -    0.00000      -  11.3  730s
+ 5917779  3937    0.00000   51    6          -    0.00000      -  11.3  735s
+ 5953142  4130 infeasible   50               -    0.00000      -  11.3  740s
+ 5991826  3884    0.00000   49    5          -    0.00000      -  11.3  745s
+ 6029363  3809    0.00000   49    2          -    0.00000      -  11.3  750s
+ 6068863  3783 infeasible   50               -    0.00000      -  11.3  755s
+ 6109168  3660    0.00000   55    2          -    0.00000      -  11.3  760s
+ 6144872  3735 infeasible   61               -    0.00000      -  11.3  765s
+ 6184865  3538    0.00000   45    6          -    0.00000      -  11.3  770s
+ 6225461  3464 infeasible   54               -    0.00000      -  11.3  775s
+ 6262823  3332 infeasible   60               -    0.00000      -  11.3  780s
+ 6302389  3374    0.00000   51    2          -    0.00000      -  11.3  785s
+ 6340585  3316    0.00000   41    7          -    0.00000      -  11.3  790s
+ 6380191  3218    0.00000   61    4          -    0.00000      -  11.3  795s
+ 6417281  3196    0.00000   58    8          -    0.00000      -  11.3  800s
+ 6456956  3069    0.00000   51    2          -    0.00000      -  11.3  805s
+ 6495788  3070 infeasible   42               -    0.00000      -  11.3  810s
+ 6535275  3446    0.00000   29    9          -    0.00000      -  11.3  815s
+ 6575386  3302 infeasible   48               -    0.00000      -  11.3  820s
+ 6613756  3069    0.00000   54    2          -    0.00000      -  11.3  825s
+ 6654951  3111    0.00000   53    1          -    0.00000      -  11.3  830s
+ 6695756  3018    0.00000   42    3          -    0.00000      -  11.3  835s
+ 6735363  2867    0.00000   44    3          -    0.00000      -  11.3  840s
+ 6776208  2933 infeasible   45               -    0.00000      -  11.3  845s
+ 6816474  2689 infeasible   49               -    0.00000      -  11.3  850s
+ 6856892  2511    0.00000   41    1          -    0.00000      -  11.3  855s
+ 6900738  2735    0.00000   51    1          -    0.00000      -  11.3  860s
+ 6939164  2885    0.00000   37    6          -    0.00000      -  11.3  865s
+ 6978620  2738 infeasible   58               -    0.00000      -  11.3  870s
+ 7019239  2523    0.00000   38    5          -    0.00000      -  11.3  875s
+ 7057148  2522    0.00000   43    9          -    0.00000      -  11.3  880s
+ 7097283  2487 infeasible   55               -    0.00000      -  11.3  885s
+ 7135405  2299    0.00000   38    3          -    0.00000      -  11.3  890s
+ 7174681  2339 infeasible   56               -    0.00000      -  11.3  895s
+ 7211698  2590    0.00000   44    1          -    0.00000      -  11.3  900s
+ 7249889  2608    0.00000   46    4          -    0.00000      -  11.3  905s
+ 7288754  2453    0.00000   40    5          -    0.00000      -  11.3  910s
+ 7326336  2509    0.00000   30    5          -    0.00000      -  11.3  915s
+ 7366884  2337 infeasible   30               -    0.00000      -  11.3  920s
+ 7406749  2225    0.00000   44    5          -    0.00000      -  11.3  925s
+ 7446251  2274    0.00000   50    4          -    0.00000      -  11.3  930s
+ 7485904  2596    0.00000   49    3          -    0.00000      -  11.3  935s
+ 7526673  3367    0.00000   36    5          -    0.00000      -  11.3  940s
+ 7567703  3695    0.00000   49    7          -    0.00000      -  11.3  945s
+ 7601050  3625 infeasible   45               -    0.00000      -  11.3  950s
+ 7641057  3684    0.00000   48    2          -    0.00000      -  11.3  955s
+ 7682107  3737    0.00000   44    7          -    0.00000      -  11.3  960s
+ 7724048  3358 infeasible   58               -    0.00000      -  11.3  965s
+ 7766598  3321    0.00000   46    5          -    0.00000      -  11.3  970s
+ 7807738  3030    0.00000   47    2          -    0.00000      -  11.3  975s
+ 7847949  2757    0.00000   48    3          -    0.00000      -  11.3  980s
+ 7889796  2655    0.00000   53    6          -    0.00000      -  11.3  985s
+ 7929367  2745 infeasible   53               -    0.00000      -  11.3  990s
+ 7971021  2671 infeasible   45               -    0.00000      -  11.3  995s
+ 8014581  2671    0.00000   35    1          -    0.00000      -  11.3 1000s
+ 8053721  2935    0.00000   47    3          -    0.00000      -  11.3 1005s
+ 8097151  2804    0.00000   51    4          -    0.00000      -  11.3 1010s
+ 8139462  2627    0.00000   51    2          -    0.00000      -  11.3 1015s
+ 8183139  2753 infeasible   62               -    0.00000      -  11.3 1020s
+ 8226365  2557    0.00000   64    4          -    0.00000      -  11.3 1025s
+ 8270413  2414    0.00000   42    2          -    0.00000      -  11.3 1030s
+ 8311636  2443    0.00000   51    3          -    0.00000      -  11.3 1035s
+ 8352755  2440    0.00000   60    8          -    0.00000      -  11.3 1040s
+ 8394702  2802 infeasible   58               -    0.00000      -  11.3 1045s
+ 8437945  3091    0.00000   41    5          -    0.00000      -  11.3 1050s
+ 8481500  2992    0.00000   41    1          -    0.00000      -  11.3 1055s
+ 8523881  2816 infeasible   47               -    0.00000      -  11.3 1060s
+ 8567181  2694 infeasible   45               -    0.00000      -  11.3 1065s
+ 8608863  2667    0.00000   41    8          -    0.00000      -  11.3 1070s
+ 8649175  2534    0.00000   52    3          -    0.00000      -  11.3 1075s
+ 8692031  2451 infeasible   28               -    0.00000      -  11.3 1080s
+ 8734179  2254    0.00000   40    2          -    0.00000      -  11.3 1085s
+ 8778760  2207 infeasible   43               -    0.00000      -  11.3 1090s
+ 8820575  2181 infeasible   50               -    0.00000      -  11.3 1095s
+ 8864104  1965 infeasible   38               -    0.00000      -  11.3 1100s
+ 8907123  1904    0.00000   52    6          -    0.00000      -  11.3 1105s
+ 8949439  2151 infeasible   56               -    0.00000      -  11.3 1110s
+ 8994147  1701 infeasible   62               -    0.00000      -  11.3 1115s
+ 9035602  1813    0.00000   40    5          -    0.00000      -  11.3 1120s
+ 9074912  1647    0.00000   48    4          -    0.00000      -  11.3 1125s
+ 9117578  1820 infeasible   52               -    0.00000      -  11.3 1130s
+ 9160336  1621    0.00000   49    2          -    0.00000      -  11.3 1135s
+ 9202161  1521    0.00000   56    2          -    0.00000      -  11.3 1140s
+ 9246585  2001 infeasible   47               -    0.00000      -  11.3 1145s
+ 9290330  1876 infeasible   38               -    0.00000      -  11.3 1150s
+ 9333760  1642    0.00000   53    1          -    0.00000      -  11.3 1155s
+ 9376684  1583    0.00000   44    3          -    0.00000      -  11.3 1160s
+ 9421315  1524 infeasible   41               -    0.00000      -  11.3 1165s
+ 9465452  1408 infeasible   49               -    0.00000      -  11.3 1170s
+ 9509583  1428    0.00000   44    4          -    0.00000      -  11.3 1175s
+ 9552217  1360 infeasible   46               -    0.00000      -  11.3 1180s
+ 9596047  1599    0.00000   55    1          -    0.00000      -  11.3 1185s
+ 9640559  1540    0.00000   52    4          -    0.00000      -  11.3 1190s
+ 9683717  1437    0.00000   67    2          -    0.00000      -  11.3 1195s
+ 9727878  1934    0.00000   46    2          -    0.00000      -  11.3 1200s
+ 9772199  1735    0.00000   55    2          -    0.00000      -  11.3 1205s
+ 9815926  1670    0.00000   48    2          -    0.00000      -  11.3 1210s
+ 9861175  1636    0.00000   57    7          -    0.00000      -  11.3 1215s
+ 9904098  1443    0.00000   36    2          -    0.00000      -  11.3 1220s
+ 9948436  1179    0.00000   57    9          -    0.00000      -  11.3 1225s
+ 9991049   997    0.00000   54    4          -    0.00000      -  11.3 1230s
+ 10035084  1214    0.00000   30    8          -    0.00000      -  11.3 1235s
+ 10077201  1201    0.00000   33    8          -    0.00000      -  11.3 1240s
+ 10121269  1202    0.00000   41    4          -    0.00000      -  11.3 1245s
+ 10164375  1033    0.00000   38    2          -    0.00000      -  11.3 1250s
+ 10205495   903 infeasible   57               -    0.00000      -  11.3 1255s
+ 10249822   965    0.00000   59    5          -    0.00000      -  11.3 1260s
+ 10292963   950    0.00000   44    3          -    0.00000      -  11.3 1265s
+ 10335983   951 infeasible   46               -    0.00000      -  11.3 1270s
+ 10377236   860 infeasible   63               -    0.00000      -  11.3 1275s
+ 10419980   916 infeasible   41               -    0.00000      -  11.3 1280s
+ 10462974  1006    0.00000   30    1          -    0.00000      -  11.3 1285s
+ 10506241  1428 infeasible   37               -    0.00000      -  11.3 1290s
+ 10549578  1550    0.00000   46    4          -    0.00000      -  11.3 1295s
+ 10593512  1320    0.00000   53    5          -    0.00000      -  11.3 1300s
+ 10636958  1189 infeasible   53               -    0.00000      -  11.3 1305s
+ 10680113  1106    0.00000   47    5          -    0.00000      -  11.3 1310s
+ 10723098   954    0.00000   49    4          -    0.00000      -  11.3 1315s
+ 10766664   846    0.00000   51    3          -    0.00000      -  11.3 1320s
+ 10809345   860    0.00000   37    9          -    0.00000      -  11.3 1325s
+ 10854337  1257    0.00000   50    2          -    0.00000      -  11.3 1330s
+ 10897734   861    0.00000   59    1          -    0.00000      -  11.3 1335s
+ 10941303   835    0.00000   35    5          -    0.00000      -  11.3 1340s
+ 10985893   825 infeasible   31               -    0.00000      -  11.3 1345s
+ 11029140   877    0.00000   40    3          -    0.00000      -  11.3 1350s
+ 11072083  1125    0.00000   52    4          -    0.00000      -  11.3 1355s
+ 11116232  1140 infeasible   53               -    0.00000      -  11.3 1360s
+ 11158988  1005    0.00000   56    8          -    0.00000      -  11.3 1365s
+ 11202659   927 infeasible   54               -    0.00000      -  11.3 1370s
+ 11246199   748    0.00000   46   11          -    0.00000      -  11.3 1375s
+ 11292579   791    0.00000   37   10          -    0.00000      -  11.3 1380s
+ 11337623   643    0.00000   42    3          -    0.00000      -  11.3 1385s
+ 11379304   835 infeasible   52               -    0.00000      -  11.3 1390s
+ 11422240   694    0.00000   44    7          -    0.00000      -  11.3 1395s
+ 11464428   629 infeasible   50               -    0.00000      -  11.3 1400s
+ 11507444   815    0.00000   52    4          -    0.00000      -  11.3 1405s
+ 11549785   985    0.00000   48    3          -    0.00000      -  11.3 1410s
+ 11591293  1182 infeasible   38               -    0.00000      -  11.3 1415s
+ 11634763   813 infeasible   57               -    0.00000      -  11.3 1420s
+ 11676317   823 infeasible   49               -    0.00000      -  11.3 1425s
+ 11720385  1094 infeasible   60               -    0.00000      -  11.3 1430s
+ 11764176  1209    0.00000   56    6          -    0.00000      -  11.3 1435s
+ 11807403  1114    0.00000   47    2          -    0.00000      -  11.3 1440s
+ 11850874   772 infeasible   53               -    0.00000      -  11.3 1445s
+ 11893591   924    0.00000   46    6          -    0.00000      -  11.3 1450s
+ 11936494   737    0.00000   46    2          -    0.00000      -  11.3 1455s
+ 11978707   611    0.00000   47    2          -    0.00000      -  11.3 1460s
+ 12023572   931    0.00000   61    2          -    0.00000      -  11.3 1465s
+ 12067113  1050    0.00000   53    4          -    0.00000      -  11.3 1470s
+ 12111023   831    0.00000   53    3          -    0.00000      -  11.3 1475s
+ 12149918   638 infeasible   45               -    0.00000      -  11.3 1480s
+ 12188068   493    0.00000   35    9          -    0.00000      -  11.3 1485s
+ 12226477   426 infeasible   39               -    0.00000      -  11.3 1490s
+ 12265245   859 infeasible   65               -    0.00000      -  11.3 1495s
+ 12303655   776    0.00000   43    5          -    0.00000      -  11.3 1500s
+ 12337606   548 infeasible   52               -    0.00000      -  11.3 1505s
+ 12374814   668 infeasible   46               -    0.00000      -  11.3 1510s
+ 12412629   629    0.00000   38    6          -    0.00000      -  11.3 1515s
+ 12451547   433    0.00000   33    7          -    0.00000      -  11.3 1520s
+ 12485722  1040    0.00000   48    5          -    0.00000      -  11.3 1525s
+ 12522638   808    0.00000   49    2          -    0.00000      -  11.3 1530s
+ 12561593  1009    0.00000   57    4          -    0.00000      -  11.3 1535s
+ 12602796   784    0.00000   48    2          -    0.00000      -  11.3 1540s
+ 12642964   640 infeasible   48               -    0.00000      -  11.3 1545s
+ 12681779   741    0.00000   58    3          -    0.00000      -  11.3 1550s
+ 12724278   753    0.00000   39    3          -    0.00000      -  11.3 1555s
+ 12764399   479 infeasible   59               -    0.00000      -  11.3 1560s
+ 12805941   510 infeasible   54               -    0.00000      -  11.3 1565s
+ 12846926   911 infeasible   35               -    0.00000      -  11.3 1570s
+ 12887074  1145 infeasible   45               -    0.00000      -  11.3 1575s
+ 12927444  1080    0.00000   37    6          -    0.00000      -  11.3 1580s
+ 12967577   977 infeasible   66               -    0.00000      -  11.3 1585s
+ 13007457   947    0.00000   56    3          -    0.00000      -  11.3 1590s
+ 13048169   849    0.00000   51    6          -    0.00000      -  11.3 1595s
+ 13087300   717    0.00000   64    2          -    0.00000      -  11.3 1600s
+ 13128107   913    0.00000   24    4          -    0.00000      -  11.3 1605s
+ 13165178  1272    0.00000   36    7          -    0.00000      -  11.3 1610s
+ 13201191  1360 infeasible   53               -    0.00000      -  11.3 1615s
+ 13240859  1334    0.00000   41    4          -    0.00000      -  11.3 1620s
+ 13276033  1070    0.00000   50    3          -    0.00000      -  11.3 1625s
+ 13313880   970    0.00000   53    2          -    0.00000      -  11.3 1630s
+ 13351780   917    0.00000   44    4          -    0.00000      -  11.3 1635s
+ 13390252   903    0.00000   48    2          -    0.00000      -  11.3 1640s
+ 13429690  1704 infeasible   48               -    0.00000      -  11.3 1645s
+ 13469446  2049    0.00000   55    4          -    0.00000      -  11.3 1650s
+ 13507920  2018 infeasible   59               -    0.00000      -  11.3 1655s
+ 13546742  1864 infeasible   50               -    0.00000      -  11.3 1660s
+ 13587965  1809 infeasible   59               -    0.00000      -  11.3 1665s
+ 13628522  1645    0.00000   42    7          -    0.00000      -  11.3 1670s
+ 13668570  1413    0.00000   62    4          -    0.00000      -  11.3 1675s
+ 13710725  1138    0.00000   61    2          -    0.00000      -  11.3 1680s
+ 13751782   973    0.00000   40    8          -    0.00000      -  11.3 1685s
+ 13793868  1064 infeasible   60               -    0.00000      -  11.3 1690s
+ 13835465  1219    0.00000   52    3          -    0.00000      -  11.3 1695s
+ 13878165   923    0.00000   48    6          -    0.00000      -  11.3 1700s
+ 13918549   749 infeasible   47               -    0.00000      -  11.3 1705s
+ 13959901   627    0.00000   38    7          -    0.00000      -  11.3 1710s
+ 14000739   603 infeasible   56               -    0.00000      -  11.3 1715s
+ 14041543   518 infeasible   55               -    0.00000      -  11.3 1720s
+ 14083187  1047    0.00000   63    9          -    0.00000      -  11.3 1725s
+ 14124905   929 infeasible   45               -    0.00000      -  11.3 1730s
+ 14167023  1022    0.00000   48    2          -    0.00000      -  11.3 1735s
+ 14209781   916    0.00000   43    5          -    0.00000      -  11.3 1740s
+ 14251442  1368    0.00000   52    1          -    0.00000      -  11.3 1745s
+ 14293907  1173    0.00000   45    4          -    0.00000      -  11.3 1750s
+ 14335510  1207 infeasible   59               -    0.00000      -  11.3 1755s
+ 14378026   856 infeasible   45               -    0.00000      -  11.3 1760s
+ 14419210   799    0.00000   59    4          -    0.00000      -  11.3 1765s
+ 14462761   774    0.00000   54    5          -    0.00000      -  11.3 1770s
+ 14505841   708 infeasible   51               -    0.00000      -  11.3 1775s
+ 14546222   595    0.00000   48    3          -    0.00000      -  11.3 1780s
+ 14588245   659 infeasible   51               -    0.00000      -  11.3 1785s
+ 14629704   626    0.00000   34    7          -    0.00000      -  11.3 1790s
+ 14671258   529    0.00000   47    6          -    0.00000      -  11.3 1795s
+ 14712804   893 infeasible   55               -    0.00000      -  11.3 1800s
+ 14755766   810    0.00000   44    2          -    0.00000      -  11.3 1805s
+ 14797461   796 infeasible   48               -    0.00000      -  11.3 1810s
+ 14839989   633 infeasible   54               -    0.00000      -  11.3 1815s
+ 14882216   542    0.00000   26    8          -    0.00000      -  11.3 1820s
+ 14923103   625 infeasible   50               -    0.00000      -  11.3 1825s
+ 14963680   629 infeasible   51               -    0.00000      -  11.3 1830s
+ 15004594   604 infeasible   48               -    0.00000      -  11.3 1835s
+ 15045317   804 infeasible   43               -    0.00000      -  11.3 1840s
+ 15085552   643 infeasible   56               -    0.00000      -  11.3 1845s
+ 15126780   577 infeasible   51               -    0.00000      -  11.3 1850s
+ 15167735   777    0.00000   47    2          -    0.00000      -  11.3 1855s
+ 15209488   627    0.00000   45    5          -    0.00000      -  11.3 1860s
+ 15249877   611    0.00000   48    2          -    0.00000      -  11.3 1865s
+ 15290074   710 infeasible   42               -    0.00000      -  11.3 1870s
+ 15329455   660    0.00000   50    1          -    0.00000      -  11.3 1875s
+ 15370644   547    0.00000   49    8          -    0.00000      -  11.3 1880s
+ 15411672   650 infeasible   61               -    0.00000      -  11.3 1885s
+ 15454265   685    0.00000   48    5          -    0.00000      -  11.3 1890s
+ 15496910   640    0.00000   53    4          -    0.00000      -  11.3 1895s
+ 15537206   609    0.00000   43    6          -    0.00000      -  11.3 1900s
+ 15576843   481 infeasible   34               -    0.00000      -  11.3 1905s
+ 15613835   371    0.00000   49    4          -    0.00000      -  11.3 1910s
+ 15650948   229 infeasible   54               -    0.00000      -  11.3 1915s
+ 15688777   213    0.00000   43    2          -    0.00000      -  11.3 1920s
+ 15727979   103    0.00000   45    2          -    0.00000      -  11.3 1925s
+
+Cutting planes:
+  Cover: 4
+  Lazy constraints: 4752
+
+Explored 15748160 nodes (178304622 simplex iterations) in 1927.58 seconds (3732.06 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 32120287, time in user-callback 38.77 sec
+#############################################################
+--------------------- target_lp_sol = 5---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x05cd9da7
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 77 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    -          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 2
+
+Explored 1 nodes (77 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 129, time in user-callback 0.01 sec
+#############################################################
+--------------------- target_lp_sol = 4---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x340d25fb
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 95 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    1          -    0.00000      -     -    0s
+     0     0    0.00000    0    1          -    0.00000      -     -    0s
+
+Cutting planes:
+  Lazy constraints: 2
+
+Explored 1 nodes (95 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 131, time in user-callback 0.01 sec
+#############################################################
+--------------------- target_lp_sol = 3---------------------
+#############################################################
+
+
+size_cat_dist: (1, 1, 1, 1, 1, 1, 1, 1)
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 902 rows, 338 columns and 2655 nonzeros
+Model fingerprint: 0x37d69677
+Variable types: 173 continuous, 165 integer (165 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 9e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [1e+00, 1e+01]
+Presolve removed 533 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 369 rows, 293 columns, 1581 nonzeros
+Variable types: 173 continuous, 120 integer (120 binary)
+
+Root relaxation: objective 0.000000e+00, 100 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    5          -    0.00000      -     -    0s
+     0     0    0.00000    0    7          -    0.00000      -     -    0s
+     0     2    0.00000    0    7          -    0.00000      -     -    0s
+
+Cutting planes:
+  Cover: 16
+  MIR: 1
+  Flow cover: 1
+  Lazy constraints: 63
+
+Explored 1604 nodes (14987 simplex iterations) in 0.37 seconds (0.08 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 3425, time in user-callback 0.31 sec
+#############################################################
+--------------------- target_lp_sol = 2---------------------
+#############################################################
+
+Process finished with exit code 0

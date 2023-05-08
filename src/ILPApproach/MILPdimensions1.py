@@ -2,15 +2,15 @@ import time
 import gurobipy as gp
 from gurobipy import GRB
 
-#######
-# In this file, the number of items per size category is a VARIABLE.
-#######
-dimension = 6
+## In this file, the n[i] are variables.
+
+
+dimension = 8
 target_lp_sol = dimension
 M = dimension + 1
 
-def pattern_finder(dimension):
-	max_number = dimension - 1
+
+def pattern_finder(dimension, max_number):
 	output = []
 	pat = [0] * dimension
 	output.append(tuple(pat.copy()))
@@ -24,29 +24,15 @@ def pattern_finder(dimension):
 	return output
 
 
-def triple_double_single_pattern_finder(dimension):
-	output = []
-	pat = [0] * dimension
-	output.append(tuple(pat.copy()))
-	while (pat[0] < 3):
-		pointer = dimension - 1
-		while sum(pat) == 3:
-			pat[pointer] = 0
-			pointer -= 1
-		pat[pointer] += 1
-		output.append(tuple(pat.copy()))
-	return output
-
-
 def pattern_to_string(pattern):
 	return ', '.join(str(e) for e in pattern)
 
 
-# patterns = pattern_finder(dimension)
-patterns = triple_double_single_pattern_finder(dimension)
+patterns = pattern_finder(dimension=dimension,
+                          max_number=3) # Due to 3-partition instance
 
 while target_lp_sol > 1:
-	max_num_items = target_lp_sol * 3   # Due to 3-partition instance
+	max_num_items = target_lp_sol * 3 - 2 # Due to 3-partition instance (for reason of the -2, see "2023.05.12 notes.txt"
 	start_time = time.time()
 	print("#############################################################")
 	print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
@@ -58,8 +44,6 @@ while target_lp_sol > 1:
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
 		m.addConstr(gp.quicksum(n) <= max_num_items)
-
-
 
 		n_ik = []
 		for i in range(dimension):
@@ -73,16 +57,23 @@ while target_lp_sol > 1:
 			for k in range(max_num_items - 1):
 				m.addConstr(n_ik[i][k] >= n_ik[i][k + 1])
 
+		for i in range(dimension-1):
+			m.addConstr(n[i] == n[i+1])
+			for k in range(max_num_items):
+				m.addConstr(n_ik[i][k] == n_ik[i+1][k])
+
 		x = {}
 		for pat in patterns:
 			x[pat] = m.addVar(vtype=GRB.BINARY, name="x(" + pattern_to_string(list(pat)) + ")")
 		m.update()
-		m.addConstr(x[patterns[0]] == 1)    # This ensures that pattern (0,0,...,0) is allowed
+		m.addConstr(x[patterns[0]] == 1)  # This ensures that pattern (0,0,...,0) is allowed
 
 		# Due to 3-partition instance
+		# Probably only small impact, because maximum item size of 0.5 implies via constraints below that all
+		# single and double patterns must be allowed. But still good to have.
 		for pat in patterns:
 			if sum(pat) != 3:
-				m.addConstr(x[patterns[0]] == 1)
+				m.addConstr(x[pat] == 1)
 
 		# # This constraint ensures that no allowed pattern contains more items than there exist in a category
 		# # In the following constraints we use big M
@@ -100,6 +91,7 @@ while target_lp_sol > 1:
 					m.addConstr(x[key_as_tuple] <= x[tuple(key_as_array)])
 					key_as_array[i] += 1
 
+
 		def s_order_constraints():
 			for i in range(dimension - 1):
 				m.addConstr(s[i] <= s[i + 1])
@@ -114,13 +106,16 @@ while target_lp_sol > 1:
 						key_as_array[i] += 1
 			m.update()
 
+
 		def n_order_constraints():
 			for i in range(dimension - 1):
 				m.addConstr(n[i] <= n[i + 1])
 			m.update()
 
+
 		# s[i] is the size of an item in category i
-		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=0.25, ub=0.5, name="s[%s]" % i) for i in range(dimension)]   # Due to 3-partition instance
+		s = [m.addVar(vtype=GRB.CONTINUOUS, lb=0.25 + 0.00001, ub=0.5 - 0.00001, name="s[%s]" % i) for i in
+		     range(dimension)]  # Due to 3-partition instance
 		m.update()
 		# Allowed patterns and forbidden patterns must satisfy the following
 		for pat in patterns:
@@ -166,7 +161,6 @@ while target_lp_sol > 1:
 				m2.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) == n_[i],
 				             name="m2coverage%s" % i)
 
-
 			for pat in patterns:
 				m2.addConstr(z[pat] <= x_[pat] * dimension)
 
@@ -184,16 +178,16 @@ while target_lp_sol > 1:
 					x_used[pat] = z[pat].X
 				obj = m2.getObjective().getValue()
 
-				# The code below outputs the list of allowed patterns in a found solution.
-				# if obj >= target_lp_sol + 1:
-				# 	print("Allowed patterns:")
-				# 	for pat in patterns:
-				# 		if x_[pat] >= 0.9:
-				# 			print(str(pat) + " " + str(x_[pat]))
-				# 	print("Used patterns:")
-				# 	for pat in patterns:
-				# 		if x_used[pat] >= 0.99999:
-				# 			print(str(pat) + " " + str(x_used[pat]))
+			# The code below outputs the list of allowed patterns in a found solution.
+			# if obj >= target_lp_sol + 1:
+			# 	print("Allowed patterns:")
+			# 	for pat in patterns:
+			# 		if x_[pat] >= 0.9:
+			# 			print(str(pat) + " " + str(x_[pat]))
+			# 	print("Used patterns:")
+			# 	for pat in patterns:
+			# 		if x_used[pat] >= 0.99999:
+			# 			print(str(pat) + " " + str(x_used[pat]))
 
 			if status == 3:
 				pass
@@ -225,20 +219,20 @@ while target_lp_sol > 1:
 							if x_used[pat] >= 0.99999:
 								sum += x[pat]
 								counter += 1
-						added_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
+						lazy_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
 						                                              round(n_[i]) < max_num_items]) <= counter - 1)
 						# Above constraint ensures that either a pattern is forbidden or an item is increased in number.
 						model.update()
 					else:
 						print("CallbackMIP is feasible, but ILP objective value is " + str(obj) + "!")
-						# print("Allowed patterns:")
-						# for pat in patterns:
-						# 	if x_[pat] >= 0.9:
-						# 		print(str(pat) + " " + str(x_[pat]))
-						# print("Used patterns:")
-						# for pat in patterns:
-						# 	if x_used[pat] >= 0.99999:
-						# 		print(str(pat) + " " + str(x_used[pat]))
+					# print("Allowed patterns:")
+					# for pat in patterns:
+					# 	if x_[pat] >= 0.9:
+					# 		print(str(pat) + " " + str(x_[pat]))
+					# print("Used patterns:")
+					# for pat in patterns:
+					# 	if x_used[pat] >= 0.99999:
+					# 		print(str(pat) + " " + str(x_used[pat]))
 				elif status == 3:
 					print("Callback MIP is infeasible.")
 					pass
