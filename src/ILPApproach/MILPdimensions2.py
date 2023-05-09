@@ -48,10 +48,12 @@ patterns = pattern_finder(dimension=dimension, max_number=3)    # Due to 3-parti
 
 
 while target_lp_sol > 1:
+	if target_lp_sol == 9:
+		target_lp_sol = 3
 	max_num_items = target_lp_sol * 3 - 2  # Due to 3-partition instance
 	# size_cat_dists = size_cat_dist_finder(dimension=dimension,
 	#                                 max_number=max_num_items)
-	size_cat_dists = [(2,2,2,2,2,2,2,2,2), (1,1,1,1,1,1,1,1,1)]
+	size_cat_dists = []
 	start_time = time.time()
 	print("#############################################################")
 	print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
