@@ -1,3 +1,4 @@
+import copy
 import time
 import gurobipy as gp
 from gurobipy import GRB
@@ -5,7 +6,7 @@ from gurobipy import GRB
 ## In this file, the n[i] are variables.
 
 
-dimension = 8
+dimension = 7
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -32,7 +33,7 @@ patterns = pattern_finder(dimension=dimension,
                           max_number=3) # Due to 3-partition instance
 
 while target_lp_sol > 1:
-	max_num_items = target_lp_sol * 3 - 2 # Due to 3-partition instance (for reason of the -2, see "2023.05.12 notes.txt"
+	max_num_items = target_lp_sol * 3
 	start_time = time.time()
 	print("#############################################################")
 	print("--------------------- target_lp_sol = " + str(target_lp_sol) + "---------------------")
@@ -77,7 +78,7 @@ while target_lp_sol > 1:
 
 		# # This constraint ensures that no allowed pattern contains more items than there exist in a category
 		# # In the following constraints we use big M
-		# # WE DO NOT USE THIS CONSTRAINT ANYMORE SINCE WE ARE NOW CONSIDERING THE UUNBOUNDED CASE! SO THERE CAN BE MORE ITEMS COVERED THAN EXIST IN A CATEGORY
+		# # WE DO NOT USE THIS CONSTRAINT ANYMORE SINCE WE ARE NOW CONSIDERING THE UNBOUNDED CASE! SO THERE CAN BE MORE ITEMS COVERED THAN EXIST IN A CATEGORY
 		# for pat in patterns:
 		# 	for i in range(dimension):
 		# 		m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
@@ -194,6 +195,39 @@ while target_lp_sol > 1:
 			return status, x_used, obj
 
 
+		def cutting_plane_finder1MIP(x_, n_, target_lp_sol):
+			m3 = gp.Model("CuttingPlaneFinder1MIP")
+			m3.Params.OutputFlag = 0
+			m3.update()
+
+			z = {}
+			for pat in patterns:
+				z[pat] = m3.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
+				                   name="z(" + pattern_to_string(list(pat)) + ")")
+			m3.update()
+
+			for i in range(dimension):
+				m3.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) <= n_[i], name="m2coverage%s" % i)
+
+			m3.addConstr(gp.quicksum([z[pat] for pat in patterns]) == target_lp_sol - 1)
+			m3.addConstr(gp.quicksum([z[pat] * sum(pat) for pat in patterns]) == 3 * target_lp_sol - 3)
+
+			for pat in patterns:
+				if sum(pat) != 3 or x_[pat] == 0:
+					m3.addConstr(z[pat] == 0)
+
+			m3.update()
+			m3.optimize()
+
+			status = m3.Status
+			x_used = []
+			if status == 2:
+				x_used = {}
+				for pat in patterns:
+					x_used[pat] = z[pat].X
+			return status, x_used
+
+
 		def callback(model, where):
 			if where == GRB.Callback.MIPSOL:
 				x_ = model.cbGetSolution(x)
@@ -209,34 +243,59 @@ while target_lp_sol > 1:
 				for i in range(dimension):
 					n_ik_.append(model.cbGetSolution(n_ik[i]))
 
-				status, x_used, obj = callbackMIP(x_, n_)
+				def use_callbackMIP_as_cuttingPlane():
+					status, x_used, obj = callbackMIP(x_, n_)
 
-				if status == 2:  # If the callback MIP has found a solution
-					if obj <= target_lp_sol + 1.00001:
+					if status == 2:  # If the callback MIP has found a solution
+						if obj <= target_lp_sol + 1.00001:
+							sum = 0
+							counter = 0
+							for pat in patterns:
+								if x_used[pat] >= 0.99999:
+									sum += x[pat]
+									counter += 1
+							lazy_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
+							                                              round(n_[i]) < max_num_items]) <= counter - 1)
+							# Above constraint ensures that either a pattern is forbidden or an item is increased in number.
+							model.update()
+						else:
+							print("CallbackMIP is feasible, but ILP objective value is " + str(obj) + "!")
+						# print("Allowed patterns:")
+						# for pat in patterns:
+						# 	if x_[pat] >= 0.9:
+						# 		print(str(pat) + " " + str(x_[pat]))
+						# print("Used patterns:")
+						# for pat in patterns:
+						# 	if x_used[pat] >= 0.99999:
+						# 		print(str(pat) + " " + str(x_used[pat]))
+					elif status == 3:
+						print("Callback MIP is infeasible.")
+						pass
+
+				def use_cuttingPlaneFinder1MIP_as_cuttingPlane():
+					status, x_used = cutting_plane_finder1MIP(x_, n_)
+					if status == 2:
 						sum = 0
 						counter = 0
+						items_covered_per_category = [0] * dimension
 						for pat in patterns:
 							if x_used[pat] >= 0.99999:
 								sum += x[pat]
 								counter += 1
-						lazy_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
-						                                              round(n_[i]) < max_num_items]) <= counter - 1)
-						# Above constraint ensures that either a pattern is forbidden or an item is increased in number.
-						model.update()
-					else:
-						print("CallbackMIP is feasible, but ILP objective value is " + str(obj) + "!")
-					# print("Allowed patterns:")
-					# for pat in patterns:
-					# 	if x_[pat] >= 0.9:
-					# 		print(str(pat) + " " + str(x_[pat]))
-					# print("Used patterns:")
-					# for pat in patterns:
-					# 	if x_used[pat] >= 0.99999:
-					# 		print(str(pat) + " " + str(x_used[pat]))
-				elif status == 3:
-					print("Callback MIP is infeasible.")
-					pass
+								for i in range(dimension):
+									items_covered_per_category += pat[i] * x_used
 
+						categories_with_item_decrease = gp.quicksum([n_ik[i][round(items_covered_per_category[i]) - 1] for i in range(dimension) if round(items_covered_per_category[i]) > 0]) - dimension
+
+						lazy_const = model.cbLazy(sum + categories_with_item_decrease <= counter - 1)
+						model.update()
+
+					elif status == 3:
+						print("Callback MIP is infeasible.")
+						pass
+
+
+				use_callbackMIP_as_cuttingPlane()
 
 		m.Params.LazyConstraints = 1
 		m.Params.CutPasses = 1
