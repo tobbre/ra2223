@@ -6,7 +6,7 @@ from gurobipy import GRB
 ## In this file, the n[i] are variables.
 
 
-dimension = 7
+dimension = 6
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -190,7 +190,7 @@ while target_lp_sol > 1:
 			return status, x_used, obj
 
 
-		def cp_nMinus1triples(x_, n_, target_lp_sol):
+		def cp_nMinusBtriples(x_, n_, target_lp_sol, B):
 			m3 = gp.Model("CuttingPlaneFinder1MIP")
 			m3.Params.OutputFlag = 0
 			m3.update()
@@ -204,8 +204,8 @@ while target_lp_sol > 1:
 			for i in range(dimension):
 				m3.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) <= n_[i], name="m2coverage%s" % i)
 
-			m3.addConstr(gp.quicksum([z[pat] for pat in patterns]) == target_lp_sol - 1)
-			m3.addConstr(gp.quicksum([z[pat] * sum(pat) for pat in patterns]) == 3 * target_lp_sol - 3)
+			m3.addConstr(gp.quicksum([z[pat] for pat in patterns]) == target_lp_sol - B)
+			m3.addConstr(gp.quicksum([z[pat] * sum(pat) for pat in patterns]) == 3 * target_lp_sol - 3 * B)
 
 			for pat in patterns:
 				if sum(pat) != 3 or x_[pat] == 0:
@@ -267,10 +267,10 @@ while target_lp_sol > 1:
 						print("Callback MIP is infeasible.")
 						pass
 
-				def use_cp_nMinus1triples_as_cuttingPlane():
+				def use_cp_nMinusBtriples_as_cuttingPlane(B):
 					# This is only valid for MIRUP, not IRUP.
 					# It is also only valid
-					status, x_used = cp_nMinus1triples(x_, n_, target_lp_sol)
+					status, x_used = cp_nMinusBtriples(x_, n_, target_lp_sol, B)
 					if status == 2:
 						sum = 0
 						counter_distinct_used_patterns = 0
@@ -290,14 +290,14 @@ while target_lp_sol > 1:
 						return True
 
 					elif status == 3:
-						# There was simply no combo of n-1 patterns covering 3n-3 distinct items.
+						# There was simply no combo of n-B patterns covering 3n-3B distinct items.
 						pass
 						return False
 
-				def isCuttingPlaneNotYetFound():
-					return not use_cp_nMinus1triples_as_cuttingPlane()
+				def isCuttingPlaneNotYetFound(B):
+					return not use_cp_nMinusBtriples_as_cuttingPlane(B)
 
-				if isCuttingPlaneNotYetFound():
+				if isCuttingPlaneNotYetFound(2):
 					use_callbackMIP_as_cuttingPlane()
 
 		m.Params.LazyConstraints = 1
