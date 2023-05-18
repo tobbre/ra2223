@@ -44,7 +44,7 @@ while target_lp_sol > 1:
 		# The n vector contains information how many items are in each of the len(n) = dimension different size categories
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
-		m.addConstr(gp.quicksum(n) <= max_num_items)
+		m.addConstr(gp.quicksum(n) == max_num_items)    # Since we want exactly 3*target_lp_sol items
 
 		n_ik = []
 		for i in range(dimension):
@@ -57,11 +57,6 @@ while target_lp_sol > 1:
 			m.addConstr(n[i] == gp.quicksum([n_ik[i][k] for k in range(max_num_items)]))
 			for k in range(max_num_items - 1):
 				m.addConstr(n_ik[i][k] >= n_ik[i][k + 1])
-
-		for i in range(dimension-1):
-			m.addConstr(n[i] == n[i+1])
-			for k in range(max_num_items):
-				m.addConstr(n_ik[i][k] == n_ik[i+1][k])
 
 		x = {}
 		for pat in patterns:
@@ -195,7 +190,7 @@ while target_lp_sol > 1:
 			return status, x_used, obj
 
 
-		def cutting_plane_finder1MIP(x_, n_, target_lp_sol):
+		def cp_nMinus1triples(x_, n_, target_lp_sol):
 			m3 = gp.Model("CuttingPlaneFinder1MIP")
 			m3.Params.OutputFlag = 0
 			m3.update()
@@ -272,39 +267,44 @@ while target_lp_sol > 1:
 						print("Callback MIP is infeasible.")
 						pass
 
-				def use_cuttingPlaneFinder1MIP_as_cuttingPlane():
-					status, x_used = cutting_plane_finder1MIP(x_, n_)
+				def use_cp_nMinus1triples_as_cuttingPlane():
+					# This is only valid for MIRUP, not IRUP.
+					# It is also only valid
+					status, x_used = cp_nMinus1triples(x_, n_, target_lp_sol)
 					if status == 2:
 						sum = 0
-						counter = 0
+						counter_distinct_used_patterns = 0
 						items_covered_per_category = [0] * dimension
 						for pat in patterns:
 							if x_used[pat] >= 0.99999:
 								sum += x[pat]
-								counter += 1
+								counter_distinct_used_patterns += 1
 								for i in range(dimension):
-									items_covered_per_category += pat[i] * x_used
+									items_covered_per_category[i] += pat[i] * x_used[pat]
+						numberOf_nonzero_covered_categories = gp.quicksum([1 for i in range(dimension) if round(items_covered_per_category[i]) > 0])
 
-						categories_with_item_decrease = gp.quicksum([n_ik[i][round(items_covered_per_category[i]) - 1] for i in range(dimension) if round(items_covered_per_category[i]) > 0]) - dimension
+						categories_with_item_decrease = numberOf_nonzero_covered_categories - gp.quicksum([n_ik[i][round(items_covered_per_category[i]) - 1] for i in range(dimension) if round(items_covered_per_category[i]) > 0])
 
-						lazy_const = model.cbLazy(sum + categories_with_item_decrease <= counter - 1)
+						model.cbLazy(sum - categories_with_item_decrease <= counter_distinct_used_patterns - 1)
 						model.update()
+						return True
 
 					elif status == 3:
-						print("Callback MIP is infeasible.")
+						# There was simply no combo of n-1 patterns covering 3n-3 distinct items.
 						pass
+						return False
 
+				def isCuttingPlaneNotYetFound():
+					return not use_cp_nMinus1triples_as_cuttingPlane()
 
-				use_callbackMIP_as_cuttingPlane()
+				if isCuttingPlaneNotYetFound():
+					use_callbackMIP_as_cuttingPlane()
 
 		m.Params.LazyConstraints = 1
 		m.Params.CutPasses = 1
 		m.Params.NodefileStart = 4
 		m.Params.IntFeasTol = 1e-09
 
-		# m.setObjective(expr=gp.quicksum(list(y.values())), sense=GRB.MINIMIZE)
-		# m.setObjectiveN(expr=gp.quicksum(n), index=1)
-		# m.setObjective(expr=gp.quicksum(n), sense=GRB.MINIMIZE)
 		m.optimize(callback)
 
 		if m.status == GRB.OPTIMAL:
