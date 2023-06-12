@@ -6,7 +6,7 @@ from gurobipy import GRB
 ## In this file, the n[i] are variables.
 
 
-dimension = 6
+dimension = 20
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -42,10 +42,8 @@ while target_lp_sol > 1:
 		# m is MainMIP
 
 		# The n vector contains information how many items are in each of the len(n) = dimension different size categories
-		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
-		     range(dimension)]
-		m.addConstr(gp.quicksum(n) == max_num_items)    # Since we want exactly 3*target_lp_sol items
-
+		n = [1] * dimension   # Since we want exactly 1 items per category. This is the general case again, with dimension-many items.
+		n[dimension - 1] = 6
 		n_ik = []
 		for i in range(dimension):
 			var_list = []
@@ -119,8 +117,8 @@ while target_lp_sol > 1:
 			if sum(list(pat)) != 1:
 				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
 
-		n_order_constraints()
-		# s_order_constraints()
+		# n_order_constraints()
+		s_order_constraints()
 
 		y = {}
 		for pat in patterns:
@@ -226,7 +224,8 @@ while target_lp_sol > 1:
 		def callback(model, where):
 			if where == GRB.Callback.MIPSOL:
 				x_ = model.cbGetSolution(x)
-				n_ = model.cbGetSolution(n)
+				# n_ = model.cbGetSolution(n)
+				n_ = n
 				for pat in patterns:
 					x_[pat] = round(x_[pat])
 				for i in range(dimension):
