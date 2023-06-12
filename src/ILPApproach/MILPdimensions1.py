@@ -6,7 +6,7 @@ from gurobipy import GRB
 ## In this file, the n[i] are variables.
 
 
-dimension = 6
+dimension = 7
 target_lp_sol = dimension
 M = dimension + 1
 
@@ -44,7 +44,7 @@ while target_lp_sol > 1:
 		# The n vector contains information how many items are in each of the len(n) = dimension different size categories
 		n = [m.addVar(vtype=GRB.INTEGER, name="n%s" % i, lb=0, ub=max_num_items - 1) for i in
 		     range(dimension)]
-		m.addConstr(gp.quicksum(n) == max_num_items)    # Since we want exactly 3*target_lp_sol items
+		m.addConstr(gp.quicksum(n) == max_num_items)    # Equality, since we want exactly 3*target_lp_sol items
 
 		n_ik = []
 		for i in range(dimension):
@@ -89,6 +89,7 @@ while target_lp_sol > 1:
 
 
 		def s_order_constraints():
+			m.addConstr(s[dimension - 1] >= 1/3 + 0.00001)
 			for i in range(dimension - 1):
 				m.addConstr(s[i] <= s[i + 1])
 			for key_as_tuple in keys:
@@ -118,9 +119,8 @@ while target_lp_sol > 1:
 			m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
 			if sum(list(pat)) != 1:
 				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
-
-		n_order_constraints()
-		# s_order_constraints()
+		# n_order_constraints()
+		s_order_constraints()
 
 		y = {}
 		for pat in patterns:
@@ -202,7 +202,7 @@ while target_lp_sol > 1:
 			m3.update()
 
 			for i in range(dimension):
-				m3.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) <= n_[i], name="m2coverage%s" % i)
+				m3.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) == n_[i], name="m2coverage%s" % i)
 
 			m3.addConstr(gp.quicksum([z[pat] for pat in patterns]) == target_lp_sol - B)
 			m3.addConstr(gp.quicksum([z[pat] * sum(pat) for pat in patterns]) == 3 * target_lp_sol - 3 * B)
@@ -223,10 +223,46 @@ while target_lp_sol > 1:
 			return status, x_used
 
 
+		def cp_2nLargest(x_, n__, s_, target_lp_sol):
+			m4 = gp.Model("CuttingPlaneFinder2MIP")
+			m4.Params.OutputFlag = 0
+			m4.update()
+
+			z = {}
+			for pat in patterns:
+				z[pat] = m4.addVar(vtype=GRB.INTEGER, lb=0, ub=dimension,
+				                   name="z(" + pattern_to_string(list(pat)) + ")")
+			m4.update()
+
+			for i in range(dimension):
+				m4.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) >= n__[i], name="m2coverage%s" % i)
+
+			m4.addConstr(gp.quicksum([z[pat] for pat in patterns]) <= target_lp_sol + 1)
+
+			for pat in patterns:
+				if sum(pat) == 3 \
+						or x_[pat] == 0\
+						or sum([s_[i]*pat[i] for i in range(dimension)]) > 2/3:
+					m4.addConstr(z[pat] == 0)
+
+
+			m4.update()
+			m4.optimize()
+
+			status = m4.Status
+			x_used = []
+			if status == 2:
+				x_used = {}
+				for pat in patterns:
+					x_used[pat] = z[pat].X
+			return status, x_used
+
+
 		def callback(model, where):
 			if where == GRB.Callback.MIPSOL:
 				x_ = model.cbGetSolution(x)
 				n_ = model.cbGetSolution(n)
+				s_ = model.cbGetSolution(s)
 				for pat in patterns:
 					x_[pat] = round(x_[pat])
 				for i in range(dimension):
@@ -269,7 +305,6 @@ while target_lp_sol > 1:
 
 				def use_cp_nMinusBtriples_as_cuttingPlane(B):
 					# This is only valid for MIRUP, not IRUP.
-					# It is also only valid
 					status, x_used = cp_nMinusBtriples(x_, n_, target_lp_sol, B)
 					if status == 2:
 						sum = 0
@@ -294,8 +329,41 @@ while target_lp_sol > 1:
 						pass
 						return False
 
+				def use_cp_2nLargest_as_cuttingPlane():
+					# This is only valid for MIRUP, not IRUP.
+					# This is only valid for the 3-partition instance and 3*target_lp_sol items.
+					counter = 0
+					n__ = copy.deepcopy(n_)
+					for i in range(dimension):
+						if n_[i] + counter <= target_lp_sol:
+							n__[i] = 0
+							counter += n_[i]
+						else:
+							n__[i] = n_[i] - (target_lp_sol - counter)
+							break
+
+					status, x_used = cp_2nLargest(x_, n__, s_, target_lp_sol)
+					if status == 2:
+						sum = 0
+						counter_distinct_used_patterns = 0
+						for pat in patterns:
+							if x_[pat] >= 0.99999:
+								sum += x[pat]
+								counter_distinct_used_patterns += 1
+						# numberswitcher = 0  # TODO: figure out a way to tell the constraint to swap a smaller for a bigger item
+
+						# model.cbLazy(sum - numberswitcher <= counter_distinct_used_patterns - 1)
+						# model.update()
+						# return True
+						return False
+
+					elif status == 3:
+						# There was simply no combo.
+						pass
+						return False
 				def isCuttingPlaneNotYetFound(B):
-					return not use_cp_nMinusBtriples_as_cuttingPlane(B)
+					# return not use_cp_nMinusBtriples_as_cuttingPlane(B)
+					return not use_cp_2nLargest_as_cuttingPlane()
 
 				if isCuttingPlaneNotYetFound(2):
 					use_callbackMIP_as_cuttingPlane()
