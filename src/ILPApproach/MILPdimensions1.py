@@ -317,15 +317,22 @@ for dim in range(15, 22):
 						for pat in patterns:
 								m5.addConstr(z[pat] <= x_[pat])
 
-						# min-maxing the slacks
-						C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1.1, name="maximum_slack") # even though slack can be at most 1, i'd rather be safe than sorry. And since C is being minimized anyways, allowing it to be big doesn't change anything.
-						m5.update()
-						for pat in patterns:
-							m5.addConstr(gp.quicksum(slack[pat] * z[pat] for pat in patterns) <= C)
-						m5.setObjective(C, GRB.MINIMIZE)
+						# # min-maxing the slacks
+						# C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1.1, name="maximum_slack") # even though slack can be at most 1, i'd rather be safe than sorry. And since C is being minimized anyways, allowing it to be big doesn't change anything.
+						# m5.update()
+						# for pat in patterns:
+						# 	m5.addConstr(slack[pat] * z[pat] <= C)
+						# m5.setObjective(C, GRB.MINIMIZE)
 
-						# # Alternatively, we can minimize the Sum Of Squared Slacks
-						# m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
+						# # max-minning the slacks
+						# C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1, name="minimum_slack")
+						# m5.update()
+						# for pat in patterns:
+						# 	m5.addConstr(slack[pat] * z[pat] >= C)
+						# m5.setObjective(C, GRB.MAXIMIZE)
+
+						# Alternatively, we can minimize the Sum Of Squared Slacks
+						m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
 
 						m5.update()
 						m5.optimize()
