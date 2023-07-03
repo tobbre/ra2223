@@ -6,7 +6,7 @@ import math
 
 ## In this file, the n[i] are variables.
 
-for dim in range(15, 22):
+for dim in range(24, 25):
 	dimension = dim
 	M = dimension + 1
 
