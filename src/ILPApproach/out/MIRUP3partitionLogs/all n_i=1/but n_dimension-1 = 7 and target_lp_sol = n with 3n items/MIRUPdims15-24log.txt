@@ -1,0 +1,221 @@
+/Users/tobiasbreuer/miniforge3/envs/mlp/bin/python /Users/tobiasbreuer/Desktop/E&OR/Research Assistantship/pythoncode/RA2223/src/ILPApproach/MILPdimensions1.py
+#############################################################
+--------------------- target_lp_sol = 7.0---------------------
+#############################################################
+Set parameter Username
+Academic license - for non-commercial use only - expires 2023-09-16
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 6860 rows, 1962 columns and 19139 nonzeros
+Model fingerprint: 0x344e8e54
+Variable types: 831 continuous, 1131 integer (1131 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+01]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [3e-01, 2e+01]
+Presolve removed 3114 rows and 453 columns
+Presolve time: 0.04s
+Presolved: 3746 rows, 1509 columns, 12554 nonzeros
+Variable types: 830 continuous, 679 integer (679 binary)
+
+Root relaxation: objective 0.000000e+00, 2375 iterations, 0.11 seconds (0.28 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0  620          -    0.00000      -     -    0s
+     0     0    0.00000    0  199          -    0.00000      -     -    1s
+     0     2    0.00000    0  184          -    0.00000      -     -    2s
+
+Cutting planes:
+  MIR: 1
+  RLT: 24
+  Relax-and-lift: 4
+  Lazy constraints: 7
+
+Explored 198 nodes (20902 simplex iterations) in 2.46 seconds (3.35 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 1076, time in user-callback 0.26 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 7
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 0
+
+RT: 2.5454487800598145 seconds.
+#############################################################
+--------------------- target_lp_sol = 8.0---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 11282 rows, 3110 columns and 31660 nonzeros
+Model fingerprint: 0x006e2189
+Variable types: 1348 continuous, 1762 integer (1762 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+01]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [3e-01, 2e+01]
+Presolve removed 4923 rows and 624 columns
+Presolve time: 0.05s
+Presolved: 6359 rows, 2486 columns, 21304 nonzeros
+Variable types: 1347 continuous, 1139 integer (1139 binary)
+
+Root relaxation: objective 0.000000e+00, 6184 iterations, 0.43 seconds (1.26 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0 1115          -    0.00000      -     -    1s
+     0     0    0.00000    0  922          -    0.00000      -     -    3s
+     0     2    0.00000    0  900          -    0.00000      -     -    4s
+   389   153 infeasible   22               -    0.00000      -  68.1    5s
+
+Cutting planes:
+  Gomory: 1
+  Cover: 8
+  Implied bound: 10
+  MIR: 7
+  Inf proof: 7
+  RLT: 13
+  Relax-and-lift: 1
+  Lazy constraints: 23
+
+Explored 3773 nodes (272072 simplex iterations) in 8.25 seconds (13.57 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 8903, time in user-callback 1.66 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 23
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 0
+
+RT: 8.365658044815063 seconds.
+#############################################################
+--------------------- target_lp_sol = 9.0---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 17288 rows, 4636 columns and 48717 nonzeros
+Model fingerprint: 0x9ebdda9b
+Variable types: 2045 continuous, 2591 integer (2591 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+01]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [3e-01, 2e+01]
+Presolve removed 7295 rows and 800 columns
+Presolve time: 0.04s
+Presolved: 9993 rows, 3836 columns, 33457 nonzeros
+Variable types: 2044 continuous, 1792 integer (1792 binary)
+
+Root relaxation: objective 0.000000e+00, 10578 iterations, 1.09 seconds (3.15 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0 1736          -    0.00000      -     -    2s
+     0     0    0.00000    0 1659          -    0.00000      -     -    6s
+     0     2    0.00000    0 1616          -    0.00000      -     -    7s
+   879   413    0.00000   35    -          -    0.00000      -  62.4   10s
+  5327   438    0.00000   29   16          -    0.00000      -  67.7   15s
+  9930   774 infeasible   30               -    0.00000      -  70.5   20s
+ 13749   407 infeasible   37               -    0.00000      -  67.8   25s
+ 14574   472    0.00000   33 1659          -    0.00000      -  73.0   31s
+ 14576   473    0.00000   11 1532          -    0.00000      -  73.0   58s
+ 14579   478    0.00000   15 1216          -    0.00000      -  74.1   71s
+ 15598   199    0.00000   41   30          -    0.00000      -  76.9   75s
+ 18080    86 infeasible   49               -    0.00000      -  80.5   80s
+ 20255    75 infeasible   35               -    0.00000      -  83.8   85s
+ 24928   111    0.00000   39   98          -    0.00000      -  81.0   90s
+ 26605    35 infeasible   54               -    0.00000      -  81.0   95s
+ 29672    95 infeasible   48               -    0.00000      -  79.9  100s
+ 33969    75    0.00000   54  140          -    0.00000      -  79.4  105s
+ 36483    69    0.00000   42  139          -    0.00000      -  81.5  110s
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 6
+  Projected implied bound: 18
+  BQP: 100
+  Lazy constraints: 28
+
+Explored 39869 nodes (3347653 simplex iterations) in 114.53 seconds (280.74 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 93303, time in user-callback 10.16 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 82
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 0
+
+RT: 114.72703194618225 seconds.
+#############################################################
+--------------------- target_lp_sol = 10.0---------------------
+#############################################################
+Set parameter LazyConstraints to value 1
+Set parameter CutPasses to value 1
+Set parameter NodefileStart to value 4
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (mac64[arm])
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 25121 rows, 6594 columns and 71012 nonzeros
+Model fingerprint: 0xafd5f771
+Variable types: 2949 continuous, 3645 integer (3645 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+01]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [3e-01, 1e+00]
+  RHS range        [3e-01, 3e+01]
+Presolve removed 10347 rows and 1017 columns
+Presolve time: 0.05s
+Presolved: 14774 rows, 5577 columns, 49449 nonzeros
+Variable types: 2948 continuous, 2629 integer (2629 binary)
+
+Root relaxation: objective 0.000000e+00, 11692 iterations, 2.09 seconds (6.58 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0 2564          -    0.00000      -     -    5s
+     0     0    0.00000    0 2441          -    0.00000      -     -   12s
+     0     2    0.00000    0 2441          -    0.00000      -     -   15s
+   477   410    0.00000   11  581          -    0.00000      -   149   20s
+  3559   534 infeasible   46               -    0.00000      -  57.5   26s
+  5449   584 infeasible   51               -    0.00000      -  55.4   30s
+...
+This takes multiple days without end in sight.

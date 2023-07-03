@@ -26640,3 +26640,4 @@ Total elapsed time = 25.58s
  10140634  1595 infeasible   81               -    0.00000      -   129 90939s
  10140893  1557    0.00000   82   11          -    0.00000      -   129 90945s
  10141491  1564 infeasible   84               -    0.00000      -   129 90951s
+ kept going until 1.000.000 seconds and no finish
