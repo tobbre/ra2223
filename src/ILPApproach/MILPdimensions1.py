@@ -6,7 +6,7 @@ import math
 
 ## In this file, the n[i] are variables.
 
-for dim in range(24, 25):
+for dim in range(15, 22):
 	dimension = dim
 	M = dimension + 1
 
@@ -319,8 +319,9 @@ for dim in range(24, 25):
 
 						# min-maxing the slacks
 						C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1.1, name="maximum_slack") # even though slack can be at most 1, i'd rather be safe than sorry. And since C is being minimized anyways, allowing it to be big doesn't change anything.
+						m5.update()
 						for pat in patterns:
-							m5.addConstr(gp.quicksum(slack[pat] * z[pat] for pat in patterns) < C)
+							m5.addConstr(gp.quicksum(slack[pat] * z[pat] for pat in patterns) <= C)
 						m5.setObjective(C, GRB.MINIMIZE)
 
 						# # Alternatively, we can minimize the Sum Of Squared Slacks
