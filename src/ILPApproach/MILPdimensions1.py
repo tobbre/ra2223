@@ -6,9 +6,9 @@ import math
 
 ## In this file, the n[i] are variables.
 
-for dim in range(24, 25):
+for dim in range(15, 22):
 	dimension = dim
-	M = dimension + 1
+	M = 2
 
 
 	def pattern_finder(dimension, max_items_per_pattern):
@@ -50,17 +50,17 @@ for dim in range(24, 25):
 
 			n = [1] * dimension
 			n[dimension - 1] = 7
-			n_ik = []
-			for i in range(dimension):
-				var_list = []
-				for k in range(max_num_items):
-					var_list.append(m.addVar(vtype=GRB.BINARY, name="n_%s^%s" % (i, k)))
-				n_ik.append(var_list)
-			m.update()
-			for i in range(dimension):
-				m.addConstr(n[i] == gp.quicksum([n_ik[i][k] for k in range(max_num_items)]))
-				for k in range(max_num_items - 1):
-					m.addConstr(n_ik[i][k] >= n_ik[i][k + 1])
+			# n_ik = []
+			# for i in range(dimension):
+			# 	var_list = []
+			# 	for k in range(max_num_items):
+			# 		var_list.append(m.addVar(vtype=GRB.BINARY, name="n_%s^%s" % (i, k)))
+			# 	n_ik.append(var_list)
+			# m.update()
+			# for i in range(dimension):
+			# 	m.addConstr(n[i] == gp.quicksum([n_ik[i][k] for k in range(max_num_items)]))
+			# 	for k in range(max_num_items - 1):
+			# 		m.addConstr(n_ik[i][k] >= n_ik[i][k + 1])
 
 			x = {}
 			for pat in patterns:
@@ -75,12 +75,6 @@ for dim in range(24, 25):
 				if sum(pat) != 3:
 					m.addConstr(x[pat] == 1)
 
-			# # This constraint ensures that no allowed pattern contains more items than there exist in a category
-			# # In the following constraints we use big M
-			# # WE DO NOT USE THIS CONSTRAINT ANYMORE SINCE WE ARE NOW CONSIDERING THE UNBOUNDED CASE! SO THERE CAN BE MORE ITEMS COVERED THAN EXIST IN A CATEGORY
-			# for pat in patterns:
-			# 	for i in range(dimension):
-			# 		m.addConstr(n[i] - pat[i] >= 0 - (1 - x[pat]) * M)
 
 			keys = list(x)
 			for key_as_tuple in keys:
@@ -166,9 +160,9 @@ for dim in range(24, 25):
 
 					y_ = model.cbGetSolution(y)
 					sumy = gp.quicksum(y_)  # for diagnostic purposes only
-					n_ik_ = []
-					for i in range(dimension):
-						n_ik_.append(model.cbGetSolution(n_ik[i]))
+					# n_ik_ = []
+					# for i in range(dimension):
+					# 	n_ik_.append(model.cbGetSolution(n_ik[i]))
 
 					def callbackMIP(x_, n_):
 						'''
@@ -190,14 +184,21 @@ for dim in range(24, 25):
 
 						for i in range(dimension):
 							m2.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) == n_[i],
-							             name="m2coverage%s" % i)
+							             name="m2coverage%s" % i)   # Note that == is faster than >= here.
 
 						for pat in patterns:
 							if x_[pat] == 0:
 								m2.addConstr(z[pat] == 0)
 
-						obj2 = gp.quicksum([z[pat] for pat in patterns])
-						m2.setObjective(obj2, GRB.MINIMIZE)
+						# obj2 = gp.quicksum([z[pat] for pat in patterns])
+						# m2.setObjective(obj2, GRB.MINIMIZE)
+
+						#Alternatively, we can just look for a solution that works
+						m2.addConstr(gp.quicksum([z[pat] for pat in patterns]) <= target_lp_sol + 1)
+
+
+						# while minimizing the Sum Of Squared Slacks (balancing)
+						m2.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
 
 						m2.update()
 						m2.optimize()
@@ -297,7 +298,7 @@ for dim in range(24, 25):
 								x_used[pat] = z[pat].X
 						return status, x_used
 
-					def cp_noSmallestOrLargest(x_, n__, target_lp_sol, remove_small, remove_large):
+					def cp_noSmallestOrLargest(x_, n__, target_lp_sol, remove_small, remove_large, slack):
 						m5 = gp.Model("CuttingPlaneFinder3MIP")
 						m5.Params.OutputFlag = 0
 						m5.update()
@@ -309,13 +310,15 @@ for dim in range(24, 25):
 						m5.update()
 
 						for i in range(dimension):
-							m5.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) >= n__[i],
+							m5.addConstr(gp.quicksum([z[pat] * pat[i] for pat in patterns]) == n__[i],
 							             name="m2coverage%s" % i)
 
 						m5.addConstr(gp.quicksum([z[pat] for pat in patterns]) <= target_lp_sol + 1 - remove_small/3 - remove_large/2)
 
 						for pat in patterns:
-								m5.addConstr(z[pat] <= x_[pat])
+							if x_[pat] == 0:
+								m5.addConstr(z[pat] == 0)
+								# Also, apparently this is significantly faster thatn saying z[pat] <= x_[pat]. I don't know why.
 
 						# # min-maxing the slacks
 						# C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1.1, name="maximum_slack") # even though slack can be at most 1, i'd rather be safe than sorry. And since C is being minimized anyways, allowing it to be big doesn't change anything.
@@ -349,19 +352,19 @@ for dim in range(24, 25):
 						status, x_used, obj = callbackMIP(x_, n_)
 
 						if status == 2:  # If the callback MIP has found a solution
-							if obj <= target_lp_sol + 1.00001:
-								sum = 0
-								counter = 0
-								for pat in patterns:
-									if x_used[pat] >= 0.99999:
-										sum += x[pat]
-										counter += 1
-								lazy_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
-								                                             round(n_[i]) < max_num_items]) <= counter - 1)
-								# Above constraint ensures that either a pattern is forbidden or an item is increased in number. If n-array is fixed, the constraint will only cause a pattern to be forbidden.
-								model.update()
-							else:
-								print("CallbackMIP is feasible, but ILP objective value is " + str(obj) + "!")
+							sum = 0
+							counter = 0
+							for pat in patterns:
+								if x_used[pat] >= 0.99999:
+									sum += x[pat]
+									counter += 1
+							lazy_const = model.cbLazy(sum <= counter - 1)
+
+							# # This is the old way we did it, when n[] was still variable.
+							# lazy_const = model.cbLazy(sum - gp.quicksum([n_ik[i][round(n_[i])] for i in range(dimension) if
+							#                                              round(n_[i]) < max_num_items]) <= counter - 1)
+
+							model.update()
 						# print("Allowed patterns:")
 						# for pat in patterns:
 						# 	if x_[pat] >= 0.9:
@@ -390,7 +393,7 @@ for dim in range(24, 25):
 										items_covered_per_category[i] += pat[i] * x_used[pat]
 							numberOf_nonzero_covered_categories = gp.quicksum([1 for i in range(dimension) if round(items_covered_per_category[i]) > 0])
 
-							categories_with_item_decrease = numberOf_nonzero_covered_categories - gp.quicksum([n_ik[i][round(items_covered_per_category[i]) - 1] for i in range(dimension) if round(items_covered_per_category[i]) > 0])
+							categories_with_item_decrease = 0 # mnumberOf_nonzero_covered_categories - gp.quicksum([n_ik[i][round(items_covered_per_category[i]) - 1] for i in range(dimension) if round(items_covered_per_category[i]) > 0])
 
 							model.cbLazy(sum - categories_with_item_decrease <= counter_distinct_used_patterns - 1)
 							# Above constraint ensures that either a pattern is forbidden or items from a category are removed in order to make pattern combination invalid. If n-array is fixed, the constraint will only cause a pattern to be forbidden.
@@ -435,7 +438,7 @@ for dim in range(24, 25):
 							pass
 							return False
 
-					def use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small, remove_large):
+					def use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small, remove_large, slack):
 						# This is only valid for MIRUP, not IRUP.
 						# This is only valid for the 3-partition instance.
 						# This is only valid if n is fixed in MainMIP, since lazy constraint does not take into account possibility of a change of n, it only takes into account forbidding patterns.
@@ -458,13 +461,13 @@ for dim in range(24, 25):
 								n__[i] -= (remove_large - counter)
 								break
 
-						status, x_used = cp_noSmallestOrLargest(x_, n__, target_lp_sol, remove_small, remove_large)
+						status, x_used = cp_noSmallestOrLargest(x_, n__, target_lp_sol, remove_small, remove_large, slack)
 						if status == 2:
-							if sum(x_used[pat] for pat in patterns) == 0:
-								# i.e. if remove_small and remove_large remove all items, a solution exists with no used bins.
-								# This causes an error, since the lazy constraint ends up being just a boolean.
-								# This if statement exists to detect this case and use a different cutting planes method.
-								return False
+							# if sum(x_used[pat] for pat in patterns) == 0:
+							# 	# i.e. if remove_small and remove_large remove all items, a solution exists with no used bins.
+							# 	# This causes an error, since the lazy constraint ends up being just a boolean.
+							# 	# This if statement exists to detect this case and use a different cutting planes method.
+							# 	return False
 
 							sum1 = 0
 							counter_distinct_used_patterns = 0
@@ -510,10 +513,9 @@ for dim in range(24, 25):
 						# if use_cp_2nLargest_as_cuttingPlane():
 						# 	counters_cp[1] += 1
 						# 	return False
-						for r in range(0, -1, -3):
-							if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=r, remove_large=6):
-								counters_cp[0] += 1
-								return False
+						if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
+							counters_cp[0] += 1
+							return False
 						# if use_cp_nMinusBtriples_as_cuttingPlane(2):
 						# 	counters_cp[2] += 1
 						# 	return False
