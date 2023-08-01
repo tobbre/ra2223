@@ -284,7 +284,7 @@ for dim in range(15, 22):
 						for pat in patterns:
 							if sum(pat) == 3 \
 									or x_[pat] == 0 \
-									or sum([s_[i] * pat[i] for i in range(dimension)]) > 2 / 3:
+									or slack[pat] < 2 / 3:
 								m4.addConstr(z[pat] == 0)
 
 						m4.update()
@@ -416,7 +416,7 @@ for dim in range(15, 22):
 							if n_[i] + sum(n__) <= 2 * target_lp_sol:
 								n__[i] = n_[i]
 							else:
-								n__[i] = target_lp_sol - sum(n__)
+								n__[i] = (int) (2 * target_lp_sol - sum(n__))
 								break
 
 						status, x_used = cp_2nLargest(x_, n__, s_, target_lp_sol)
@@ -510,12 +510,12 @@ for dim in range(15, 22):
 							return False
 
 					def isCuttingPlaneNotYetFound():
-						# if use_cp_2nLargest_as_cuttingPlane():
-						# 	counters_cp[1] += 1
-						# 	return False
-						if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
-							counters_cp[0] += 1
+						if use_cp_2nLargest_as_cuttingPlane():
+							counters_cp[1] += 1
 							return False
+						# if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
+						# 	counters_cp[0] += 1
+						# 	return False
 						# if use_cp_nMinusBtriples_as_cuttingPlane(2):
 						# 	counters_cp[2] += 1
 						# 	return False
