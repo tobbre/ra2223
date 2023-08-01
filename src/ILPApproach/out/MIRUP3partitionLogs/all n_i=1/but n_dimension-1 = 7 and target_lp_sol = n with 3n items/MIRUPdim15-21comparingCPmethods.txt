@@ -39,4 +39,41 @@ Interrupt request received
 
 Process finished with exit code 137 (interrupted by signal 9: SIGKILL)
 
+
+
 Second, we have 2nLarge with ICP backup.
+/Users/alinabilokonieva/PycharmProjects/ra2223/venv/bin/Python /Users/alinabilokonieva/PycharmProjects/ra2223/src/ILPApproach/MILPdimensions1.py
+#############################################################
+--------------------- target_lp_sol = 7.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 32205, time in user-callback 32.95 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 0
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 392
+
+RT: 49.13317823410034 seconds.
+#############################################################
+--------------------- target_lp_sol = 8.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 763676, time in user-callback 458.77 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 0
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 3221
+
+RT: 1141.7132091522217 seconds.
+#############################################################
+--------------------- target_lp_sol = 9.0---------------------
+#############################################################
+ 282536   208 infeasible   47               -    0.00000      -  61.0 1085s
