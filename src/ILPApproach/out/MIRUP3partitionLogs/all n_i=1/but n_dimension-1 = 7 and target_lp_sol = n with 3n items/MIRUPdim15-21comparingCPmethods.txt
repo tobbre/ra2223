@@ -1,0 +1,42 @@
+First, we have NoSmallestOrLargest(0,6) with ICP as backup.
+/Users/alinabilokonieva/PycharmProjects/ra2223/venv/bin/Python /Users/alinabilokonieva/PycharmProjects/ra2223/src/ILPApproach/MILPdimensions1.py
+#############################################################
+--------------------- target_lp_sol = 7.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 14633, time in user-callback 6.75 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 148
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 0
+
+RT: 17.502811908721924 seconds.
+#############################################################
+--------------------- target_lp_sol = 8.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 402431, time in user-callback 109.48 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 1357
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 0
+
+RT: 522.5500729084015 seconds.
+#############################################################
+--------------------- target_lp_sol = 9.0---------------------
+#############################################################
+ 10640053   508 infeasible   44               -    0.00000      -  90.3 63183s
+
+Interrupt request received
+
+Process finished with exit code 137 (interrupted by signal 9: SIGKILL)
+
+Second, we have 2nLarge with ICP backup.
