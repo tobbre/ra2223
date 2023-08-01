@@ -327,15 +327,15 @@ for dim in range(15, 22):
 						# 	m5.addConstr(slack[pat] * z[pat] <= C)
 						# m5.setObjective(C, GRB.MINIMIZE)
 
-						# # max-minning the slacks
-						# C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1, name="minimum_slack")
-						# m5.update()
-						# for pat in patterns:
-						# 	m5.addConstr(slack[pat] * z[pat] >= C)
-						# m5.setObjective(C, GRB.MAXIMIZE)
+						# max-minning the slacks
+						C = m5.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=1, name="minimum_slack")
+						m5.update()
+						for pat in patterns:
+							m5.addConstr(slack[pat] * z[pat] >= C)
+						m5.setObjective(C, GRB.MAXIMIZE)
 
 						# Alternatively, we can minimize the Sum Of Squared Slacks
-						m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
+						# m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
 
 						m5.update()
 						m5.optimize()
@@ -510,12 +510,12 @@ for dim in range(15, 22):
 							return False
 
 					def isCuttingPlaneNotYetFound():
-						if use_cp_2nLargest_as_cuttingPlane():
-							counters_cp[1] += 1
-							return False
-						# if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
-						# 	counters_cp[0] += 1
+						# if use_cp_2nLargest_as_cuttingPlane():
+						# 	counters_cp[1] += 1
 						# 	return False
+						if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
+							counters_cp[0] += 1
+							return False
 						# if use_cp_nMinusBtriples_as_cuttingPlane(2):
 						# 	counters_cp[2] += 1
 						# 	return False
