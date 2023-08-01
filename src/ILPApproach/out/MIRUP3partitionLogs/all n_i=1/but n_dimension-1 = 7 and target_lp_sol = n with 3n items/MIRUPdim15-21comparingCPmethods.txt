@@ -1,5 +1,5 @@
+All of these were run on the intel mac.
 First, we have NoSmallestOrLargest(0,6) with ICP as backup.
-/Users/alinabilokonieva/PycharmProjects/ra2223/venv/bin/Python /Users/alinabilokonieva/PycharmProjects/ra2223/src/ILPApproach/MILPdimensions1.py
 #############################################################
 --------------------- target_lp_sol = 7.0---------------------
 #############################################################
@@ -42,7 +42,6 @@ Process finished with exit code 137 (interrupted by signal 9: SIGKILL)
 
 
 Second, we have 2nLarge with ICP backup.
-/Users/alinabilokonieva/PycharmProjects/ra2223/venv/bin/Python /Users/alinabilokonieva/PycharmProjects/ra2223/src/ILPApproach/MILPdimensions1.py
 #############################################################
 --------------------- target_lp_sol = 7.0---------------------
 #############################################################
@@ -77,3 +76,40 @@ RT: 1141.7132091522217 seconds.
 --------------------- target_lp_sol = 9.0---------------------
 #############################################################
  282536   208 infeasible   47               -    0.00000      -  61.0 1085s
+
+
+And finally, ICP on its own.
+
+#############################################################
+--------------------- target_lp_sol = 7.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 32195, time in user-callback 18.16 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 0
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 392
+
+RT: 34.06559205055237 seconds.
+#############################################################
+--------------------- target_lp_sol = 8.0---------------------
+#############################################################
+Model is infeasible
+Best objective -, best bound -, gap -
+
+User-callback calls 762970, time in user-callback 243.25 sec
+
+Custom cutting planes used:
+noSmallestOrLargest: 0
+2nLargest: 0
+nMinusBtriples: 0
+callbackMIP: 3221
+
+RT: 913.3006279468536 seconds.
+#############################################################
+--------------------- target_lp_sol = 9.0---------------------
+#############################################################
