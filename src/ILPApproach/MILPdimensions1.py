@@ -6,7 +6,7 @@ import math
 
 ## In this file, the n[i] are variables.
 
-for dim in range(27, 31):
+for dim in range(15, 22):
 	dimension = dim
 	M = 2
 
@@ -114,11 +114,11 @@ for dim in range(27, 31):
 			m.update()
 			# Allowed patterns and forbidden patterns must satisfy the following
 			for pat in patterns:
-				m.addConstr((x[pat] == 1) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1))
-				# m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
+				# m.addConstr((x[pat] == 1) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1))
+				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
 				if sum(list(pat)) != 1:
-					m.addConstr((x[pat] == 0) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001))
-					# m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
+					# m.addConstr((x[pat] == 0) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001))
+					m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
 
 
 			# n_order_constraints()
