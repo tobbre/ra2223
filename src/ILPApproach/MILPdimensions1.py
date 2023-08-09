@@ -6,7 +6,7 @@ import math
 
 ## In this file, the n[i] are variables.
 
-for dim in range(15, 22):
+for dim in range(27, 31):
 	dimension = dim
 	M = 2
 
@@ -114,9 +114,11 @@ for dim in range(15, 22):
 			m.update()
 			# Allowed patterns and forbidden patterns must satisfy the following
 			for pat in patterns:
-				m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
+				m.addConstr((x[pat] == 1) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1))
+				# m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) <= 1 + (1 - x[pat]) * M)
 				if sum(list(pat)) != 1:
-					m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
+					m.addConstr((x[pat] == 0) >> (gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001))
+					# m.addConstr(gp.quicksum(s[i] * pat[i] for i in range(dimension)) >= 1.00001 - x[pat] * M)
 
 
 			# n_order_constraints()
@@ -284,7 +286,7 @@ for dim in range(15, 22):
 						for pat in patterns:
 							if sum(pat) == 3 \
 									or x_[pat] == 0 \
-									or slack[pat] < 2 / 3:
+									or slack[pat] < 1.0 / 3.0:
 								m4.addConstr(z[pat] == 0)
 
 						m4.update()
@@ -335,7 +337,7 @@ for dim in range(15, 22):
 						# m5.setObjective(C, GRB.MAXIMIZE)
 
 						# Alternatively, we can minimize the Sum Of Squared Slacks
-						# m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
+						m5.setObjective(gp.quicksum(math.pow(slack[pat], 2) * z[pat] for pat in patterns), GRB.MINIMIZE)
 
 						m5.update()
 						m5.optimize()
@@ -510,13 +512,12 @@ for dim in range(15, 22):
 							return False
 
 					def isCuttingPlaneNotYetFound():
-						# if use_cp_2nLargest_as_cuttingPlane():
-						# 	counters_cp[1] += 1
+						if use_cp_2nLargest_as_cuttingPlane():
+							counters_cp[1] += 1
+							return False
+						# if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
+						# 	counters_cp[0] += 1
 						# 	return False
-						for i in range((int) (3 * target_lp_sol - 12), -1, -3):
-							if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=i, remove_large=6, slack=slack):
-								counters_cp[0] += 1
-								return False
 						# if use_cp_nMinusBtriples_as_cuttingPlane(2):
 						# 	counters_cp[2] += 1
 						# 	return False
