@@ -512,12 +512,12 @@ for dim in range(27, 31):
 							return False
 
 					def isCuttingPlaneNotYetFound():
-						if use_cp_2nLargest_as_cuttingPlane():
-							counters_cp[1] += 1
-							return False
-						# if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
-						# 	counters_cp[0] += 1
+						# if use_cp_2nLargest_as_cuttingPlane():
+						# 	counters_cp[1] += 1
 						# 	return False
+						if use_cp_noSmallestOrLargest_as_cuttingPlane(remove_small=0, remove_large=6, slack=slack):
+							counters_cp[0] += 1
+							return False
 						# if use_cp_nMinusBtriples_as_cuttingPlane(2):
 						# 	counters_cp[2] += 1
 						# 	return False
